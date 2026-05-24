@@ -1,17 +1,13 @@
-JUMPCHECK V2 — PART 1 OF 5
 <!-- =========================================================
-APP STRUCTURE + UI SHELL
-Paste PART 1 first
+JUMPCHECK V3 — PART 1 OF 5
+NEW UI + SINGLE JUMP MODE + FORCE INPUTS + REPLAY UI
+THIS REPLACES V2 PART 1
 ========================================================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-/>
-<title>JumpCheck V2</title>
+<title>JumpCheck V3</title>
 <style>
 
 /* =========================================================
@@ -23,11 +19,13 @@ RESET
   -webkit-tap-highlight-color:transparent;
 }
 
-html,body{
+html,
+body{
   margin:0;
   padding:0;
-  background:#070b12;
-  color:#f4f7fb;
+  background:#050913;
+  color:#f5f7fb;
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -37,25 +35,30 @@ html,body{
 }
 
 /* =========================================================
-ROOT VARIABLES
+ROOT
 ========================================================= */
 
 :root{
-  --bg:#070b12;
-  --panel:#111827;
-  --panel2:#172235;
-  --line:#263247;
-  --text:#f4f7fb;
-  --muted:#9aa9c0;
 
-  --accent:#7cc7ff;
+  --bg:#050913;
+
+  --panel:#111827;
+  --panel2:#162235;
+
+  --line:#273449;
+
+  --text:#f5f7fb;
+  --muted:#98a8c0;
+
+  --accent:#7bc7ff;
   --accent2:#9d7cff;
 
   --green:#37d67a;
   --amber:#ffc857;
   --red:#ff5f7a;
 
-  --radius:24px;
+  --radius:26px;
+
 }
 
 /* =========================================================
@@ -63,33 +66,42 @@ BACKGROUND
 ========================================================= */
 
 body{
+
   background:
+
     radial-gradient(
       circle at top left,
-      rgba(124,199,255,.16),
-      transparent 35rem
+      rgba(123,199,255,.16),
+      transparent 34rem
     ),
+
     radial-gradient(
       circle at top right,
       rgba(157,124,255,.12),
-      transparent 32rem
+      transparent 30rem
     ),
+
     var(--bg);
 
   min-height:100vh;
+
 }
 
 /* =========================================================
-APP WRAPPER
+APP
 ========================================================= */
 
 .app{
-  max-width:860px;
+
+  max-width:920px;
+
   margin:0 auto;
+
   padding:
     env(safe-area-inset-top)
     16px
     env(safe-area-inset-bottom);
+
 }
 
 /* =========================================================
@@ -97,21 +109,32 @@ HEADER
 ========================================================= */
 
 .header{
-  padding:28px 6px 14px;
+
+  padding:30px 6px 18px;
+
 }
 
 .logo{
-  font-size:44px;
+
+  font-size:48px;
   font-weight:900;
-  line-height:.92;
-  letter-spacing:-2px;
+
+  line-height:.9;
+
+  letter-spacing:-2.5px;
+
 }
 
 .subtitle{
-  margin-top:10px;
+
+  margin-top:12px;
+
   color:var(--muted);
-  line-height:1.45;
+
   font-size:15px;
+
+  line-height:1.5;
+
 }
 
 /* =========================================================
@@ -119,14 +142,17 @@ CARD
 ========================================================= */
 
 .card{
+
   background:
+
     linear-gradient(
       180deg,
       rgba(255,255,255,.055),
       rgba(255,255,255,.025)
     );
 
-  border:1px solid rgba(255,255,255,.08);
+  border:
+    1px solid rgba(255,255,255,.08);
 
   border-radius:var(--radius);
 
@@ -134,10 +160,11 @@ CARD
 
   margin-bottom:14px;
 
-  box-shadow:
-    0 18px 40px rgba(0,0,0,.32);
-
   backdrop-filter:blur(12px);
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.34);
+
 }
 
 /* =========================================================
@@ -145,9 +172,13 @@ SECTION TITLE
 ========================================================= */
 
 .sectionTitle{
-  font-size:20px;
-  font-weight:800;
+
+  font-size:21px;
+
+  font-weight:900;
+
   margin-bottom:12px;
+
 }
 
 /* =========================================================
@@ -155,34 +186,55 @@ STATUS
 ========================================================= */
 
 .status{
-  padding:12px 14px;
-  border-radius:16px;
-  font-size:14px;
-  line-height:1.4;
+
   border-left:4px solid var(--accent);
 
-  background:
-    rgba(124,199,255,.09);
+  border-radius:16px;
 
-  color:#dbefff;
+  padding:12px 14px;
+
+  background:
+    rgba(123,199,255,.08);
+
+  color:#d9efff;
+
+  font-size:14px;
+
+  line-height:1.45;
+
 }
 
 .status.good{
+
   border-left-color:var(--green);
-  background:rgba(55,214,122,.11);
-  color:#dcffe8;
+
+  background:
+    rgba(55,214,122,.11);
+
+  color:#dbffe7;
+
 }
 
 .status.warn{
+
   border-left-color:var(--amber);
-  background:rgba(255,200,87,.11);
-  color:#fff4d3;
+
+  background:
+    rgba(255,200,87,.12);
+
+  color:#fff3d0;
+
 }
 
 .status.bad{
+
   border-left-color:var(--red);
-  background:rgba(255,95,122,.12);
+
+  background:
+    rgba(255,95,122,.13);
+
   color:#ffe0e6;
+
 }
 
 /* =========================================================
@@ -190,12 +242,17 @@ BUTTONS
 ========================================================= */
 
 .buttonRow{
+
   display:flex;
+
   gap:10px;
+
   margin-top:12px;
+
 }
 
 button{
+
   flex:1;
 
   border:none;
@@ -205,11 +262,87 @@ button{
   padding:16px;
 
   font-size:15px;
-  font-weight:800;
+
+  font-weight:900;
 
   cursor:pointer;
 
-  color:#061018;
+  color:#061019;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+
+  box-shadow:
+    0 10px 24px rgba(123,199,255,.16);
+
+}
+
+button.secondary{
+
+  background:
+    rgba(255,255,255,.08);
+
+  color:var(--text);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  box-shadow:none;
+
+}
+
+button.danger{
+
+  background:
+    rgba(255,95,122,.16);
+
+  color:#ffdce4;
+
+  border:
+    1px solid rgba(255,95,122,.22);
+
+  box-shadow:none;
+
+}
+
+button:disabled{
+
+  opacity:.45;
+
+}
+
+/* =========================================================
+MODE BUTTONS
+========================================================= */
+
+.modeRow{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-top:12px;
+
+}
+
+.modeButton{
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  color:var(--text);
+
+}
+
+.modeButton.active{
 
   background:
     linear-gradient(
@@ -218,53 +351,40 @@ button{
       var(--accent2)
     );
 
-  box-shadow:
-    0 10px 24px rgba(124,199,255,.16);
-}
+  color:#051018;
 
-button.secondary{
-  background:
-    rgba(255,255,255,.08);
-
-  color:var(--text);
-
-  border:1px solid rgba(255,255,255,.08);
-
-  box-shadow:none;
-}
-
-button.danger{
-  background:
-    rgba(255,95,122,.16);
-
-  color:#ffdce3;
-
-  border:1px solid rgba(255,95,122,.22);
-
-  box-shadow:none;
-}
-
-button:disabled{
-  opacity:.45;
 }
 
 /* =========================================================
-METRIC GRID
+GRID
 ========================================================= */
 
 .grid2{
+
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   gap:10px;
+
 }
 
 .grid3{
+
   display:grid;
+
   grid-template-columns:1fr 1fr 1fr;
+
   gap:10px;
+
 }
 
+/* =========================================================
+METRICS
+========================================================= */
+
 .metric{
+
   background:
     rgba(255,255,255,.05);
 
@@ -274,24 +394,37 @@ METRIC GRID
   border-radius:18px;
 
   padding:14px;
+
 }
 
 .metricLabel{
+
   color:var(--muted);
+
   font-size:12px;
+
   margin-bottom:8px;
+
 }
 
 .metricValue{
-  font-size:28px;
+
+  font-size:30px;
+
   font-weight:900;
+
   letter-spacing:-1px;
+
 }
 
 .metricUnit{
+
   color:var(--muted);
+
   font-size:12px;
+
   margin-left:4px;
+
 }
 
 /* =========================================================
@@ -299,17 +432,22 @@ INPUTS
 ========================================================= */
 
 label{
+
   display:block;
+
   color:var(--muted);
+
   margin:
     12px 0 6px;
 
   font-size:13px;
+
 }
 
-select,
+input,
 textarea,
-input{
+select{
+
   width:100%;
 
   border:none;
@@ -327,11 +465,15 @@ input{
     1px solid rgba(255,255,255,.08);
 
   font-size:15px;
+
 }
 
 textarea{
+
   min-height:90px;
+
   resize:vertical;
+
 }
 
 /* =========================================================
@@ -339,16 +481,17 @@ COUNTDOWN
 ========================================================= */
 
 .countdown{
-  font-size:78px;
+
+  font-size:84px;
+
   font-weight:900;
+
   text-align:center;
-  letter-spacing:-3px;
 
-  padding:14px 0;
-}
+  letter-spacing:-4px;
 
-.hidden{
-  display:none !important;
+  padding:18px 0;
+
 }
 
 /* =========================================================
@@ -356,16 +499,27 @@ RESULT
 ========================================================= */
 
 .bigResult{
-  font-size:64px;
+
+  font-size:72px;
+
   font-weight:900;
-  letter-spacing:-3px;
-  line-height:.9;
+
+  line-height:.88;
+
+  letter-spacing:-4px;
+
   margin-top:8px;
+
 }
 
 .resultSub{
+
   color:var(--muted);
+
   margin-top:6px;
+
+  line-height:1.45;
+
 }
 
 /* =========================================================
@@ -373,10 +527,13 @@ PILLS
 ========================================================= */
 
 .pills{
+
   margin-top:10px;
+
 }
 
 .pill{
+
   display:inline-flex;
 
   align-items:center;
@@ -389,28 +546,42 @@ PILLS
     0 8px 8px 0;
 
   font-size:12px;
-  font-weight:800;
+
+  font-weight:900;
 
   background:
     rgba(255,255,255,.07);
 
   border:
     1px solid rgba(255,255,255,.08);
+
 }
 
 .pill.good{
-  background:rgba(55,214,122,.14);
-  color:#d7ffe7;
+
+  background:
+    rgba(55,214,122,.14);
+
+  color:#dbffe8;
+
 }
 
 .pill.warn{
-  background:rgba(255,200,87,.14);
-  color:#fff1c7;
+
+  background:
+    rgba(255,200,87,.14);
+
+  color:#fff2c8;
+
 }
 
 .pill.bad{
-  background:rgba(255,95,122,.16);
+
+  background:
+    rgba(255,95,122,.16);
+
   color:#ffe0e5;
+
 }
 
 /* =========================================================
@@ -418,33 +589,53 @@ GRAPH
 ========================================================= */
 
 canvas{
+
   width:100%;
-  height:220px;
 
-  border-radius:18px;
-
-  margin-top:12px;
+  height:240px;
 
   background:
     rgba(0,0,0,.24);
 
+  border-radius:18px;
+
   border:
     1px solid rgba(255,255,255,.08);
+
+  margin-top:12px;
+
 }
 
 /* =========================================================
-HISTORY
+REPLAY
 ========================================================= */
 
-.historyItem{
-  border-top:
-    1px solid rgba(255,255,255,.08);
+.replayControls{
 
-  padding:14px 0;
+  display:flex;
+
+  gap:10px;
+
+  margin-top:12px;
+
 }
 
-.historyItem:first-child{
-  border-top:none;
+.replayBar{
+
+  width:100%;
+
+  margin-top:12px;
+
+}
+
+/* =========================================================
+HIDDEN
+========================================================= */
+
+.hidden{
+
+  display:none !important;
+
 }
 
 /* =========================================================
@@ -452,33 +643,49 @@ FOOTER
 ========================================================= */
 
 .footer{
-  color:var(--muted);
-  font-size:12px;
+
   text-align:center;
+
+  color:var(--muted);
+
+  font-size:12px;
+
   line-height:1.5;
+
   padding:14px 0 26px;
+
 }
 
 /* =========================================================
 MOBILE
 ========================================================= */
 
-@media(max-width:640px){
+@media(max-width:680px){
 
   .grid3{
+
     grid-template-columns:1fr;
+
   }
 
-  .buttonRow{
+  .buttonRow,
+  .modeRow,
+  .replayControls{
+
     flex-direction:column;
+
   }
 
   .logo{
-    font-size:38px;
+
+    font-size:40px;
+
   }
 
   .bigResult{
-    font-size:52px;
+
+    font-size:58px;
+
   }
 
 }
@@ -492,13 +699,15 @@ MOBILE
   ====================================================== -->
   <div class="header">
 <div class="logo">
-  JumpCheck
+  JumpCheck V3
 </div>
 
 <div class="subtitle">
-  Motion-based jump assessment using your phone's
-  accelerometer. Built for trend tracking,
-  readiness, and athletic profiling.
+
+  Motion-based jump assessment using your phone.
+  Includes jump replay, force proxy estimation,
+  single jump mode, and athletic readiness tracking.
+
 </div>
   </div>
   <!-- =====================================================
@@ -513,8 +722,10 @@ MOBILE
   id="permissionStatus"
   class="status warn"
 >
+
   Motion access not enabled yet.
-  Tap the button below.
+  Tap below to begin.
+
 </div>
 
 <div class="buttonRow">
@@ -533,6 +744,32 @@ MOBILE
 </div>
   </div>
   <!-- =====================================================
+  TEST MODE
+  ====================================================== -->
+  <div class="card">
+<div class="sectionTitle">
+  Test Mode
+</div>
+
+<div class="modeRow">
+
+  <button
+    id="singleJumpModeBtn"
+    class="modeButton active"
+  >
+    Single Jump
+  </button>
+
+  <button
+    id="assessmentModeBtn"
+    class="modeButton"
+  >
+    3 Jump Assessment
+  </button>
+
+</div>
+  </div>
+  <!-- =====================================================
   LIVE SENSOR
   ====================================================== -->
   <div class="card">
@@ -543,6 +780,7 @@ MOBILE
 <div class="grid3">
 
   <div class="metric">
+
     <div class="metricLabel">
       X Axis
     </div>
@@ -550,9 +788,11 @@ MOBILE
     <div class="metricValue">
       <span id="liveX">--</span>
     </div>
+
   </div>
 
   <div class="metric">
+
     <div class="metricLabel">
       Y Axis
     </div>
@@ -560,9 +800,11 @@ MOBILE
     <div class="metricValue">
       <span id="liveY">--</span>
     </div>
+
   </div>
 
   <div class="metric">
+
     <div class="metricLabel">
       Z Axis
     </div>
@@ -570,6 +812,7 @@ MOBILE
     <div class="metricValue">
       <span id="liveZ">--</span>
     </div>
+
   </div>
 
 </div>
@@ -580,45 +823,98 @@ MOBILE
 >
 
   <div class="metric">
+
     <div class="metricLabel">
       Magnitude
     </div>
 
     <div class="metricValue">
-      <span id="liveMagnitude">--</span>
+
+      <span id="liveMagnitude">
+        --
+      </span>
+
       <span class="metricUnit">
         m/s²
       </span>
+
     </div>
+
   </div>
 
   <div class="metric">
+
     <div class="metricLabel">
       Sample Rate
     </div>
 
     <div class="metricValue">
-      <span id="sampleRate">--</span>
+
+      <span id="sampleRate">
+        --
+      </span>
+
       <span class="metricUnit">
         Hz
       </span>
+
     </div>
+
   </div>
 
 </div>
   </div>
   <!-- =====================================================
-  SETUP
+  ATHLETE SETUP
   ====================================================== -->
   <div class="card">
 <div class="sectionTitle">
-  Test Setup
+  Athlete Setup
 </div>
 
 <div class="status">
-  Strap the phone securely to your waistband
-  or hips. Use the same placement each session.
-  Jump on a stable, non-slip surface.
+
+  Force values are acceleration-derived estimates
+  using body mass and phone sensor data.
+  They are useful for trend tracking only.
+
+</div>
+
+<div
+  class="grid2"
+  style="margin-top:12px;"
+>
+
+  <div>
+
+    <label>
+      Bodyweight (kg)
+    </label>
+
+    <input
+      id="bodyweightInput"
+      type="number"
+      placeholder="95"
+      value="95"
+    />
+
+  </div>
+
+  <div>
+
+    <label>
+      Height (cm)
+    </label>
+
+    <input
+      id="heightInput"
+      type="number"
+      placeholder="188"
+      value="188"
+    />
+
+  </div>
+
 </div>
 
 <label>
@@ -647,7 +943,7 @@ MOBILE
 
 <textarea
   id="sessionNotes"
-  placeholder="Sleep, soreness, caffeine, readiness, session context..."
+  placeholder="Sleep, fatigue, readiness, caffeine, training context..."
 ></textarea>
 
 <div class="buttonRow">
@@ -659,8 +955,8 @@ MOBILE
     Calibrate
   </button>
 
-  <button id="startAssessmentBtn">
-    Start Assessment
+  <button id="startTestBtn">
+    Start Test
   </button>
 
 </div>
@@ -670,14 +966,16 @@ MOBILE
   ====================================================== -->
   <div class="card">
 <div class="sectionTitle">
-  Jump Assessment
+  Jump Capture
 </div>
 
 <div
   id="testStatus"
   class="status"
 >
+
   Waiting for setup.
+
 </div>
 
 <div
@@ -699,6 +997,7 @@ MOBILE
     </div>
 
     <div class="metricValue">
+
       <span id="baselineValue">
         --
       </span>
@@ -706,6 +1005,7 @@ MOBILE
       <span class="metricUnit">
         m/s²
       </span>
+
     </div>
 
   </div>
@@ -717,9 +1017,11 @@ MOBILE
     </div>
 
     <div class="metricValue">
+
       <span id="attemptCounter">
         0 / 3
       </span>
+
     </div>
 
   </div>
@@ -728,9 +1030,40 @@ MOBILE
 
 <canvas
   id="jumpGraph"
-  width="800"
-  height="240"
+  width="900"
+  height="260"
 ></canvas>
+
+<!-- ===================================================
+REPLAY CONTROLS
+==================================================== -->
+
+<div class="replayControls">
+
+  <button
+    id="playReplayBtn"
+    class="secondary"
+  >
+    Play Replay
+  </button>
+
+  <button
+    id="pauseReplayBtn"
+    class="secondary"
+  >
+    Pause
+  </button>
+
+</div>
+
+<input
+  id="replaySlider"
+  class="replayBar"
+  type="range"
+  min="0"
+  max="100"
+  value="0"
+/>
   </div>
   <!-- =====================================================
   RESULTS
@@ -744,10 +1077,13 @@ MOBILE
 </div>
 
 <div class="bigResult">
+
   <span id="bestJumpValue">
     --
   </span>
+
   cm
+
 </div>
 
 <div class="resultSub">
@@ -780,13 +1116,15 @@ MOBILE
   <div class="metric">
 
     <div class="metricLabel">
-      Best
+      Best Jump
     </div>
 
     <div class="metricValue">
+
       <span id="bestMetric">
         --
       </span>
+
     </div>
 
   </div>
@@ -794,13 +1132,15 @@ MOBILE
   <div class="metric">
 
     <div class="metricLabel">
-      Average
+      Average Jump
     </div>
 
     <div class="metricValue">
+
       <span id="averageMetric">
         --
       </span>
+
     </div>
 
   </div>
@@ -812,9 +1152,62 @@ MOBILE
     </div>
 
     <div class="metricValue">
+
       <span id="dropoffMetric">
         --
       </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===================================================
+FORCE PROXY
+==================================================== -->
+
+<div
+  class="grid2"
+  style="margin-top:12px;"
+>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Peak Propulsion
+    </div>
+
+    <div class="metricValue">
+
+      <span id="propulsionForceMetric">
+        --
+      </span>
+
+      <span class="metricUnit">
+        N
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Peak Landing
+    </div>
+
+    <div class="metricValue">
+
+      <span id="landingForceMetric">
+        --
+      </span>
+
+      <span class="metricUnit">
+        N
+      </span>
+
     </div>
 
   </div>
@@ -869,30 +1262,32 @@ MOBILE
   FOOTER
   ====================================================== -->
   <div class="footer">
-JumpCheck is designed for trend tracking only.
-This is not a medical, clinical,
-or laboratory-grade measurement tool.
+JumpCheck V3 is designed for trend tracking only.
+Force values are estimated proxies derived from
+phone acceleration and body mass.
   </div>
 </div>
 <!-- =========================================================
 PART 1 ENDS HERE
-DO NOT CLOSE THE HTML FILE YET
 PART 2 CONTINUES WITH:
-- JAVASCRIPT STATE
+- STATE
 - SENSOR ENGINE
-- LIVE MOTION FEED
-- DEMO MODE
+- MODE SWITCHING
+- REPLAY ENGINE
+- LIVE MOTION
 ========================================================= -->
-<!-- =========================================================
-JUMPCHECK V2 — PART 2 OF 5
-JAVASCRIPT STATE + SENSOR ENGINE + DEMO MODE
-Paste this directly after PART 1
-========================================================= -->
-<script>
 
+
+<script>
 (() => {
 
 "use strict";
+
+/* =========================================================
+JUMPCHECK V3 — PART 2 OF 5
+STATE + SENSOR ENGINE + MODE SWITCHING + REPLAY ENGINE
+Paste this directly after PART 1
+========================================================= */
 
 /* =========================================================
 CONSTANTS
@@ -900,7 +1295,7 @@ CONSTANTS
 
 const G = 9.80665;
 
-const STORAGE_KEY = "jumpcheck_v2_history";
+const STORAGE_KEY = "jumpcheck_v3_history";
 
 /* =========================================================
 APP STATE
@@ -909,14 +1304,13 @@ APP STATE
 const state = {
 
   motionEnabled:false,
-
   demoMode:false,
 
+  mode:"single", // single | assessment
+
   recording:false,
-
   calibrating:false,
-
-  assessmentRunning:false,
+  testRunning:false,
 
   live:{
     x:0,
@@ -926,25 +1320,29 @@ const state = {
   },
 
   sampleRate:0,
-
   lastSampleTime:null,
 
   baseline:null,
 
   samples:[],
-
   attempts:[],
 
   currentAttempt:0,
 
   latestAnalysis:null,
 
+  replay:{
+    playing:false,
+    frame:0,
+    timer:null
+  },
+
   history:loadHistory()
 
 };
 
 /* =========================================================
-ELEMENT SHORTCUT
+DOM SHORTCUT
 ========================================================= */
 
 function $(id){
@@ -962,26 +1360,35 @@ const ui = {
   enableMotionBtn:$("enableMotionBtn"),
   demoModeBtn:$("demoModeBtn"),
 
+  singleJumpModeBtn:$("singleJumpModeBtn"),
+  assessmentModeBtn:$("assessmentModeBtn"),
+
   liveX:$("liveX"),
   liveY:$("liveY"),
   liveZ:$("liveZ"),
   liveMagnitude:$("liveMagnitude"),
   sampleRate:$("sampleRate"),
 
+  bodyweightInput:$("bodyweightInput"),
+  heightInput:$("heightInput"),
+
   testType:$("testType"),
   sessionNotes:$("sessionNotes"),
 
   calibrateBtn:$("calibrateBtn"),
-  startAssessmentBtn:$("startAssessmentBtn"),
+  startTestBtn:$("startTestBtn"),
 
   testStatus:$("testStatus"),
-
   countdown:$("countdown"),
 
   baselineValue:$("baselineValue"),
   attemptCounter:$("attemptCounter"),
 
   jumpGraph:$("jumpGraph"),
+
+  playReplayBtn:$("playReplayBtn"),
+  pauseReplayBtn:$("pauseReplayBtn"),
+  replaySlider:$("replaySlider"),
 
   resultsCard:$("resultsCard"),
 
@@ -992,6 +1399,9 @@ const ui = {
   bestMetric:$("bestMetric"),
   averageMetric:$("averageMetric"),
   dropoffMetric:$("dropoffMetric"),
+
+  propulsionForceMetric:$("propulsionForceMetric"),
+  landingForceMetric:$("landingForceMetric"),
 
   attemptPills:$("attemptPills"),
 
@@ -1005,7 +1415,7 @@ const ui = {
 };
 
 /* =========================================================
-UTILITY HELPERS
+HELPERS
 ========================================================= */
 
 function formatNumber(value, decimals = 1){
@@ -1052,7 +1462,8 @@ function loadHistory(){
 
   try{
 
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw =
+      localStorage.getItem(STORAGE_KEY);
 
     if(!raw){
       return [];
@@ -1077,6 +1488,78 @@ function saveHistory(){
 
 }
 
+function getBodyMassKg(){
+
+  const value =
+    parseFloat(ui.bodyweightInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : 95;
+
+}
+
+function getHeightCm(){
+
+  const value =
+    parseFloat(ui.heightInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : 188;
+
+}
+
+/* =========================================================
+MODE SWITCHING
+========================================================= */
+
+function setMode(mode){
+
+  state.mode = mode;
+
+  ui.singleJumpModeBtn.classList.toggle(
+    "active",
+    mode === "single"
+  );
+
+  ui.assessmentModeBtn.classList.toggle(
+    "active",
+    mode === "assessment"
+  );
+
+  if(mode === "single"){
+
+    ui.startTestBtn.textContent =
+      "Start Single Jump";
+
+    ui.attemptCounter.textContent =
+      "0 / 1";
+
+    setStatus(
+      ui.testStatus,
+      "Single jump mode selected.",
+      ""
+    );
+
+  }else{
+
+    ui.startTestBtn.textContent =
+      "Start 3 Jump Assessment";
+
+    ui.attemptCounter.textContent =
+      "0 / 3";
+
+    setStatus(
+      ui.testStatus,
+      "3 jump assessment mode selected.",
+      ""
+    );
+
+  }
+
+}
+
 /* =========================================================
 MOTION PERMISSION
 ========================================================= */
@@ -1096,11 +1579,6 @@ async function enableMotionSensors(){
       return;
 
     }
-
-    /*
-      iOS requires explicit permission from a user gesture.
-      Android usually allows this without requestPermission.
-    */
 
     if(typeof DeviceMotionEvent.requestPermission === "function"){
 
@@ -1153,11 +1631,6 @@ MOTION HANDLER
 
 function handleMotionEvent(event){
 
-  /*
-    Prefer accelerationIncludingGravity because it gives a
-    stronger signal for free-fall / landing patterns.
-  */
-
   const acceleration =
     event.accelerationIncludingGravity ||
     event.acceleration ||
@@ -1174,7 +1647,8 @@ function handleMotionEvent(event){
       z * z
     );
 
-  const now = performance.now();
+  const now =
+    performance.now();
 
   updateSampleRate(now);
 
@@ -1261,7 +1735,7 @@ function enableDemoMode(){
 
   setStatus(
     ui.testStatus,
-    "Demo mode active. Calibrate, then start assessment.",
+    "Demo mode active. Calibrate, then start test.",
     "warn"
   );
 
@@ -1282,7 +1756,7 @@ function updateDemoLiveFeed(){
 
   state.live = {
     x:noise,
-    y:noise * 0.7,
+    y:noise * 0.8,
     z:G + noise,
     magnitude:G + noise
   };
@@ -1290,7 +1764,7 @@ function updateDemoLiveFeed(){
 }
 
 /* =========================================================
-GENERATE DEMO JUMP
+GENERATE DEMO JUMP SAMPLES
 ========================================================= */
 
 function generateDemoJumpSamples(){
@@ -1308,10 +1782,16 @@ function generateDemoJumpSamples(){
   const totalDurationMs = 5000;
 
   const flightDurationSeconds =
-    0.38 + Math.random() * 0.18;
+    0.42 + Math.random() * 0.16;
+
+  const unweightStartMs =
+    1200;
+
+  const propulsionPeakMs =
+    1650;
 
   const takeoffTimeMs =
-    1700 + Math.random() * 300;
+    1850;
 
   const landingTimeMs =
     takeoffTimeMs +
@@ -1324,26 +1804,32 @@ function generateDemoJumpSamples(){
   ){
 
     let magnitude =
-      G + (Math.random() - 0.5) * 0.45;
-
-    /*
-      Take-off impulse.
-    */
+      G + (Math.random() - 0.5) * 0.38;
 
     if(
-      t > takeoffTimeMs - 180 &&
+      t > unweightStartMs &&
+      t < propulsionPeakMs
+    ){
+
+      const phase =
+        (t - unweightStartMs) /
+        (propulsionPeakMs - unweightStartMs);
+
+      magnitude =
+        G * (0.65 + phase * 0.95) +
+        (Math.random() - 0.5) * 0.3;
+
+    }
+
+    if(
+      t >= propulsionPeakMs &&
       t < takeoffTimeMs
     ){
 
       magnitude =
-        G * (1.2 + Math.random() * 0.35);
+        G * (1.65 + Math.random() * 0.35);
 
     }
-
-    /*
-      Flight phase.
-      Magnitude drops close to zero-force.
-    */
 
     if(
       t >= takeoffTimeMs &&
@@ -1351,21 +1837,30 @@ function generateDemoJumpSamples(){
     ){
 
       magnitude =
-        G * (0.07 + Math.random() * 0.08);
+        G * (0.06 + Math.random() * 0.08);
 
     }
 
-    /*
-      Landing spike.
-    */
-
     if(
       t > landingTimeMs &&
-      t < landingTimeMs + 180
+      t < landingTimeMs + 220
     ){
 
       magnitude =
-        G * (2.0 + Math.random() * 0.9);
+        G * (2.25 + Math.random() * 0.95);
+
+    }
+
+    if(
+      t >= landingTimeMs + 220 &&
+      t < landingTimeMs + 900
+    ){
+
+      magnitude =
+        G +
+        Math.sin((t - landingTimeMs) / 90) *
+        G * 0.35 *
+        Math.exp(-(t - landingTimeMs) / 450);
 
     }
 
@@ -1380,6 +1875,119 @@ function generateDemoJumpSamples(){
   }
 
   return samples;
+
+}
+
+/* =========================================================
+REPLAY ENGINE
+========================================================= */
+
+function resetReplay(){
+
+  stopReplay();
+
+  state.replay.frame = 0;
+
+  ui.replaySlider.value = 0;
+
+  if(state.latestAnalysis){
+    drawJumpGraph(state.latestAnalysis, 0);
+  }
+
+}
+
+function playReplay(){
+
+  if(
+    !state.latestAnalysis ||
+    !state.latestAnalysis.samples ||
+    !state.latestAnalysis.samples.length
+  ){
+
+    setStatus(
+      ui.testStatus,
+      "No jump capture available to replay yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  stopReplay();
+
+  state.replay.playing = true;
+
+  const totalFrames =
+    state.latestAnalysis.samples.length;
+
+  state.replay.timer =
+    setInterval(() => {
+
+      state.replay.frame++;
+
+      if(state.replay.frame >= totalFrames){
+
+        stopReplay();
+        state.replay.frame = totalFrames - 1;
+
+      }
+
+      const percent =
+        totalFrames > 1
+          ? (state.replay.frame / (totalFrames - 1)) * 100
+          : 0;
+
+      ui.replaySlider.value = percent;
+
+      drawJumpGraph(
+        state.latestAnalysis,
+        state.replay.frame
+      );
+
+    }, 30);
+
+}
+
+function stopReplay(){
+
+  state.replay.playing = false;
+
+  if(state.replay.timer){
+
+    clearInterval(state.replay.timer);
+
+    state.replay.timer = null;
+
+  }
+
+}
+
+function seekReplay(percent){
+
+  if(
+    !state.latestAnalysis ||
+    !state.latestAnalysis.samples ||
+    !state.latestAnalysis.samples.length
+  ){
+    return;
+  }
+
+  const totalFrames =
+    state.latestAnalysis.samples.length;
+
+  const frame =
+    Math.round(
+      (percent / 100) *
+      (totalFrames - 1)
+    );
+
+  state.replay.frame = frame;
+
+  drawJumpGraph(
+    state.latestAnalysis,
+    frame
+  );
 
 }
 
@@ -1415,16 +2023,20 @@ function updateLiveInterface(){
       ? formatNumber(state.baseline, 2)
       : "--";
 
+  const targetAttempts =
+    state.mode === "single"
+      ? 1
+      : 3;
+
   ui.attemptCounter.textContent =
-    `${state.attempts.length} / 3`;
+    `${state.attempts.length} / ${targetAttempts}`;
 
   requestAnimationFrame(updateLiveInterface);
 
 }
 
 /* =========================================================
-INITIAL EVENT LISTENERS — SENSOR ONLY
-More event listeners are added in later parts.
+PART 2 EVENT LISTENERS
 ========================================================= */
 
 ui.enableMotionBtn.addEventListener(
@@ -1437,15 +2049,52 @@ ui.demoModeBtn.addEventListener(
   enableDemoMode
 );
 
+ui.singleJumpModeBtn.addEventListener(
+  "click",
+  () => setMode("single")
+);
+
+ui.assessmentModeBtn.addEventListener(
+  "click",
+  () => setMode("assessment")
+);
+
+ui.playReplayBtn.addEventListener(
+  "click",
+  playReplay
+);
+
+ui.pauseReplayBtn.addEventListener(
+  "click",
+  stopReplay
+);
+
+ui.replaySlider.addEventListener(
+  "input",
+  event => seekReplay(parseFloat(event.target.value))
+);
+
 /* =========================================================
 START LIVE UI LOOP
 ========================================================= */
 
+setMode("single");
+
 updateLiveInterface();
 
 /* =========================================================
-JUMPCHECK V2 — PART 3 OF 5
-CALIBRATION + RECORDING + COUNTDOWN + ATTEMPT FLOW
+PART 2 ENDS HERE
+PART 3 CONTINUES WITH:
+- CALIBRATION
+- RECORDING
+- SINGLE JUMP FLOW
+- 3 JUMP ASSESSMENT FLOW
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V3 — PART 3 OF 5
+CALIBRATION + RECORDING + SINGLE JUMP + ASSESSMENT FLOW
+Paste this directly after PART 2
 ========================================================= */
 
 /* =========================================================
@@ -1508,7 +2157,7 @@ async function calibrateDevice(){
 
     setStatus(
       ui.testStatus,
-      "Calibration saved, but phone movement was noisy. Tighten placement and recalibrate if needed.",
+      "Calibration saved, but the phone moved during calibration. Tighten placement and recalibrate if needed.",
       "warn"
     );
 
@@ -1551,16 +2200,19 @@ async function runCountdown(){
 }
 
 /* =========================================================
-RECORD RAW MOTION
+RECORD MOTION WINDOW
 ========================================================= */
 
 async function recordMotionWindow(){
 
   state.samples = [];
 
+  resetReplay();
+
   if(state.demoMode){
 
-    state.samples = generateDemoJumpSamples();
+    state.samples =
+      generateDemoJumpSamples();
 
     await sleep(600);
 
@@ -1579,16 +2231,16 @@ async function recordMotionWindow(){
 }
 
 /* =========================================================
-SINGLE ATTEMPT FLOW
+RUN ONE JUMP CAPTURE
 ========================================================= */
 
-async function runSingleAttempt(){
+async function runJumpCapture(){
 
   if(!state.motionEnabled){
 
     setStatus(
       ui.testStatus,
-      "Enable motion sensors first.",
+      "Enable motion sensors or demo mode first.",
       "warn"
     );
 
@@ -1624,7 +2276,7 @@ async function runSingleAttempt(){
 
   state.latestAnalysis = analysis;
 
-  drawJumpGraph(analysis);
+  drawJumpGraph(analysis, null);
 
   if(!analysis.success){
 
@@ -1640,9 +2292,11 @@ async function runSingleAttempt(){
 
   state.attempts.push(analysis);
 
+  resetReplay();
+
   setStatus(
     ui.testStatus,
-    `Attempt ${state.attempts.length}: ${formatNumber(analysis.heightCm,1)} cm.`,
+    `Attempt ${state.attempts.length}: ${formatNumber(analysis.heightCm,1)} cm. Replay available.`,
     analysis.confidenceType
   );
 
@@ -1653,12 +2307,12 @@ async function runSingleAttempt(){
 }
 
 /* =========================================================
-ASSESSMENT FLOW
+START TEST
 ========================================================= */
 
-async function startAssessment(){
+async function startTest(){
 
-  if(state.assessmentRunning){
+  if(state.testRunning){
     return;
   }
 
@@ -1678,7 +2332,7 @@ async function startAssessment(){
 
     setStatus(
       ui.testStatus,
-      "Calibrate before starting your assessment.",
+      "Calibrate before starting your test.",
       "warn"
     );
 
@@ -1686,23 +2340,35 @@ async function startAssessment(){
 
   }
 
-  state.assessmentRunning = true;
+  state.testRunning = true;
 
   state.attempts = [];
 
-  state.currentAttempt = 0;
+  state.latestAnalysis = null;
 
   ui.resultsCard.classList.add("hidden");
 
+  stopReplay();
+
+  ui.replaySlider.value = 0;
+
+  const targetAttempts =
+    state.mode === "single"
+      ? 1
+      : 3;
+
   for(
     state.currentAttempt = 0;
-    state.currentAttempt < 3;
+    state.currentAttempt < targetAttempts;
     state.currentAttempt++
   ){
 
-    await runSingleAttempt();
+    await runJumpCapture();
 
-    if(state.currentAttempt < 2){
+    if(
+      state.mode === "assessment" &&
+      state.currentAttempt < targetAttempts - 1
+    ){
 
       setStatus(
         ui.testStatus,
@@ -1716,13 +2382,15 @@ async function startAssessment(){
 
   }
 
-  state.assessmentRunning = false;
+  state.testRunning = false;
 
   if(state.attempts.length > 0){
 
     setStatus(
       ui.testStatus,
-      "Assessment complete. Review and save your session.",
+      state.mode === "single"
+        ? "Single jump complete. Review replay and results."
+        : "Assessment complete. Review replay and save your session.",
       "good"
     );
 
@@ -1730,7 +2398,7 @@ async function startAssessment(){
 
     setStatus(
       ui.testStatus,
-      "Assessment finished, but no valid jumps were detected.",
+      "Test finished, but no valid jump was detected.",
       "bad"
     );
 
@@ -1747,23 +2415,23 @@ ui.calibrateBtn.addEventListener(
   calibrateDevice
 );
 
-ui.startAssessmentBtn.addEventListener(
+ui.startTestBtn.addEventListener(
   "click",
-  startAssessment
+  startTest
 );
 
 /* =========================================================
 PART 3 ENDS HERE
 PART 4 CONTINUES WITH:
-- JUMP ANALYSIS
-- SMOOTHING
-- TAKE-OFF / LANDING DETECTION
-- CONFIDENCE SCORING
+- IMPROVED PHASE DETECTION
+- FORCE PROXY CALCULATIONS
+- RESULTS UI
 ========================================================= */
 
 /* =========================================================
-JUMPCHECK V2 — PART 4 OF 5
-JUMP ANALYSIS + SMOOTHING + DETECTION + CONFIDENCE
+JUMPCHECK V3 — PART 4 OF 5
+IMPROVED PHASE DETECTION + FORCE PROXY + RESULTS UI
+Paste this directly after PART 3
 ========================================================= */
 
 /* =========================================================
@@ -1806,7 +2474,7 @@ function movingAverage(values, windowSize = 7){
 }
 
 /* =========================================================
-JUMP ANALYSIS
+JUMP PHASE DETECTION
 ========================================================= */
 
 function analyseJump(samples){
@@ -1823,6 +2491,7 @@ function analyseJump(samples){
       smooth:[],
       takeoffIndex:-1,
       landingIndex:-1,
+      propulsionIndex:-1,
       confidenceType:"bad"
     };
 
@@ -1834,46 +2503,78 @@ function analyseJump(samples){
   const smooth =
     movingAverage(magnitudes, 7);
 
-  /*
-    These thresholds are deliberately conservative.
-
-    Flight:
-    phone acceleration magnitude drops far below standing baseline.
-
-    Landing:
-    phone acceleration magnitude spikes clearly above standing baseline.
-  */
+  const sampleRate =
+    state.sampleRate || 60;
 
   const flightThreshold =
     baseline * 0.45;
 
   const landingThreshold =
-    baseline * 1.6;
+    baseline * 1.65;
+
+  const propulsionThreshold =
+    baseline * 1.15;
 
   const minimumFlightSeconds =
-    0.22;
+    0.20;
 
   const maximumFlightSeconds =
-    0.90;
-
-  const sampleRate =
-    state.sampleRate || 60;
+    0.95;
 
   const sustainedFlightSamples =
     Math.max(
       4,
-      Math.round(sampleRate * 0.06)
+      Math.round(sampleRate * 0.07)
     );
 
+  let propulsionIndex = -1;
   let takeoffIndex = -1;
   let landingIndex = -1;
 
   /* =======================================================
-  FIND TAKE-OFF
+  FIND PROPULSION PEAK FIRST
+  This prevents the detector from treating early unloading
+  as the actual flight phase.
+  ======================================================= */
+
+  let bestPropulsionValue = -Infinity;
+
+  for(let i = 0; i < smooth.length; i++){
+
+    if(
+      smooth[i] > propulsionThreshold &&
+      smooth[i] > bestPropulsionValue
+    ){
+
+      bestPropulsionValue = smooth[i];
+      propulsionIndex = i;
+
+    }
+
+  }
+
+  if(propulsionIndex === -1){
+
+    return {
+      success:false,
+      reason:"No clear propulsion phase detected before flight.",
+      samples,
+      smooth,
+      takeoffIndex,
+      landingIndex,
+      propulsionIndex,
+      confidenceType:"bad"
+    };
+
+  }
+
+  /* =======================================================
+  FIND TAKE-OFF AFTER PROPULSION
+  We now search only after the main propulsion signal.
   ======================================================= */
 
   for(
-    let i = 4;
+    let i = propulsionIndex + 1;
     i < smooth.length - sustainedFlightSamples;
     i++
   ){
@@ -1908,11 +2609,12 @@ function analyseJump(samples){
 
     return {
       success:false,
-      reason:"No clear flight phase detected. Try tightening the phone strap and jumping more cleanly.",
+      reason:"No sustained flight phase detected after propulsion.",
       samples,
       smooth,
       takeoffIndex,
       landingIndex,
+      propulsionIndex,
       confidenceType:"bad"
     };
 
@@ -1920,7 +2622,11 @@ function analyseJump(samples){
 
   /* =======================================================
   FIND LANDING
+  Instead of first spike, search for the strongest spike
+  after a valid minimum flight window.
   ======================================================= */
+
+  let bestLandingValue = -Infinity;
 
   for(
     let i = takeoffIndex + sustainedFlightSamples;
@@ -1938,11 +2644,12 @@ function analyseJump(samples){
 
     if(
       flightSeconds >= minimumFlightSeconds &&
-      smooth[i] > landingThreshold
+      smooth[i] > landingThreshold &&
+      smooth[i] > bestLandingValue
     ){
 
+      bestLandingValue = smooth[i];
       landingIndex = i;
-      break;
 
     }
 
@@ -1952,18 +2659,19 @@ function analyseJump(samples){
 
     return {
       success:false,
-      reason:"Take-off was detected, but landing spike was unclear.",
+      reason:"Take-off was found, but no clear landing spike followed.",
       samples,
       smooth,
       takeoffIndex,
       landingIndex,
+      propulsionIndex,
       confidenceType:"bad"
     };
 
   }
 
   /* =======================================================
-  CALCULATE FLIGHT TIME + HEIGHT
+  CALCULATE FLIGHT TIME + JUMP HEIGHT
   ======================================================= */
 
   const flightTimeSeconds =
@@ -1976,14 +2684,63 @@ function analyseJump(samples){
   const heightCm =
     heightMetres * 100;
 
-  const landingWindow =
-    smooth.slice(
-      landingIndex,
-      Math.min(smooth.length, landingIndex + 20)
-    );
+  /* =======================================================
+  FORCE PROXY
+  Phone acceleration-derived force proxy.
+  This is not force plate ground reaction force.
+  ======================================================= */
 
-  const peakLandingMagnitude =
-    Math.max(...landingWindow);
+  const massKg =
+    getBodyMassKg();
+
+  const bodyweightForceN =
+    massKg * G;
+
+  const propulsionMagnitude =
+    smooth[propulsionIndex] || baseline;
+
+  const landingMagnitude =
+    smooth[landingIndex] || baseline;
+
+  const propulsionForceN =
+    massKg * propulsionMagnitude;
+
+  const landingForceN =
+    massKg * landingMagnitude;
+
+  const propulsionBodyweight =
+    propulsionForceN / bodyweightForceN;
+
+  const landingBodyweight =
+    landingForceN / bodyweightForceN;
+
+  /* =======================================================
+  IMPULSE PROXY
+  Simple area-under-above-baseline during propulsion window.
+  Useful as a comparative trend, not a lab measure.
+  ======================================================= */
+
+  const propulsionWindowStart =
+    Math.max(0, propulsionIndex - Math.round(sampleRate * 0.25));
+
+  const propulsionWindowEnd =
+    Math.min(smooth.length - 1, takeoffIndex);
+
+  let impulseProxy = 0;
+
+  for(
+    let i = propulsionWindowStart;
+    i <= propulsionWindowEnd;
+    i++
+  ){
+
+    const aboveBaseline =
+      Math.max(0, smooth[i] - baseline);
+
+    impulseProxy +=
+      aboveBaseline * massKg * (1 / sampleRate);
+
+  }
 
   /* =======================================================
   CONFIDENCE SCORING
@@ -2021,7 +2778,7 @@ function analyseJump(samples){
 
   }
 
-  if(heightCm < 5 || heightCm > 90){
+  if(heightCm < 5 || heightCm > 95){
 
     confidence =
       "Low confidence";
@@ -2041,19 +2798,39 @@ function analyseJump(samples){
     confidenceType =
       "bad";
 
-    flags.push("low sensor sample rate");
+    flags.push("low sample rate");
 
   }
 
-  if(peakLandingMagnitude < baseline * 1.4){
+  if(landingBodyweight < 1.4){
 
     confidence =
-      "Medium confidence";
+      confidenceType === "bad"
+        ? "Low confidence"
+        : "Medium confidence";
 
     confidenceType =
-      confidenceType === "bad" ? "bad" : "warn";
+      confidenceType === "bad"
+        ? "bad"
+        : "warn";
 
     flags.push("weak landing spike");
+
+  }
+
+  if(propulsionBodyweight < 1.1){
+
+    confidence =
+      confidenceType === "bad"
+        ? "Low confidence"
+        : "Medium confidence";
+
+    confidenceType =
+      confidenceType === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("weak propulsion signal");
 
   }
 
@@ -2063,34 +2840,50 @@ function analyseJump(samples){
     samples,
     smooth,
 
+    propulsionIndex,
     takeoffIndex,
     landingIndex,
 
     flightTimeSeconds,
     heightCm,
 
-    peakLandingMagnitude,
+    propulsionMagnitude,
+    landingMagnitude,
+
+    propulsionForceN,
+    landingForceN,
+
+    propulsionBodyweight,
+    landingBodyweight,
+
+    impulseProxy,
 
     confidence,
     confidenceType,
-
     flags
   };
 
 }
 
 /* =========================================================
-RESULT CALCULATIONS
+SUMMARY CALCULATION
 ========================================================= */
 
 function calculateAssessmentSummary(){
 
-  const heights =
-    state.attempts.map(attempt => attempt.heightCm);
+  const successfulAttempts =
+    state.attempts.filter(
+      attempt => attempt.success
+    );
 
-  if(!heights.length){
+  if(!successfulAttempts.length){
     return null;
   }
+
+  const heights =
+    successfulAttempts.map(
+      attempt => attempt.heightCm
+    );
 
   const best =
     Math.max(...heights);
@@ -2107,12 +2900,35 @@ function calculateAssessmentSummary(){
       ? ((best - worst) / best) * 100
       : 0;
 
+  const bestAttempt =
+    successfulAttempts.find(
+      attempt => attempt.heightCm === best
+    );
+
+  const maxPropulsionForce =
+    Math.max(
+      ...successfulAttempts.map(
+        attempt => attempt.propulsionForceN || 0
+      )
+    );
+
+  const maxLandingForce =
+    Math.max(
+      ...successfulAttempts.map(
+        attempt => attempt.landingForceN || 0
+      )
+    );
+
   return {
+    attempts:successfulAttempts,
     heights,
     best,
     worst,
     average,
-    dropoff
+    dropoff,
+    bestAttempt,
+    maxPropulsionForce,
+    maxLandingForce
   };
 
 }
@@ -2209,13 +3025,19 @@ function updateResults(){
   ui.dropoffMetric.textContent =
     formatNumber(summary.dropoff, 1) + "%";
 
+  ui.propulsionForceMetric.textContent =
+    formatNumber(summary.maxPropulsionForce, 0);
+
+  ui.landingForceMetric.textContent =
+    formatNumber(summary.maxLandingForce, 0);
+
   const hasLowConfidence =
-    state.attempts.some(
+    summary.attempts.some(
       attempt => attempt.confidenceType === "bad"
     );
 
   const hasMediumConfidence =
-    state.attempts.some(
+    summary.attempts.some(
       attempt => attempt.confidenceType === "warn"
     );
 
@@ -2255,12 +3077,20 @@ function updateResults(){
   );
 
   ui.attemptPills.innerHTML =
-    state.attempts
+    summary.attempts
       .map((attempt,index) => {
 
         return `
           <span class="pill ${attempt.confidenceType}">
             J${index + 1}: ${formatNumber(attempt.heightCm,1)} cm
+          </span>
+
+          <span class="pill">
+            ${formatNumber(attempt.propulsionBodyweight,2)}× BW push
+          </span>
+
+          <span class="pill">
+            ${formatNumber(attempt.landingBodyweight,2)}× BW land
           </span>
         `;
 
@@ -2273,22 +3103,23 @@ function updateResults(){
 PART 4 ENDS HERE
 PART 5 CONTINUES WITH:
 - GRAPH RENDERING
+- REPLAY CURSOR
 - HISTORY
 - CSV EXPORT
-- FINAL EVENT BINDINGS
-- CLOSING SCRIPT / HTML
+- FINAL CLOSING
 ========================================================= */
 
 /* =========================================================
-JUMPCHECK V2 — PART 5 OF 5
-GRAPH + HISTORY + EXPORT + FINAL CLOSING
+JUMPCHECK V3 — PART 5 OF 5
+GRAPH + REPLAY CURSOR + HISTORY + EXPORT + FINAL CLOSING
+Paste this directly after PART 4
 ========================================================= */
 
 /* =========================================================
 GRAPH RENDERING
 ========================================================= */
 
-function drawJumpGraph(analysis){
+function drawJumpGraph(analysis, replayFrame = null){
 
   const canvas = ui.jumpGraph;
   const ctx = canvas.getContext("2d");
@@ -2311,9 +3142,9 @@ function drawJumpGraph(analysis){
       : analysis.samples.map(sample => sample.magnitude);
 
   const minValue = Math.min(...values, 0);
-  const maxValue = Math.max(...values, (state.baseline || G) * 2.6);
+  const maxValue = Math.max(...values, (state.baseline || G) * 3);
 
-  const padding = 20;
+  const padding = 22;
 
   function xFor(index){
     return padding + (index / (values.length - 1)) * (width - padding * 2);
@@ -2336,7 +3167,7 @@ function drawJumpGraph(analysis){
 
   if(state.baseline){
 
-    ctx.strokeStyle = "rgba(124,199,255,.55)";
+    ctx.strokeStyle = "rgba(123,199,255,.55)";
     ctx.setLineDash([6,6]);
 
     const baselineY = yFor(state.baseline);
@@ -2348,9 +3179,13 @@ function drawJumpGraph(analysis){
 
     ctx.setLineDash([]);
 
+    ctx.fillStyle = "rgba(123,199,255,.9)";
+    ctx.font = "12px system-ui";
+    ctx.fillText("baseline", padding + 4, baselineY - 6);
+
   }
 
-  ctx.strokeStyle = "rgba(255,255,255,.92)";
+  ctx.strokeStyle = "rgba(255,255,255,.94)";
   ctx.lineWidth = 2;
 
   ctx.beginPath();
@@ -2370,11 +3205,15 @@ function drawJumpGraph(analysis){
 
   ctx.stroke();
 
-  if(analysis.takeoffIndex >= 0){
+  function drawMarker(index, colour, label, yOffset){
 
-    const x = xFor(analysis.takeoffIndex);
+    if(index < 0 || index >= values.length){
+      return;
+    }
 
-    ctx.strokeStyle = "#37d67a";
+    const x = xFor(index);
+
+    ctx.strokeStyle = colour;
     ctx.lineWidth = 2;
 
     ctx.beginPath();
@@ -2382,17 +3221,45 @@ function drawJumpGraph(analysis){
     ctx.lineTo(x,height - padding);
     ctx.stroke();
 
-    ctx.fillStyle = "#37d67a";
+    ctx.fillStyle = colour;
     ctx.font = "12px system-ui";
-    ctx.fillText("take-off", x + 4, 18);
+    ctx.fillText(label, x + 4, yOffset);
 
   }
 
-  if(analysis.landingIndex >= 0){
+  drawMarker(
+    analysis.propulsionIndex,
+    "#ffc857",
+    "push",
+    18
+  );
 
-    const x = xFor(analysis.landingIndex);
+  drawMarker(
+    analysis.takeoffIndex,
+    "#37d67a",
+    "take-off",
+    36
+  );
 
-    ctx.strokeStyle = "#ff5f7a";
+  drawMarker(
+    analysis.landingIndex,
+    "#ff5f7a",
+    "landing",
+    54
+  );
+
+  if(replayFrame !== null && Number.isFinite(replayFrame)){
+
+    const frame =
+      Math.max(
+        0,
+        Math.min(values.length - 1, replayFrame)
+      );
+
+    const x = xFor(frame);
+    const y = yFor(values[frame]);
+
+    ctx.strokeStyle = "rgba(255,255,255,.85)";
     ctx.lineWidth = 2;
 
     ctx.beginPath();
@@ -2400,9 +3267,11 @@ function drawJumpGraph(analysis){
     ctx.lineTo(x,height - padding);
     ctx.stroke();
 
-    ctx.fillStyle = "#ff5f7a";
-    ctx.font = "12px system-ui";
-    ctx.fillText("landing", x + 4, 36);
+    ctx.fillStyle = "white";
+
+    ctx.beginPath();
+    ctx.arc(x,y,6,0,Math.PI * 2);
+    ctx.fill();
 
   }
 
@@ -2414,13 +3283,14 @@ SAVE SESSION
 
 function saveSession(){
 
-  const summary = calculateAssessmentSummary();
+  const summary =
+    calculateAssessmentSummary();
 
   if(!summary){
 
     setStatus(
       ui.testStatus,
-      "No valid assessment to save yet.",
+      "No valid test to save yet.",
       "warn"
     );
 
@@ -2431,12 +3301,20 @@ function saveSession(){
   const session = {
     id:String(Date.now()),
     date:new Date().toISOString(),
+    mode:state.mode,
     type:ui.testType.value,
+    bodyweightKg:getBodyMassKg(),
+    heightCm:getHeightCm(),
     notes:ui.sessionNotes.value.trim(),
+
     jumps:summary.heights.map(value => Number(value.toFixed(2))),
     best:Number(summary.best.toFixed(2)),
     average:Number(summary.average.toFixed(2)),
     dropoff:Number(summary.dropoff.toFixed(2)),
+
+    peakPropulsionForceN:Number(summary.maxPropulsionForce.toFixed(0)),
+    peakLandingForceN:Number(summary.maxLandingForce.toFixed(0)),
+
     baseline:Number((state.baseline || G).toFixed(3))
   };
 
@@ -2495,8 +3373,8 @@ function renderHistory(){
               </span>
             `;
           })
-          .join("");
 
+          .join("");
       return `
         <div class="historyItem">
 
@@ -2505,7 +3383,7 @@ function renderHistory(){
             <div>
               <strong>${escapeHTML(date)}</strong>
               <div class="resultSub">
-                ${escapeHTML(session.type)}
+                ${escapeHTML(session.mode)} / ${escapeHTML(session.type)}
               </div>
             </div>
 
@@ -2523,6 +3401,12 @@ function renderHistory(){
 
           <div class="pills">
             ${jumps}
+            <span class="pill">
+              Push ${formatNumber(session.peakPropulsionForceN,0)} N
+            </span>
+            <span class="pill">
+              Land ${formatNumber(session.peakLandingForceN,0)} N
+            </span>
           </div>
 
           ${
@@ -2558,13 +3442,18 @@ function exportCsv(){
 
   const headers = [
     "date",
+    "mode",
     "type",
+    "bodyweight_kg",
+    "height_cm",
     "jump_1_cm",
     "jump_2_cm",
     "jump_3_cm",
     "best_cm",
     "average_cm",
     "dropoff_percent",
+    "peak_propulsion_force_n",
+    "peak_landing_force_n",
     "baseline",
     "notes"
   ];
@@ -2577,13 +3466,18 @@ function exportCsv(){
 
       return [
         session.date,
+        session.mode,
         session.type,
+        session.bodyweightKg,
+        session.heightCm,
         session.jumps[0] || "",
         session.jumps[1] || "",
         session.jumps[2] || "",
         session.best,
         session.average,
         session.dropoff,
+        session.peakPropulsionForceN,
+        session.peakLandingForceN,
         session.baseline,
         safeNotes
       ].join(",");
@@ -2603,7 +3497,7 @@ function exportCsv(){
     document.createElement("a");
 
   link.href = url;
-  link.download = "jumpcheck-v2-history.csv";
+  link.download = "jumpcheck-v3-history.csv";
 
   document.body.appendChild(link);
   link.click();
@@ -2660,8 +3554,8 @@ ui.clearHistoryBtn.addEventListener(
 );
 
 /* =========================================================
-INITIALISE APP
 ========================================================= */
+INITIALISE APP
 
 renderHistory();
 
