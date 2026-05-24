@@ -1,0 +1,2675 @@
+JUMPCHECK V2 — PART 1 OF 5
+<!-- =========================================================
+APP STRUCTURE + UI SHELL
+Paste PART 1 first
+========================================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+<title>JumpCheck V2</title>
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#070b12;
+  color:#f4f7fb;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+/* =========================================================
+ROOT VARIABLES
+========================================================= */
+
+:root{
+  --bg:#070b12;
+  --panel:#111827;
+  --panel2:#172235;
+  --line:#263247;
+  --text:#f4f7fb;
+  --muted:#9aa9c0;
+
+  --accent:#7cc7ff;
+  --accent2:#9d7cff;
+
+  --green:#37d67a;
+  --amber:#ffc857;
+  --red:#ff5f7a;
+
+  --radius:24px;
+}
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+
+body{
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(124,199,255,.16),
+      transparent 35rem
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(157,124,255,.12),
+      transparent 32rem
+    ),
+    var(--bg);
+
+  min-height:100vh;
+}
+
+/* =========================================================
+APP WRAPPER
+========================================================= */
+
+.app{
+  max-width:860px;
+  margin:0 auto;
+  padding:
+    env(safe-area-inset-top)
+    16px
+    env(safe-area-inset-bottom);
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.header{
+  padding:28px 6px 14px;
+}
+
+.logo{
+  font-size:44px;
+  font-weight:900;
+  line-height:.92;
+  letter-spacing:-2px;
+}
+
+.subtitle{
+  margin-top:10px;
+  color:var(--muted);
+  line-height:1.45;
+  font-size:15px;
+}
+
+/* =========================================================
+CARD
+========================================================= */
+
+.card{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.055),
+      rgba(255,255,255,.025)
+    );
+
+  border:1px solid rgba(255,255,255,.08);
+
+  border-radius:var(--radius);
+
+  padding:16px;
+
+  margin-bottom:14px;
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.32);
+
+  backdrop-filter:blur(12px);
+}
+
+/* =========================================================
+SECTION TITLE
+========================================================= */
+
+.sectionTitle{
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+/* =========================================================
+STATUS
+========================================================= */
+
+.status{
+  padding:12px 14px;
+  border-radius:16px;
+  font-size:14px;
+  line-height:1.4;
+  border-left:4px solid var(--accent);
+
+  background:
+    rgba(124,199,255,.09);
+
+  color:#dbefff;
+}
+
+.status.good{
+  border-left-color:var(--green);
+  background:rgba(55,214,122,.11);
+  color:#dcffe8;
+}
+
+.status.warn{
+  border-left-color:var(--amber);
+  background:rgba(255,200,87,.11);
+  color:#fff4d3;
+}
+
+.status.bad{
+  border-left-color:var(--red);
+  background:rgba(255,95,122,.12);
+  color:#ffe0e6;
+}
+
+/* =========================================================
+BUTTONS
+========================================================= */
+
+.buttonRow{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+button{
+  flex:1;
+
+  border:none;
+
+  border-radius:18px;
+
+  padding:16px;
+
+  font-size:15px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  color:#061018;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+
+  box-shadow:
+    0 10px 24px rgba(124,199,255,.16);
+}
+
+button.secondary{
+  background:
+    rgba(255,255,255,.08);
+
+  color:var(--text);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  box-shadow:none;
+}
+
+button.danger{
+  background:
+    rgba(255,95,122,.16);
+
+  color:#ffdce3;
+
+  border:1px solid rgba(255,95,122,.22);
+
+  box-shadow:none;
+}
+
+button:disabled{
+  opacity:.45;
+}
+
+/* =========================================================
+METRIC GRID
+========================================================= */
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+}
+
+.metric{
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  border-radius:18px;
+
+  padding:14px;
+}
+
+.metricLabel{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.metricValue{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.metricUnit{
+  color:var(--muted);
+  font-size:12px;
+  margin-left:4px;
+}
+
+/* =========================================================
+INPUTS
+========================================================= */
+
+label{
+  display:block;
+  color:var(--muted);
+  margin:
+    12px 0 6px;
+
+  font-size:13px;
+}
+
+select,
+textarea,
+input{
+  width:100%;
+
+  border:none;
+
+  border-radius:16px;
+
+  padding:14px;
+
+  background:
+    rgba(255,255,255,.06);
+
+  color:var(--text);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  font-size:15px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+/* =========================================================
+COUNTDOWN
+========================================================= */
+
+.countdown{
+  font-size:78px;
+  font-weight:900;
+  text-align:center;
+  letter-spacing:-3px;
+
+  padding:14px 0;
+}
+
+.hidden{
+  display:none !important;
+}
+
+/* =========================================================
+RESULT
+========================================================= */
+
+.bigResult{
+  font-size:64px;
+  font-weight:900;
+  letter-spacing:-3px;
+  line-height:.9;
+  margin-top:8px;
+}
+
+.resultSub{
+  color:var(--muted);
+  margin-top:6px;
+}
+
+/* =========================================================
+PILLS
+========================================================= */
+
+.pills{
+  margin-top:10px;
+}
+
+.pill{
+  display:inline-flex;
+
+  align-items:center;
+
+  border-radius:999px;
+
+  padding:8px 12px;
+
+  margin:
+    0 8px 8px 0;
+
+  font-size:12px;
+  font-weight:800;
+
+  background:
+    rgba(255,255,255,.07);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.pill.good{
+  background:rgba(55,214,122,.14);
+  color:#d7ffe7;
+}
+
+.pill.warn{
+  background:rgba(255,200,87,.14);
+  color:#fff1c7;
+}
+
+.pill.bad{
+  background:rgba(255,95,122,.16);
+  color:#ffe0e5;
+}
+
+/* =========================================================
+GRAPH
+========================================================= */
+
+canvas{
+  width:100%;
+  height:220px;
+
+  border-radius:18px;
+
+  margin-top:12px;
+
+  background:
+    rgba(0,0,0,.24);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+}
+
+/* =========================================================
+HISTORY
+========================================================= */
+
+.historyItem{
+  border-top:
+    1px solid rgba(255,255,255,.08);
+
+  padding:14px 0;
+}
+
+.historyItem:first-child{
+  border-top:none;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.footer{
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  line-height:1.5;
+  padding:14px 0 26px;
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media(max-width:640px){
+
+  .grid3{
+    grid-template-columns:1fr;
+  }
+
+  .buttonRow{
+    flex-direction:column;
+  }
+
+  .logo{
+    font-size:38px;
+  }
+
+  .bigResult{
+    font-size:52px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- =====================================================
+  HEADER
+  ====================================================== -->
+  <div class="header">
+<div class="logo">
+  JumpCheck
+</div>
+
+<div class="subtitle">
+  Motion-based jump assessment using your phone's
+  accelerometer. Built for trend tracking,
+  readiness, and athletic profiling.
+</div>
+  </div>
+  <!-- =====================================================
+  SENSOR ACCESS
+  ====================================================== -->
+  <div class="card">
+<div class="sectionTitle">
+  Motion Access
+</div>
+
+<div
+  id="permissionStatus"
+  class="status warn"
+>
+  Motion access not enabled yet.
+  Tap the button below.
+</div>
+
+<div class="buttonRow">
+
+  <button id="enableMotionBtn">
+    Enable Motion Sensors
+  </button>
+
+  <button
+    id="demoModeBtn"
+    class="secondary"
+  >
+    Demo Mode
+  </button>
+
+</div>
+  </div>
+  <!-- =====================================================
+  LIVE SENSOR
+  ====================================================== -->
+  <div class="card">
+<div class="sectionTitle">
+  Live Sensor Feed
+</div>
+
+<div class="grid3">
+
+  <div class="metric">
+    <div class="metricLabel">
+      X Axis
+    </div>
+
+    <div class="metricValue">
+      <span id="liveX">--</span>
+    </div>
+  </div>
+
+  <div class="metric">
+    <div class="metricLabel">
+      Y Axis
+    </div>
+
+    <div class="metricValue">
+      <span id="liveY">--</span>
+    </div>
+  </div>
+
+  <div class="metric">
+    <div class="metricLabel">
+      Z Axis
+    </div>
+
+    <div class="metricValue">
+      <span id="liveZ">--</span>
+    </div>
+  </div>
+
+</div>
+
+<div
+  class="grid2"
+  style="margin-top:10px;"
+>
+
+  <div class="metric">
+    <div class="metricLabel">
+      Magnitude
+    </div>
+
+    <div class="metricValue">
+      <span id="liveMagnitude">--</span>
+      <span class="metricUnit">
+        m/s²
+      </span>
+    </div>
+  </div>
+
+  <div class="metric">
+    <div class="metricLabel">
+      Sample Rate
+    </div>
+
+    <div class="metricValue">
+      <span id="sampleRate">--</span>
+      <span class="metricUnit">
+        Hz
+      </span>
+    </div>
+  </div>
+
+</div>
+  </div>
+  <!-- =====================================================
+  SETUP
+  ====================================================== -->
+  <div class="card">
+<div class="sectionTitle">
+  Test Setup
+</div>
+
+<div class="status">
+  Strap the phone securely to your waistband
+  or hips. Use the same placement each session.
+  Jump on a stable, non-slip surface.
+</div>
+
+<label>
+  Test Type
+</label>
+
+<select id="testType">
+
+  <option>
+    Countermovement Jump
+  </option>
+
+  <option>
+    Squat Jump
+  </option>
+
+  <option>
+    Repeated Jump
+  </option>
+
+</select>
+
+<label>
+  Session Notes
+</label>
+
+<textarea
+  id="sessionNotes"
+  placeholder="Sleep, soreness, caffeine, readiness, session context..."
+></textarea>
+
+<div class="buttonRow">
+
+  <button
+    id="calibrateBtn"
+    class="secondary"
+  >
+    Calibrate
+  </button>
+
+  <button id="startAssessmentBtn">
+    Start Assessment
+  </button>
+
+</div>
+  </div>
+  <!-- =====================================================
+  TEST AREA
+  ====================================================== -->
+  <div class="card">
+<div class="sectionTitle">
+  Jump Assessment
+</div>
+
+<div
+  id="testStatus"
+  class="status"
+>
+  Waiting for setup.
+</div>
+
+<div
+  id="countdown"
+  class="countdown hidden"
+>
+  3
+</div>
+
+<div
+  class="grid2"
+  style="margin-top:12px;"
+>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Baseline
+    </div>
+
+    <div class="metricValue">
+      <span id="baselineValue">
+        --
+      </span>
+
+      <span class="metricUnit">
+        m/s²
+      </span>
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Attempt
+    </div>
+
+    <div class="metricValue">
+      <span id="attemptCounter">
+        0 / 3
+      </span>
+    </div>
+
+  </div>
+
+</div>
+
+<canvas
+  id="jumpGraph"
+  width="800"
+  height="240"
+></canvas>
+  </div>
+  <!-- =====================================================
+  RESULTS
+  ====================================================== -->
+  <div
+    id="resultsCard"
+    class="card hidden"
+  >
+<div class="sectionTitle">
+  Results
+</div>
+
+<div class="bigResult">
+  <span id="bestJumpValue">
+    --
+  </span>
+  cm
+</div>
+
+<div class="resultSub">
+  Best jump height estimate
+</div>
+
+<div class="pills">
+
+  <span
+    id="confidencePill"
+    class="pill"
+  >
+    Confidence
+  </span>
+
+  <span
+    id="readinessPill"
+    class="pill"
+  >
+    Readiness
+  </span>
+
+</div>
+
+<div
+  class="grid3"
+  style="margin-top:14px;"
+>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Best
+    </div>
+
+    <div class="metricValue">
+      <span id="bestMetric">
+        --
+      </span>
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Average
+    </div>
+
+    <div class="metricValue">
+      <span id="averageMetric">
+        --
+      </span>
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metricLabel">
+      Drop Off
+    </div>
+
+    <div class="metricValue">
+      <span id="dropoffMetric">
+        --
+      </span>
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  id="attemptPills"
+  class="pills"
+></div>
+
+<div class="buttonRow">
+
+  <button id="saveSessionBtn">
+    Save Session
+  </button>
+
+</div>
+  </div>
+  <!-- =====================================================
+  HISTORY
+  ====================================================== -->
+  <div class="card">
+<div class="sectionTitle">
+  History
+</div>
+
+<div class="buttonRow">
+
+  <button
+    id="exportCsvBtn"
+    class="secondary"
+  >
+    Export CSV
+  </button>
+
+  <button
+    id="clearHistoryBtn"
+    class="danger"
+  >
+    Clear History
+  </button>
+
+</div>
+
+<div
+  id="historyList"
+  style="margin-top:14px;"
+></div>
+  </div>
+  <!-- =====================================================
+  FOOTER
+  ====================================================== -->
+  <div class="footer">
+JumpCheck is designed for trend tracking only.
+This is not a medical, clinical,
+or laboratory-grade measurement tool.
+  </div>
+</div>
+<!-- =========================================================
+PART 1 ENDS HERE
+DO NOT CLOSE THE HTML FILE YET
+PART 2 CONTINUES WITH:
+- JAVASCRIPT STATE
+- SENSOR ENGINE
+- LIVE MOTION FEED
+- DEMO MODE
+========================================================= -->
+<!-- =========================================================
+JUMPCHECK V2 — PART 2 OF 5
+JAVASCRIPT STATE + SENSOR ENGINE + DEMO MODE
+Paste this directly after PART 1
+========================================================= -->
+<script>
+
+(() => {
+
+"use strict";
+
+/* =========================================================
+CONSTANTS
+========================================================= */
+
+const G = 9.80665;
+
+const STORAGE_KEY = "jumpcheck_v2_history";
+
+/* =========================================================
+APP STATE
+========================================================= */
+
+const state = {
+
+  motionEnabled:false,
+
+  demoMode:false,
+
+  recording:false,
+
+  calibrating:false,
+
+  assessmentRunning:false,
+
+  live:{
+    x:0,
+    y:0,
+    z:0,
+    magnitude:0
+  },
+
+  sampleRate:0,
+
+  lastSampleTime:null,
+
+  baseline:null,
+
+  samples:[],
+
+  attempts:[],
+
+  currentAttempt:0,
+
+  latestAnalysis:null,
+
+  history:loadHistory()
+
+};
+
+/* =========================================================
+ELEMENT SHORTCUT
+========================================================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+/* =========================================================
+DOM REFERENCES
+========================================================= */
+
+const ui = {
+
+  permissionStatus:$("permissionStatus"),
+
+  enableMotionBtn:$("enableMotionBtn"),
+  demoModeBtn:$("demoModeBtn"),
+
+  liveX:$("liveX"),
+  liveY:$("liveY"),
+  liveZ:$("liveZ"),
+  liveMagnitude:$("liveMagnitude"),
+  sampleRate:$("sampleRate"),
+
+  testType:$("testType"),
+  sessionNotes:$("sessionNotes"),
+
+  calibrateBtn:$("calibrateBtn"),
+  startAssessmentBtn:$("startAssessmentBtn"),
+
+  testStatus:$("testStatus"),
+
+  countdown:$("countdown"),
+
+  baselineValue:$("baselineValue"),
+  attemptCounter:$("attemptCounter"),
+
+  jumpGraph:$("jumpGraph"),
+
+  resultsCard:$("resultsCard"),
+
+  bestJumpValue:$("bestJumpValue"),
+  confidencePill:$("confidencePill"),
+  readinessPill:$("readinessPill"),
+
+  bestMetric:$("bestMetric"),
+  averageMetric:$("averageMetric"),
+  dropoffMetric:$("dropoffMetric"),
+
+  attemptPills:$("attemptPills"),
+
+  saveSessionBtn:$("saveSessionBtn"),
+
+  exportCsvBtn:$("exportCsvBtn"),
+  clearHistoryBtn:$("clearHistoryBtn"),
+
+  historyList:$("historyList")
+
+};
+
+/* =========================================================
+UTILITY HELPERS
+========================================================= */
+
+function formatNumber(value, decimals = 1){
+
+  if(!Number.isFinite(value)){
+    return "--";
+  }
+
+  return value.toFixed(decimals);
+
+}
+
+function setStatus(element, message, type = ""){
+
+  element.className = "status";
+
+  if(type){
+    element.classList.add(type);
+  }
+
+  element.textContent = message;
+
+}
+
+function setPill(element, message, type = ""){
+
+  element.className = "pill";
+
+  if(type){
+    element.classList.add(type);
+  }
+
+  element.textContent = message;
+
+}
+
+function sleep(ms){
+
+  return new Promise(resolve => setTimeout(resolve, ms));
+
+}
+
+function loadHistory(){
+
+  try{
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if(!raw){
+      return [];
+    }
+
+    return JSON.parse(raw);
+
+  }catch(error){
+
+    return [];
+
+  }
+
+}
+
+function saveHistory(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state.history)
+  );
+
+}
+
+/* =========================================================
+MOTION PERMISSION
+========================================================= */
+
+async function enableMotionSensors(){
+
+  try{
+
+    if(!window.DeviceMotionEvent){
+
+      setStatus(
+        ui.permissionStatus,
+        "DeviceMotionEvent is not available in this browser. Try Safari or Chrome on your phone.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    /*
+      iOS requires explicit permission from a user gesture.
+      Android usually allows this without requestPermission.
+    */
+
+    if(typeof DeviceMotionEvent.requestPermission === "function"){
+
+      const response =
+        await DeviceMotionEvent.requestPermission();
+
+      if(response !== "granted"){
+
+        setStatus(
+          ui.permissionStatus,
+          "Motion permission was not granted. Check Safari settings and allow Motion & Orientation access.",
+          "bad"
+        );
+
+        return;
+
+      }
+
+    }
+
+    window.addEventListener(
+      "devicemotion",
+      handleMotionEvent
+    );
+
+    state.motionEnabled = true;
+    state.demoMode = false;
+
+    setStatus(
+      ui.permissionStatus,
+      "Motion sensors enabled. Move your phone and watch the live sensor feed.",
+      "good"
+    );
+
+  }catch(error){
+
+    setStatus(
+      ui.permissionStatus,
+      "Unable to enable motion sensors: " + error.message,
+      "bad"
+    );
+
+  }
+
+}
+
+/* =========================================================
+MOTION HANDLER
+========================================================= */
+
+function handleMotionEvent(event){
+
+  /*
+    Prefer accelerationIncludingGravity because it gives a
+    stronger signal for free-fall / landing patterns.
+  */
+
+  const acceleration =
+    event.accelerationIncludingGravity ||
+    event.acceleration ||
+    {x:0,y:0,z:0};
+
+  const x = acceleration.x || 0;
+  const y = acceleration.y || 0;
+  const z = acceleration.z || 0;
+
+  const magnitude =
+    Math.sqrt(
+      x * x +
+      y * y +
+      z * z
+    );
+
+  const now = performance.now();
+
+  updateSampleRate(now);
+
+  state.live = {
+    x,
+    y,
+    z,
+    magnitude
+  };
+
+  if(state.recording){
+
+    state.samples.push({
+      time:now,
+      x,
+      y,
+      z,
+      magnitude
+    });
+
+  }
+
+}
+
+/* =========================================================
+SAMPLE RATE
+========================================================= */
+
+function updateSampleRate(now){
+
+  if(state.lastSampleTime){
+
+    const deltaSeconds =
+      (now - state.lastSampleTime) / 1000;
+
+    if(deltaSeconds > 0){
+
+      const instantRate =
+        1 / deltaSeconds;
+
+      if(state.sampleRate === 0){
+
+        state.sampleRate = instantRate;
+
+      }else{
+
+        state.sampleRate =
+          state.sampleRate * 0.9 +
+          instantRate * 0.1;
+
+      }
+
+    }
+
+  }
+
+  state.lastSampleTime = now;
+
+}
+
+/* =========================================================
+DEMO MODE
+========================================================= */
+
+function enableDemoMode(){
+
+  state.demoMode = true;
+  state.motionEnabled = true;
+
+  state.live = {
+    x:0,
+    y:0,
+    z:G,
+    magnitude:G
+  };
+
+  state.sampleRate = 60;
+
+  setStatus(
+    ui.permissionStatus,
+    "Demo mode enabled. The app will generate simulated jump data.",
+    "warn"
+  );
+
+  setStatus(
+    ui.testStatus,
+    "Demo mode active. Calibrate, then start assessment.",
+    "warn"
+  );
+
+}
+
+/* =========================================================
+SIMULATED LIVE FEED
+========================================================= */
+
+function updateDemoLiveFeed(){
+
+  if(!state.demoMode){
+    return;
+  }
+
+  const noise =
+    (Math.random() - 0.5) * 0.35;
+
+  state.live = {
+    x:noise,
+    y:noise * 0.7,
+    z:G + noise,
+    magnitude:G + noise
+  };
+
+}
+
+/* =========================================================
+GENERATE DEMO JUMP
+========================================================= */
+
+function generateDemoJumpSamples(){
+
+  const samples = [];
+
+  const startTime =
+    performance.now();
+
+  const sampleRate = 60;
+
+  const interval =
+    1000 / sampleRate;
+
+  const totalDurationMs = 5000;
+
+  const flightDurationSeconds =
+    0.38 + Math.random() * 0.18;
+
+  const takeoffTimeMs =
+    1700 + Math.random() * 300;
+
+  const landingTimeMs =
+    takeoffTimeMs +
+    flightDurationSeconds * 1000;
+
+  for(
+    let t = 0;
+    t <= totalDurationMs;
+    t += interval
+  ){
+
+    let magnitude =
+      G + (Math.random() - 0.5) * 0.45;
+
+    /*
+      Take-off impulse.
+    */
+
+    if(
+      t > takeoffTimeMs - 180 &&
+      t < takeoffTimeMs
+    ){
+
+      magnitude =
+        G * (1.2 + Math.random() * 0.35);
+
+    }
+
+    /*
+      Flight phase.
+      Magnitude drops close to zero-force.
+    */
+
+    if(
+      t >= takeoffTimeMs &&
+      t <= landingTimeMs
+    ){
+
+      magnitude =
+        G * (0.07 + Math.random() * 0.08);
+
+    }
+
+    /*
+      Landing spike.
+    */
+
+    if(
+      t > landingTimeMs &&
+      t < landingTimeMs + 180
+    ){
+
+      magnitude =
+        G * (2.0 + Math.random() * 0.9);
+
+    }
+
+    samples.push({
+      time:startTime + t,
+      x:0,
+      y:0,
+      z:magnitude,
+      magnitude
+    });
+
+  }
+
+  return samples;
+
+}
+
+/* =========================================================
+LIVE UI LOOP
+========================================================= */
+
+function updateLiveInterface(){
+
+  if(state.demoMode){
+    updateDemoLiveFeed();
+  }
+
+  ui.liveX.textContent =
+    formatNumber(state.live.x, 2);
+
+  ui.liveY.textContent =
+    formatNumber(state.live.y, 2);
+
+  ui.liveZ.textContent =
+    formatNumber(state.live.z, 2);
+
+  ui.liveMagnitude.textContent =
+    formatNumber(state.live.magnitude, 2);
+
+  ui.sampleRate.textContent =
+    state.sampleRate
+      ? Math.round(state.sampleRate)
+      : "--";
+
+  ui.baselineValue.textContent =
+    state.baseline
+      ? formatNumber(state.baseline, 2)
+      : "--";
+
+  ui.attemptCounter.textContent =
+    `${state.attempts.length} / 3`;
+
+  requestAnimationFrame(updateLiveInterface);
+
+}
+
+/* =========================================================
+INITIAL EVENT LISTENERS — SENSOR ONLY
+More event listeners are added in later parts.
+========================================================= */
+
+ui.enableMotionBtn.addEventListener(
+  "click",
+  enableMotionSensors
+);
+
+ui.demoModeBtn.addEventListener(
+  "click",
+  enableDemoMode
+);
+
+/* =========================================================
+START LIVE UI LOOP
+========================================================= */
+
+updateLiveInterface();
+
+/* =========================================================
+JUMPCHECK V2 — PART 3 OF 5
+CALIBRATION + RECORDING + COUNTDOWN + ATTEMPT FLOW
+========================================================= */
+
+/* =========================================================
+CALIBRATION
+========================================================= */
+
+async function calibrateDevice(){
+
+  if(!state.motionEnabled){
+
+    setStatus(
+      ui.testStatus,
+      "Enable motion sensors or demo mode first.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  state.calibrating = true;
+
+  setStatus(
+    ui.testStatus,
+    "Calibrating. Stand still for 3 seconds.",
+    "warn"
+  );
+
+  const readings = [];
+
+  const startTime =
+    performance.now();
+
+  while(performance.now() - startTime < 3000){
+
+    readings.push(state.live.magnitude || G);
+
+    await sleep(50);
+
+  }
+
+  const average =
+    readings.reduce((sum,value) => sum + value, 0) /
+    readings.length;
+
+  const variance =
+    readings.reduce(
+      (sum,value) => sum + Math.pow(value - average, 2),
+      0
+    ) / readings.length;
+
+  const standardDeviation =
+    Math.sqrt(variance);
+
+  state.baseline = average || G;
+
+  state.calibrating = false;
+
+  if(standardDeviation > 1.2 && !state.demoMode){
+
+    setStatus(
+      ui.testStatus,
+      "Calibration saved, but phone movement was noisy. Tighten placement and recalibrate if needed.",
+      "warn"
+    );
+
+  }else{
+
+    setStatus(
+      ui.testStatus,
+      "Calibration complete. Ready to jump.",
+      "good"
+    );
+
+  }
+
+}
+
+/* =========================================================
+COUNTDOWN
+========================================================= */
+
+async function runCountdown(){
+
+  ui.countdown.classList.remove("hidden");
+
+  const steps = ["3","2","1","JUMP"];
+
+  for(const step of steps){
+
+    ui.countdown.textContent = step;
+
+    if(step === "JUMP"){
+      await sleep(450);
+    }else{
+      await sleep(700);
+    }
+
+  }
+
+  ui.countdown.classList.add("hidden");
+
+}
+
+/* =========================================================
+RECORD RAW MOTION
+========================================================= */
+
+async function recordMotionWindow(){
+
+  state.samples = [];
+
+  if(state.demoMode){
+
+    state.samples = generateDemoJumpSamples();
+
+    await sleep(600);
+
+    return state.samples;
+
+  }
+
+  state.recording = true;
+
+  await sleep(5000);
+
+  state.recording = false;
+
+  return state.samples;
+
+}
+
+/* =========================================================
+SINGLE ATTEMPT FLOW
+========================================================= */
+
+async function runSingleAttempt(){
+
+  if(!state.motionEnabled){
+
+    setStatus(
+      ui.testStatus,
+      "Enable motion sensors first.",
+      "warn"
+    );
+
+    return null;
+
+  }
+
+  if(!state.baseline){
+
+    setStatus(
+      ui.testStatus,
+      "Calibrate first so the app knows your standing baseline.",
+      "warn"
+    );
+
+    return null;
+
+  }
+
+  await runCountdown();
+
+  setStatus(
+    ui.testStatus,
+    `Recording attempt ${state.currentAttempt + 1}. Jump now.`,
+    "warn"
+  );
+
+  const samples =
+    await recordMotionWindow();
+
+  const analysis =
+    analyseJump(samples);
+
+  state.latestAnalysis = analysis;
+
+  drawJumpGraph(analysis);
+
+  if(!analysis.success){
+
+    setStatus(
+      ui.testStatus,
+      "Attempt not counted: " + analysis.reason,
+      "bad"
+    );
+
+    return null;
+
+  }
+
+  state.attempts.push(analysis);
+
+  setStatus(
+    ui.testStatus,
+    `Attempt ${state.attempts.length}: ${formatNumber(analysis.heightCm,1)} cm.`,
+    analysis.confidenceType
+  );
+
+  updateResults();
+
+  return analysis;
+
+}
+
+/* =========================================================
+ASSESSMENT FLOW
+========================================================= */
+
+async function startAssessment(){
+
+  if(state.assessmentRunning){
+    return;
+  }
+
+  if(!state.motionEnabled){
+
+    setStatus(
+      ui.testStatus,
+      "Enable motion sensors or demo mode first.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  if(!state.baseline){
+
+    setStatus(
+      ui.testStatus,
+      "Calibrate before starting your assessment.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  state.assessmentRunning = true;
+
+  state.attempts = [];
+
+  state.currentAttempt = 0;
+
+  ui.resultsCard.classList.add("hidden");
+
+  for(
+    state.currentAttempt = 0;
+    state.currentAttempt < 3;
+    state.currentAttempt++
+  ){
+
+    await runSingleAttempt();
+
+    if(state.currentAttempt < 2){
+
+      setStatus(
+        ui.testStatus,
+        "Rest briefly. Next attempt coming up.",
+        "warn"
+      );
+
+      await sleep(1800);
+
+    }
+
+  }
+
+  state.assessmentRunning = false;
+
+  if(state.attempts.length > 0){
+
+    setStatus(
+      ui.testStatus,
+      "Assessment complete. Review and save your session.",
+      "good"
+    );
+
+  }else{
+
+    setStatus(
+      ui.testStatus,
+      "Assessment finished, but no valid jumps were detected.",
+      "bad"
+    );
+
+  }
+
+}
+
+/* =========================================================
+PART 3 EVENT LISTENERS
+========================================================= */
+
+ui.calibrateBtn.addEventListener(
+  "click",
+  calibrateDevice
+);
+
+ui.startAssessmentBtn.addEventListener(
+  "click",
+  startAssessment
+);
+
+/* =========================================================
+PART 3 ENDS HERE
+PART 4 CONTINUES WITH:
+- JUMP ANALYSIS
+- SMOOTHING
+- TAKE-OFF / LANDING DETECTION
+- CONFIDENCE SCORING
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V2 — PART 4 OF 5
+JUMP ANALYSIS + SMOOTHING + DETECTION + CONFIDENCE
+========================================================= */
+
+/* =========================================================
+MOVING AVERAGE SMOOTHING
+========================================================= */
+
+function movingAverage(values, windowSize = 7){
+
+  const smoothed = [];
+
+  const halfWindow =
+    Math.floor(windowSize / 2);
+
+  for(let i = 0; i < values.length; i++){
+
+    let sum = 0;
+    let count = 0;
+
+    for(
+      let j = i - halfWindow;
+      j <= i + halfWindow;
+      j++
+    ){
+
+      if(j >= 0 && j < values.length){
+
+        sum += values[j];
+        count++;
+
+      }
+
+    }
+
+    smoothed.push(sum / count);
+
+  }
+
+  return smoothed;
+
+}
+
+/* =========================================================
+JUMP ANALYSIS
+========================================================= */
+
+function analyseJump(samples){
+
+  const baseline =
+    state.baseline || G;
+
+  if(!samples || samples.length < 30){
+
+    return {
+      success:false,
+      reason:"Not enough motion samples were recorded.",
+      samples:samples || [],
+      smooth:[],
+      takeoffIndex:-1,
+      landingIndex:-1,
+      confidenceType:"bad"
+    };
+
+  }
+
+  const magnitudes =
+    samples.map(sample => sample.magnitude);
+
+  const smooth =
+    movingAverage(magnitudes, 7);
+
+  /*
+    These thresholds are deliberately conservative.
+
+    Flight:
+    phone acceleration magnitude drops far below standing baseline.
+
+    Landing:
+    phone acceleration magnitude spikes clearly above standing baseline.
+  */
+
+  const flightThreshold =
+    baseline * 0.45;
+
+  const landingThreshold =
+    baseline * 1.6;
+
+  const minimumFlightSeconds =
+    0.22;
+
+  const maximumFlightSeconds =
+    0.90;
+
+  const sampleRate =
+    state.sampleRate || 60;
+
+  const sustainedFlightSamples =
+    Math.max(
+      4,
+      Math.round(sampleRate * 0.06)
+    );
+
+  let takeoffIndex = -1;
+  let landingIndex = -1;
+
+  /* =======================================================
+  FIND TAKE-OFF
+  ======================================================= */
+
+  for(
+    let i = 4;
+    i < smooth.length - sustainedFlightSamples;
+    i++
+  ){
+
+    let sustainedLowForce = true;
+
+    for(
+      let j = 0;
+      j < sustainedFlightSamples;
+      j++
+    ){
+
+      if(smooth[i + j] > flightThreshold){
+
+        sustainedLowForce = false;
+        break;
+
+      }
+
+    }
+
+    if(sustainedLowForce){
+
+      takeoffIndex = i;
+      break;
+
+    }
+
+  }
+
+  if(takeoffIndex === -1){
+
+    return {
+      success:false,
+      reason:"No clear flight phase detected. Try tightening the phone strap and jumping more cleanly.",
+      samples,
+      smooth,
+      takeoffIndex,
+      landingIndex,
+      confidenceType:"bad"
+    };
+
+  }
+
+  /* =======================================================
+  FIND LANDING
+  ======================================================= */
+
+  for(
+    let i = takeoffIndex + sustainedFlightSamples;
+    i < smooth.length;
+    i++
+  ){
+
+    const flightSeconds =
+      (samples[i].time - samples[takeoffIndex].time) /
+      1000;
+
+    if(flightSeconds > maximumFlightSeconds){
+      break;
+    }
+
+    if(
+      flightSeconds >= minimumFlightSeconds &&
+      smooth[i] > landingThreshold
+    ){
+
+      landingIndex = i;
+      break;
+
+    }
+
+  }
+
+  if(landingIndex === -1){
+
+    return {
+      success:false,
+      reason:"Take-off was detected, but landing spike was unclear.",
+      samples,
+      smooth,
+      takeoffIndex,
+      landingIndex,
+      confidenceType:"bad"
+    };
+
+  }
+
+  /* =======================================================
+  CALCULATE FLIGHT TIME + HEIGHT
+  ======================================================= */
+
+  const flightTimeSeconds =
+    (samples[landingIndex].time - samples[takeoffIndex].time) /
+    1000;
+
+  const heightMetres =
+    G * flightTimeSeconds * flightTimeSeconds / 8;
+
+  const heightCm =
+    heightMetres * 100;
+
+  const landingWindow =
+    smooth.slice(
+      landingIndex,
+      Math.min(smooth.length, landingIndex + 20)
+    );
+
+  const peakLandingMagnitude =
+    Math.max(...landingWindow);
+
+  /* =======================================================
+  CONFIDENCE SCORING
+  ======================================================= */
+
+  let confidence =
+    "High confidence";
+
+  let confidenceType =
+    "good";
+
+  const flags = [];
+
+  if(flightTimeSeconds < minimumFlightSeconds + 0.04){
+
+    confidence =
+      "Medium confidence";
+
+    confidenceType =
+      "warn";
+
+    flags.push("short flight window");
+
+  }
+
+  if(flightTimeSeconds > maximumFlightSeconds - 0.05){
+
+    confidence =
+      "Medium confidence";
+
+    confidenceType =
+      "warn";
+
+    flags.push("long flight window");
+
+  }
+
+  if(heightCm < 5 || heightCm > 90){
+
+    confidence =
+      "Low confidence";
+
+    confidenceType =
+      "bad";
+
+    flags.push("height outside expected range");
+
+  }
+
+  if(state.sampleRate && state.sampleRate < 25 && !state.demoMode){
+
+    confidence =
+      "Low confidence";
+
+    confidenceType =
+      "bad";
+
+    flags.push("low sensor sample rate");
+
+  }
+
+  if(peakLandingMagnitude < baseline * 1.4){
+
+    confidence =
+      "Medium confidence";
+
+    confidenceType =
+      confidenceType === "bad" ? "bad" : "warn";
+
+    flags.push("weak landing spike");
+
+  }
+
+  return {
+    success:true,
+
+    samples,
+    smooth,
+
+    takeoffIndex,
+    landingIndex,
+
+    flightTimeSeconds,
+    heightCm,
+
+    peakLandingMagnitude,
+
+    confidence,
+    confidenceType,
+
+    flags
+  };
+
+}
+
+/* =========================================================
+RESULT CALCULATIONS
+========================================================= */
+
+function calculateAssessmentSummary(){
+
+  const heights =
+    state.attempts.map(attempt => attempt.heightCm);
+
+  if(!heights.length){
+    return null;
+  }
+
+  const best =
+    Math.max(...heights);
+
+  const worst =
+    Math.min(...heights);
+
+  const average =
+    heights.reduce((sum,value) => sum + value, 0) /
+    heights.length;
+
+  const dropoff =
+    best > 0
+      ? ((best - worst) / best) * 100
+      : 0;
+
+  return {
+    heights,
+    best,
+    worst,
+    average,
+    dropoff
+  };
+
+}
+
+/* =========================================================
+HISTORICAL BEST
+========================================================= */
+
+function getHistoricalBest(){
+
+  const bests =
+    state.history
+      .map(session => session.best)
+      .filter(value => Number.isFinite(value));
+
+  if(!bests.length){
+    return null;
+  }
+
+  return Math.max(...bests);
+
+}
+
+/* =========================================================
+READINESS INTERPRETATION
+========================================================= */
+
+function getReadiness(bestJump){
+
+  const historicalBest =
+    getHistoricalBest();
+
+  if(!historicalBest){
+
+    return {
+      label:"First baseline",
+      type:"warn"
+    };
+
+  }
+
+  const percentageDown =
+    ((historicalBest - bestJump) / historicalBest) * 100;
+
+  if(percentageDown <= 5){
+
+    return {
+      label:"Green: within 5% of best",
+      type:"good"
+    };
+
+  }
+
+  if(percentageDown <= 10){
+
+    return {
+      label:"Amber: 5–10% down",
+      type:"warn"
+    };
+
+  }
+
+  return {
+    label:"Red: >10% down",
+    type:"bad"
+  };
+
+}
+
+/* =========================================================
+UPDATE RESULTS UI
+========================================================= */
+
+function updateResults(){
+
+  const summary =
+    calculateAssessmentSummary();
+
+  if(!summary){
+    return;
+  }
+
+  ui.resultsCard.classList.remove("hidden");
+
+  ui.bestJumpValue.textContent =
+    formatNumber(summary.best, 1);
+
+  ui.bestMetric.textContent =
+    formatNumber(summary.best, 1) + " cm";
+
+  ui.averageMetric.textContent =
+    formatNumber(summary.average, 1) + " cm";
+
+  ui.dropoffMetric.textContent =
+    formatNumber(summary.dropoff, 1) + "%";
+
+  const hasLowConfidence =
+    state.attempts.some(
+      attempt => attempt.confidenceType === "bad"
+    );
+
+  const hasMediumConfidence =
+    state.attempts.some(
+      attempt => attempt.confidenceType === "warn"
+    );
+
+  if(hasLowConfidence){
+
+    setPill(
+      ui.confidencePill,
+      "Low confidence",
+      "bad"
+    );
+
+  }else if(hasMediumConfidence){
+
+    setPill(
+      ui.confidencePill,
+      "Medium confidence",
+      "warn"
+    );
+
+  }else{
+
+    setPill(
+      ui.confidencePill,
+      "High confidence",
+      "good"
+    );
+
+  }
+
+  const readiness =
+    getReadiness(summary.best);
+
+  setPill(
+    ui.readinessPill,
+    readiness.label,
+    readiness.type
+  );
+
+  ui.attemptPills.innerHTML =
+    state.attempts
+      .map((attempt,index) => {
+
+        return `
+          <span class="pill ${attempt.confidenceType}">
+            J${index + 1}: ${formatNumber(attempt.heightCm,1)} cm
+          </span>
+        `;
+
+      })
+      .join("");
+
+}
+
+/* =========================================================
+PART 4 ENDS HERE
+PART 5 CONTINUES WITH:
+- GRAPH RENDERING
+- HISTORY
+- CSV EXPORT
+- FINAL EVENT BINDINGS
+- CLOSING SCRIPT / HTML
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V2 — PART 5 OF 5
+GRAPH + HISTORY + EXPORT + FINAL CLOSING
+========================================================= */
+
+/* =========================================================
+GRAPH RENDERING
+========================================================= */
+
+function drawJumpGraph(analysis){
+
+  const canvas = ui.jumpGraph;
+  const ctx = canvas.getContext("2d");
+
+  const width = canvas.width;
+  const height = canvas.height;
+
+  ctx.clearRect(0,0,width,height);
+
+  ctx.fillStyle = "rgba(0,0,0,.18)";
+  ctx.fillRect(0,0,width,height);
+
+  if(!analysis || !analysis.samples || analysis.samples.length < 2){
+    return;
+  }
+
+  const values =
+    analysis.smooth && analysis.smooth.length
+      ? analysis.smooth
+      : analysis.samples.map(sample => sample.magnitude);
+
+  const minValue = Math.min(...values, 0);
+  const maxValue = Math.max(...values, (state.baseline || G) * 2.6);
+
+  const padding = 20;
+
+  function xFor(index){
+    return padding + (index / (values.length - 1)) * (width - padding * 2);
+  }
+
+  function yFor(value){
+    return height - padding - ((value - minValue) / (maxValue - minValue || 1)) * (height - padding * 2);
+  }
+
+  ctx.strokeStyle = "rgba(255,255,255,.10)";
+  ctx.lineWidth = 1;
+
+  for(let i = 0; i < 4; i++){
+    const y = padding + i * ((height - padding * 2) / 3);
+    ctx.beginPath();
+    ctx.moveTo(padding,y);
+    ctx.lineTo(width - padding,y);
+    ctx.stroke();
+  }
+
+  if(state.baseline){
+
+    ctx.strokeStyle = "rgba(124,199,255,.55)";
+    ctx.setLineDash([6,6]);
+
+    const baselineY = yFor(state.baseline);
+
+    ctx.beginPath();
+    ctx.moveTo(padding,baselineY);
+    ctx.lineTo(width - padding,baselineY);
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+  }
+
+  ctx.strokeStyle = "rgba(255,255,255,.92)";
+  ctx.lineWidth = 2;
+
+  ctx.beginPath();
+
+  values.forEach((value,index) => {
+
+    const x = xFor(index);
+    const y = yFor(value);
+
+    if(index === 0){
+      ctx.moveTo(x,y);
+    }else{
+      ctx.lineTo(x,y);
+    }
+
+  });
+
+  ctx.stroke();
+
+  if(analysis.takeoffIndex >= 0){
+
+    const x = xFor(analysis.takeoffIndex);
+
+    ctx.strokeStyle = "#37d67a";
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(x,padding);
+    ctx.lineTo(x,height - padding);
+    ctx.stroke();
+
+    ctx.fillStyle = "#37d67a";
+    ctx.font = "12px system-ui";
+    ctx.fillText("take-off", x + 4, 18);
+
+  }
+
+  if(analysis.landingIndex >= 0){
+
+    const x = xFor(analysis.landingIndex);
+
+    ctx.strokeStyle = "#ff5f7a";
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(x,padding);
+    ctx.lineTo(x,height - padding);
+    ctx.stroke();
+
+    ctx.fillStyle = "#ff5f7a";
+    ctx.font = "12px system-ui";
+    ctx.fillText("landing", x + 4, 36);
+
+  }
+
+}
+
+/* =========================================================
+SAVE SESSION
+========================================================= */
+
+function saveSession(){
+
+  const summary = calculateAssessmentSummary();
+
+  if(!summary){
+
+    setStatus(
+      ui.testStatus,
+      "No valid assessment to save yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  const session = {
+    id:String(Date.now()),
+    date:new Date().toISOString(),
+    type:ui.testType.value,
+    notes:ui.sessionNotes.value.trim(),
+    jumps:summary.heights.map(value => Number(value.toFixed(2))),
+    best:Number(summary.best.toFixed(2)),
+    average:Number(summary.average.toFixed(2)),
+    dropoff:Number(summary.dropoff.toFixed(2)),
+    baseline:Number((state.baseline || G).toFixed(3))
+  };
+
+  state.history.unshift(session);
+
+  saveHistory();
+
+  renderHistory();
+
+  setStatus(
+    ui.testStatus,
+    "Session saved on this device.",
+    "good"
+  );
+
+}
+
+/* =========================================================
+HISTORY RENDERING
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+function renderHistory(){
+
+  if(!state.history.length){
+
+    ui.historyList.innerHTML =
+      `<div class="status">No saved sessions yet.</div>`;
+
+    return;
+
+  }
+
+  ui.historyList.innerHTML =
+    state.history.map(session => {
+
+      const date =
+        new Date(session.date).toLocaleString();
+
+      const jumps =
+        session.jumps
+          .map((jump,index) => {
+            return `
+              <span class="pill">
+                J${index + 1}: ${formatNumber(jump,1)} cm
+              </span>
+            `;
+          })
+          .join("");
+
+      return `
+        <div class="historyItem">
+
+          <div class="grid2">
+
+            <div>
+              <strong>${escapeHTML(date)}</strong>
+              <div class="resultSub">
+                ${escapeHTML(session.type)}
+              </div>
+            </div>
+
+            <div style="text-align:right;">
+              <div class="metricValue">
+                ${formatNumber(session.best,1)} cm
+              </div>
+              <div class="resultSub">
+                avg ${formatNumber(session.average,1)} /
+                drop ${formatNumber(session.dropoff,1)}%
+              </div>
+            </div>
+
+          </div>
+
+          <div class="pills">
+            ${jumps}
+          </div>
+
+          ${
+            session.notes
+              ? `<div class="resultSub">${escapeHTML(session.notes)}</div>`
+              : ""
+          }
+
+        </div>
+      `;
+
+    }).join("");
+
+}
+
+/* =========================================================
+EXPORT CSV
+========================================================= */
+
+function exportCsv(){
+
+  if(!state.history.length){
+
+    setStatus(
+      ui.testStatus,
+      "No history to export yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  const headers = [
+    "date",
+    "type",
+    "jump_1_cm",
+    "jump_2_cm",
+    "jump_3_cm",
+    "best_cm",
+    "average_cm",
+    "dropoff_percent",
+    "baseline",
+    "notes"
+  ];
+
+  const rows =
+    state.history.map(session => {
+
+      const safeNotes =
+        `"${String(session.notes || "").replaceAll('"','""')}"`;
+
+      return [
+        session.date,
+        session.type,
+        session.jumps[0] || "",
+        session.jumps[1] || "",
+        session.jumps[2] || "",
+        session.best,
+        session.average,
+        session.dropoff,
+        session.baseline,
+        safeNotes
+      ].join(",");
+
+    });
+
+  const csv =
+    [headers.join(","), ...rows].join("\n");
+
+  const blob =
+    new Blob([csv], {type:"text/csv"});
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+  link.download = "jumpcheck-v2-history.csv";
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+
+}
+
+/* =========================================================
+CLEAR HISTORY
+========================================================= */
+
+function clearHistory(){
+
+  const confirmDelete =
+    confirm("Delete all JumpCheck history on this device?");
+
+  if(!confirmDelete){
+    return;
+  }
+
+  state.history = [];
+
+  saveHistory();
+
+  renderHistory();
+
+  setStatus(
+    ui.testStatus,
+    "History cleared.",
+    "warn"
+  );
+
+}
+
+/* =========================================================
+FINAL EVENT LISTENERS
+========================================================= */
+
+ui.saveSessionBtn.addEventListener(
+  "click",
+  saveSession
+);
+
+ui.exportCsvBtn.addEventListener(
+  "click",
+  exportCsv
+);
+
+ui.clearHistoryBtn.addEventListener(
+  "click",
+  clearHistory
+);
+
+/* =========================================================
+INITIALISE APP
+========================================================= */
+
+renderHistory();
+
+drawJumpGraph(null);
+
+})();
+
+</script>
+
+</body>
+</html>
