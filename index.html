@@ -1,13 +1,22 @@
+JUMPCHECK V4 — PART 1 OF 8
 <!-- =========================================================
-JUMPCHECK V3 — PART 1 OF 5
-NEW UI + SINGLE JUMP MODE + FORCE INPUTS + REPLAY UI
-THIS REPLACES V2 PART 1
+MOBILE-FIRST APP SHELL + GUIDED SCREENS
+Paste this first into a blank index.html file.
 ========================================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8" />
-<title>JumpCheck V3</title>
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>JumpCheck V4</title>
+
 <style>
 
 /* =========================================================
@@ -23,9 +32,8 @@ html,
 body{
   margin:0;
   padding:0;
-  background:#050913;
+  background:#050812;
   color:#f5f7fb;
-
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -34,21 +42,34 @@ body{
     sans-serif;
 }
 
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(123,199,255,.16),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(157,124,255,.13),
+      transparent 30rem
+    ),
+    #050812;
+}
+
 /* =========================================================
-ROOT
+TOKENS
 ========================================================= */
 
 :root{
-
-  --bg:#050913;
-
-  --panel:#111827;
-  --panel2:#162235;
-
-  --line:#273449;
+  --bg:#050812;
+  --panel:#101827;
+  --panel2:#172236;
+  --line:#27344a;
 
   --text:#f5f7fb;
-  --muted:#98a8c0;
+  --muted:#9ba9bd;
 
   --accent:#7bc7ff;
   --accent2:#9d7cff;
@@ -57,84 +78,68 @@ ROOT
   --amber:#ffc857;
   --red:#ff5f7a;
 
-  --radius:26px;
-
+  --radius:24px;
 }
 
 /* =========================================================
-BACKGROUND
-========================================================= */
-
-body{
-
-  background:
-
-    radial-gradient(
-      circle at top left,
-      rgba(123,199,255,.16),
-      transparent 34rem
-    ),
-
-    radial-gradient(
-      circle at top right,
-      rgba(157,124,255,.12),
-      transparent 30rem
-    ),
-
-    var(--bg);
-
-  min-height:100vh;
-
-}
-
-/* =========================================================
-APP
+APP WRAPPER
 ========================================================= */
 
 .app{
-
-  max-width:920px;
-
+  max-width:520px;
   margin:0 auto;
-
+  min-height:100vh;
   padding:
     env(safe-area-inset-top)
-    16px
+    14px
     env(safe-area-inset-bottom);
-
 }
 
 /* =========================================================
-HEADER
+TOP BAR
 ========================================================= */
 
-.header{
-
-  padding:30px 6px 18px;
-
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 4px 10px;
 }
 
-.logo{
-
-  font-size:48px;
+.brand{
+  font-size:24px;
   font-weight:900;
-
-  line-height:.9;
-
-  letter-spacing:-2.5px;
-
+  letter-spacing:-1px;
 }
 
-.subtitle{
-
-  margin-top:12px;
-
+.version{
   color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+}
 
-  font-size:15px;
+/* =========================================================
+SCREEN SYSTEM
+========================================================= */
 
-  line-height:1.5;
+.screen{
+  display:none;
+  animation:fadeIn .18s ease-out;
+}
 
+.screen.active{
+  display:block;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* =========================================================
@@ -142,12 +147,10 @@ CARD
 ========================================================= */
 
 .card{
-
   background:
-
     linear-gradient(
       180deg,
-      rgba(255,255,255,.055),
+      rgba(255,255,255,.06),
       rgba(255,255,255,.025)
     );
 
@@ -156,29 +159,59 @@ CARD
 
   border-radius:var(--radius);
 
-  padding:16px;
+  padding:18px;
 
   margin-bottom:14px;
 
-  backdrop-filter:blur(12px);
-
   box-shadow:
-    0 18px 40px rgba(0,0,0,.34);
+    0 18px 40px rgba(0,0,0,.32);
 
+  backdrop-filter:blur(12px);
 }
 
 /* =========================================================
-SECTION TITLE
+TYPOGRAPHY
 ========================================================= */
 
+.heroTitle{
+  font-size:44px;
+  font-weight:950;
+  line-height:.9;
+  letter-spacing:-2.5px;
+  margin:18px 0 12px;
+}
+
+.heroText{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+
 .sectionTitle{
-
   font-size:21px;
-
   font-weight:900;
-
+  letter-spacing:-.4px;
   margin-bottom:12px;
+}
 
+.smallText{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.45;
+}
+
+.resultTitle{
+  font-size:72px;
+  line-height:.86;
+  font-weight:950;
+  letter-spacing:-4px;
+  margin:10px 0 4px;
+}
+
+.resultUnit{
+  font-size:24px;
+  color:var(--muted);
 }
 
 /* =========================================================
@@ -186,340 +219,195 @@ STATUS
 ========================================================= */
 
 .status{
-
   border-left:4px solid var(--accent);
-
   border-radius:16px;
-
+  background:rgba(123,199,255,.08);
+  color:#dbefff;
   padding:12px 14px;
-
-  background:
-    rgba(123,199,255,.08);
-
-  color:#d9efff;
-
-  font-size:14px;
-
   line-height:1.45;
-
+  font-size:14px;
 }
 
 .status.good{
-
   border-left-color:var(--green);
-
-  background:
-    rgba(55,214,122,.11);
-
-  color:#dbffe7;
-
+  background:rgba(55,214,122,.11);
+  color:#ddffe9;
 }
 
 .status.warn{
-
   border-left-color:var(--amber);
-
-  background:
-    rgba(255,200,87,.12);
-
-  color:#fff3d0;
-
+  background:rgba(255,200,87,.12);
+  color:#fff2cd;
 }
 
 .status.bad{
-
   border-left-color:var(--red);
-
-  background:
-    rgba(255,95,122,.13);
-
+  background:rgba(255,95,122,.13);
   color:#ffe0e6;
-
 }
 
 /* =========================================================
 BUTTONS
 ========================================================= */
 
-.buttonRow{
-
-  display:flex;
-
-  gap:10px;
-
-  margin-top:12px;
-
-}
-
 button{
-
-  flex:1;
-
+  width:100%;
   border:none;
-
   border-radius:18px;
-
   padding:16px;
-
   font-size:15px;
-
   font-weight:900;
-
   cursor:pointer;
-
   color:#061019;
-
   background:
-
     linear-gradient(
       135deg,
       var(--accent),
       var(--accent2)
     );
-
   box-shadow:
     0 10px 24px rgba(123,199,255,.16);
-
 }
 
 button.secondary{
-
-  background:
-    rgba(255,255,255,.08);
-
+  background:rgba(255,255,255,.08);
   color:var(--text);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
+  border:1px solid rgba(255,255,255,.08);
   box-shadow:none;
+}
 
+button.ghost{
+  background:transparent;
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:none;
 }
 
 button.danger{
-
-  background:
-    rgba(255,95,122,.16);
-
+  background:rgba(255,95,122,.16);
   color:#ffdce4;
-
-  border:
-    1px solid rgba(255,95,122,.22);
-
+  border:1px solid rgba(255,95,122,.22);
   box-shadow:none;
-
 }
 
 button:disabled{
-
   opacity:.45;
+}
 
+.buttonStack{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.buttonRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
 }
 
 /* =========================================================
-MODE BUTTONS
+MODE SELECTOR
 ========================================================= */
 
-.modeRow{
-
-  display:flex;
-
+.modeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:10px;
-
-  margin-top:12px;
-
 }
 
-.modeButton{
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  color:var(--text);
-
+.modeCard{
+  border-radius:18px;
+  padding:14px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
 }
 
-.modeButton.active{
-
+.modeCard.active{
   background:
     linear-gradient(
       135deg,
-      var(--accent),
-      var(--accent2)
+      rgba(123,199,255,.24),
+      rgba(157,124,255,.18)
     );
+  border-color:rgba(123,199,255,.45);
+}
 
-  color:#051018;
+.modeCardTitle{
+  font-weight:900;
+  margin-bottom:6px;
+}
 
+.modeCardText{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
 }
 
 /* =========================================================
-GRID
+FORMS
 ========================================================= */
 
-.grid2{
-
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:10px;
-
+label{
+  display:block;
+  color:var(--muted);
+  margin:12px 0 6px;
+  font-size:13px;
 }
 
-.grid3{
+input,
+select,
+textarea{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  padding:14px;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:15px;
+}
 
-  display:grid;
-
-  grid-template-columns:1fr 1fr 1fr;
-
-  gap:10px;
-
+textarea{
+  min-height:84px;
+  resize:vertical;
 }
 
 /* =========================================================
 METRICS
 ========================================================= */
 
+.metricGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
 .metric{
-
-  background:
-    rgba(255,255,255,.05);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
   border-radius:18px;
-
   padding:14px;
-
 }
 
 .metricLabel{
-
   color:var(--muted);
-
   font-size:12px;
-
   margin-bottom:8px;
-
 }
 
 .metricValue{
-
-  font-size:30px;
-
-  font-weight:900;
-
+  font-size:28px;
+  font-weight:950;
   letter-spacing:-1px;
-
 }
 
 .metricUnit{
-
   color:var(--muted);
-
   font-size:12px;
-
-  margin-left:4px;
-
-}
-
-/* =========================================================
-INPUTS
-========================================================= */
-
-label{
-
-  display:block;
-
-  color:var(--muted);
-
-  margin:
-    12px 0 6px;
-
-  font-size:13px;
-
-}
-
-input,
-textarea,
-select{
-
-  width:100%;
-
-  border:none;
-
-  border-radius:16px;
-
-  padding:14px;
-
-  background:
-    rgba(255,255,255,.06);
-
-  color:var(--text);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
-  font-size:15px;
-
-}
-
-textarea{
-
-  min-height:90px;
-
-  resize:vertical;
-
-}
-
-/* =========================================================
-COUNTDOWN
-========================================================= */
-
-.countdown{
-
-  font-size:84px;
-
-  font-weight:900;
-
-  text-align:center;
-
-  letter-spacing:-4px;
-
-  padding:18px 0;
-
-}
-
-/* =========================================================
-RESULT
-========================================================= */
-
-.bigResult{
-
-  font-size:72px;
-
-  font-weight:900;
-
-  line-height:.88;
-
-  letter-spacing:-4px;
-
-  margin-top:8px;
-
-}
-
-.resultSub{
-
-  color:var(--muted);
-
-  margin-top:6px;
-
-  line-height:1.45;
-
+  margin-left:3px;
 }
 
 /* =========================================================
@@ -527,767 +415,980 @@ PILLS
 ========================================================= */
 
 .pills{
-
   margin-top:10px;
-
 }
 
 .pill{
-
   display:inline-flex;
-
   align-items:center;
-
   border-radius:999px;
-
   padding:8px 12px;
-
-  margin:
-    0 8px 8px 0;
-
+  margin:0 8px 8px 0;
   font-size:12px;
-
   font-weight:900;
-
-  background:
-    rgba(255,255,255,.07);
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
 }
 
 .pill.good{
-
-  background:
-    rgba(55,214,122,.14);
-
-  color:#dbffe8;
-
+  background:rgba(55,214,122,.14);
+  color:#ddffe9;
 }
 
 .pill.warn{
-
-  background:
-    rgba(255,200,87,.14);
-
+  background:rgba(255,200,87,.14);
   color:#fff2c8;
-
 }
 
 .pill.bad{
-
-  background:
-    rgba(255,95,122,.16);
-
+  background:rgba(255,95,122,.16);
   color:#ffe0e5;
+}
 
+/* =========================================================
+COUNTDOWN / JUMP SCREEN
+========================================================= */
+
+.countdown{
+  text-align:center;
+  font-size:92px;
+  font-weight:950;
+  line-height:1;
+  letter-spacing:-4px;
+  padding:34px 0;
+}
+
+.jumpInstruction{
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.45;
 }
 
 /* =========================================================
 GRAPH
 ========================================================= */
 
+.graphWrap{
+  position:relative;
+}
+
 canvas{
-
   width:100%;
-
-  height:240px;
-
-  background:
-    rgba(0,0,0,.24);
-
+  height:250px;
   border-radius:18px;
-
-  border:
-    1px solid rgba(255,255,255,.08);
-
+  background:rgba(0,0,0,.24);
+  border:1px solid rgba(255,255,255,.08);
   margin-top:12px;
+  touch-action:none;
+}
 
+.markerHint{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:8px;
 }
 
 /* =========================================================
 REPLAY
 ========================================================= */
 
-.replayControls{
-
-  display:flex;
-
-  gap:10px;
-
+.replaySlider{
+  width:100%;
   margin-top:12px;
-
 }
 
-.replayBar{
-
-  width:100%;
-
+.manualTools{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
   margin-top:12px;
-
 }
 
 /* =========================================================
-HIDDEN
+HISTORY
+========================================================= */
+
+.historyItem{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:14px 0;
+}
+
+.historyItem:first-child{
+  border-top:none;
+}
+
+/* =========================================================
+BOTTOM NAV
+========================================================= */
+
+.bottomNav{
+  position:sticky;
+  bottom:0;
+  padding:
+    10px 0
+    calc(10px + env(safe-area-inset-bottom));
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(5,8,18,.92) 24%
+    );
+}
+
+.navGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.navBtn{
+  padding:11px 8px;
+  border-radius:15px;
+  font-size:12px;
+  background:rgba(255,255,255,.07);
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:none;
+}
+
+.navBtn.active{
+  color:#061019;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+}
+
+/* =========================================================
+UTILS
 ========================================================= */
 
 .hidden{
-
   display:none !important;
-
 }
 
-/* =========================================================
-FOOTER
-========================================================= */
+.spacer{
+  height:10px;
+}
 
-.footer{
-
+.footerNote{
   text-align:center;
-
   color:var(--muted);
-
   font-size:12px;
-
-  line-height:1.5;
-
-  padding:14px 0 26px;
-
+  line-height:1.45;
+  padding:14px 0 18px;
 }
 
 /* =========================================================
-MOBILE
+VERY SMALL SCREENS
 ========================================================= */
 
-@media(max-width:680px){
+@media(max-width:380px){
 
-  .grid3{
-
-    grid-template-columns:1fr;
-
+  .heroTitle{
+    font-size:38px;
   }
 
-  .buttonRow,
-  .modeRow,
-  .replayControls{
-
-    flex-direction:column;
-
+  .resultTitle{
+    font-size:60px;
   }
 
-  .logo{
-
-    font-size:40px;
-
-  }
-
-  .bigResult{
-
-    font-size:58px;
-
+  .countdown{
+    font-size:76px;
   }
 
 }
 
 </style>
+
 </head>
+
 <body>
+
 <div class="app">
+
   <!-- =====================================================
-  HEADER
+  TOP BAR
   ====================================================== -->
-  <div class="header">
-<div class="logo">
-  JumpCheck V3
-</div>
 
-<div class="subtitle">
+  <div class="topbar">
 
-  Motion-based jump assessment using your phone.
-  Includes jump replay, force proxy estimation,
-  single jump mode, and athletic readiness tracking.
+    <div class="brand">
+      JumpCheck
+    </div>
 
-</div>
+    <div class="version">
+      V4
+    </div>
+
   </div>
+
   <!-- =====================================================
-  SENSOR ACCESS
+  HOME SCREEN
   ====================================================== -->
-  <div class="card">
-<div class="sectionTitle">
-  Motion Access
-</div>
 
-<div
-  id="permissionStatus"
-  class="status warn"
->
-
-  Motion access not enabled yet.
-  Tap below to begin.
-
-</div>
-
-<div class="buttonRow">
-
-  <button id="enableMotionBtn">
-    Enable Motion Sensors
-  </button>
-
-  <button
-    id="demoModeBtn"
-    class="secondary"
+  <section
+    id="screenHome"
+    class="screen active"
   >
-    Demo Mode
-  </button>
 
-</div>
-  </div>
+    <div class="card">
+
+      <div class="heroTitle">
+        Jump.
+        <br />
+        Measure.
+        <br />
+        Improve.
+      </div>
+
+      <div class="heroText">
+
+        A mobile jump testing lab using your phone’s
+        motion sensors. Auto-detect your jump,
+        then manually correct take-off and landing
+        markers if needed.
+
+      </div>
+
+      <div
+        id="homeStatus"
+        class="status warn"
+      >
+        Motion access has not been enabled yet.
+      </div>
+
+      <div class="buttonStack">
+
+        <button id="homeStartBtn">
+          Start Jump Test
+        </button>
+
+        <button
+          id="homeSensorBtn"
+          class="secondary"
+        >
+          Enable Motion Sensors
+        </button>
+
+        <button
+          id="homeDemoBtn"
+          class="ghost"
+        >
+          Try Demo Mode
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        How it works
+      </div>
+
+      <div class="smallText">
+
+        Strap your phone securely to your waistband
+        or hip area. Jump normally. The app estimates
+        flight time, jump height, force proxies,
+        and lets you replay the signal.
+
+      </div>
+
+    </div>
+
+  </section>
+
   <!-- =====================================================
-  TEST MODE
+  SETUP SCREEN
   ====================================================== -->
-  <div class="card">
-<div class="sectionTitle">
-  Test Mode
-</div>
 
-<div class="modeRow">
-
-  <button
-    id="singleJumpModeBtn"
-    class="modeButton active"
+  <section
+    id="screenSetup"
+    class="screen"
   >
-    Single Jump
-  </button>
 
-  <button
-    id="assessmentModeBtn"
-    class="modeButton"
-  >
-    3 Jump Assessment
-  </button>
+    <div class="card">
 
-</div>
-  </div>
+      <div class="sectionTitle">
+        Test Setup
+      </div>
+
+      <div
+        id="setupStatus"
+        class="status"
+      >
+        Choose your mode, enter bodyweight, then calibrate.
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="modeGrid">
+
+        <div
+          id="singleModeCard"
+          class="modeCard active"
+        >
+
+          <div class="modeCardTitle">
+            Single Jump
+          </div>
+
+          <div class="modeCardText">
+            Best for quick testing and algorithm tuning.
+          </div>
+
+        </div>
+
+        <div
+          id="assessmentModeCard"
+          class="modeCard"
+        >
+
+          <div class="modeCardTitle">
+            3-Jump Test
+          </div>
+
+          <div class="modeCardText">
+            Best for readiness, average, and drop-off.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="metricGrid" style="margin-top:12px;">
+
+        <div>
+
+          <label for="bodyweightInput">
+            Bodyweight kg
+          </label>
+
+          <input
+            id="bodyweightInput"
+            type="number"
+            value="95"
+            inputmode="decimal"
+          />
+
+        </div>
+
+        <div>
+
+          <label for="heightInput">
+            Height cm
+          </label>
+
+          <input
+            id="heightInput"
+            type="number"
+            value="188"
+            inputmode="decimal"
+          />
+
+        </div>
+
+      </div>
+
+      <label for="testType">
+        Jump Type
+      </label>
+
+      <select id="testType">
+
+        <option>
+          Countermovement Jump
+        </option>
+
+        <option>
+          Squat Jump
+        </option>
+
+        <option>
+          Repeated Jump
+        </option>
+
+      </select>
+
+      <label for="sessionNotes">
+        Notes
+      </label>
+
+      <textarea
+        id="sessionNotes"
+        placeholder="Sleep, fatigue, soreness, caffeine, training context..."
+      ></textarea>
+
+      <div class="buttonStack">
+
+        <button
+          id="calibrateBtn"
+          class="secondary"
+        >
+          Calibrate Standing Baseline
+        </button>
+
+        <button id="setupStartBtn">
+          Begin Test
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
   <!-- =====================================================
-  LIVE SENSOR
+  SENSOR SCREEN
   ====================================================== -->
-  <div class="card">
-<div class="sectionTitle">
-  Live Sensor Feed
-</div>
 
-<div class="grid3">
+  <section
+    id="screenSensor"
+    class="screen"
+  >
 
-  <div class="metric">
+    <div class="card">
 
-    <div class="metricLabel">
-      X Axis
+      <div class="sectionTitle">
+        Sensor Check
+      </div>
+
+      <div
+        id="sensorStatus"
+        class="status warn"
+      >
+        Enable motion sensors to see live values.
+      </div>
+
+      <div class="metricGrid" style="margin-top:12px;">
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            X
+          </div>
+
+          <div class="metricValue">
+            <span id="liveX">--</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Y
+          </div>
+
+          <div class="metricValue">
+            <span id="liveY">--</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Z
+          </div>
+
+          <div class="metricValue">
+            <span id="liveZ">--</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Magnitude
+          </div>
+
+          <div class="metricValue">
+            <span id="liveMagnitude">--</span>
+            <span class="metricUnit">m/s²</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Sample Rate
+          </div>
+
+          <div class="metricValue">
+            <span id="sampleRate">--</span>
+            <span class="metricUnit">Hz</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Baseline
+          </div>
+
+          <div class="metricValue">
+            <span id="baselineValue">--</span>
+            <span class="metricUnit">m/s²</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="buttonStack">
+
+        <button id="enableMotionBtn">
+          Enable Motion Sensors
+        </button>
+
+        <button
+          id="demoModeBtn"
+          class="secondary"
+        >
+          Demo Mode
+        </button>
+
+      </div>
+
     </div>
 
-    <div class="metricValue">
-      <span id="liveX">--</span>
-    </div>
+  </section>
 
-  </div>
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Y Axis
-    </div>
-
-    <div class="metricValue">
-      <span id="liveY">--</span>
-    </div>
-
-  </div>
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Z Axis
-    </div>
-
-    <div class="metricValue">
-      <span id="liveZ">--</span>
-    </div>
-
-  </div>
-
-</div>
-
-<div
-  class="grid2"
-  style="margin-top:10px;"
->
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Magnitude
-    </div>
-
-    <div class="metricValue">
-
-      <span id="liveMagnitude">
-        --
-      </span>
-
-      <span class="metricUnit">
-        m/s²
-      </span>
-
-    </div>
-
-  </div>
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Sample Rate
-    </div>
-
-    <div class="metricValue">
-
-      <span id="sampleRate">
-        --
-      </span>
-
-      <span class="metricUnit">
-        Hz
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-  </div>
   <!-- =====================================================
-  ATHLETE SETUP
+  JUMP SCREEN
   ====================================================== -->
-  <div class="card">
-<div class="sectionTitle">
-  Athlete Setup
-</div>
 
-<div class="status">
-
-  Force values are acceleration-derived estimates
-  using body mass and phone sensor data.
-  They are useful for trend tracking only.
-
-</div>
-
-<div
-  class="grid2"
-  style="margin-top:12px;"
->
-
-  <div>
-
-    <label>
-      Bodyweight (kg)
-    </label>
-
-    <input
-      id="bodyweightInput"
-      type="number"
-      placeholder="95"
-      value="95"
-    />
-
-  </div>
-
-  <div>
-
-    <label>
-      Height (cm)
-    </label>
-
-    <input
-      id="heightInput"
-      type="number"
-      placeholder="188"
-      value="188"
-    />
-
-  </div>
-
-</div>
-
-<label>
-  Test Type
-</label>
-
-<select id="testType">
-
-  <option>
-    Countermovement Jump
-  </option>
-
-  <option>
-    Squat Jump
-  </option>
-
-  <option>
-    Repeated Jump
-  </option>
-
-</select>
-
-<label>
-  Session Notes
-</label>
-
-<textarea
-  id="sessionNotes"
-  placeholder="Sleep, fatigue, readiness, caffeine, training context..."
-></textarea>
-
-<div class="buttonRow">
-
-  <button
-    id="calibrateBtn"
-    class="secondary"
+  <section
+    id="screenJump"
+    class="screen"
   >
-    Calibrate
-  </button>
 
-  <button id="startTestBtn">
-    Start Test
-  </button>
+    <div class="card">
 
-</div>
-  </div>
+      <div class="sectionTitle">
+        Jump Capture
+      </div>
+
+      <div
+        id="jumpStatus"
+        class="status"
+      >
+        Get ready.
+      </div>
+
+      <div
+        id="countdown"
+        class="countdown hidden"
+      >
+        3
+      </div>
+
+      <div
+        id="jumpInstruction"
+        class="jumpInstruction"
+      >
+        Stay still until the countdown says JUMP.
+      </div>
+
+      <div class="metricGrid" style="margin-top:14px;">
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Attempt
+          </div>
+
+          <div class="metricValue">
+            <span id="attemptCounter">0 / 1</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Mode
+          </div>
+
+          <div class="metricValue" style="font-size:21px;">
+            <span id="activeModeLabel">Single</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
   <!-- =====================================================
-  TEST AREA
+  RESULT SCREEN
   ====================================================== -->
-  <div class="card">
-<div class="sectionTitle">
-  Jump Capture
-</div>
 
-<div
-  id="testStatus"
-  class="status"
->
-
-  Waiting for setup.
-
-</div>
-
-<div
-  id="countdown"
-  class="countdown hidden"
->
-  3
-</div>
-
-<div
-  class="grid2"
-  style="margin-top:12px;"
->
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Baseline
-    </div>
-
-    <div class="metricValue">
-
-      <span id="baselineValue">
-        --
-      </span>
-
-      <span class="metricUnit">
-        m/s²
-      </span>
-
-    </div>
-
-  </div>
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Attempt
-    </div>
-
-    <div class="metricValue">
-
-      <span id="attemptCounter">
-        0 / 3
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-
-<canvas
-  id="jumpGraph"
-  width="900"
-  height="260"
-></canvas>
-
-<!-- ===================================================
-REPLAY CONTROLS
-==================================================== -->
-
-<div class="replayControls">
-
-  <button
-    id="playReplayBtn"
-    class="secondary"
+  <section
+    id="screenResult"
+    class="screen"
   >
-    Play Replay
-  </button>
 
-  <button
-    id="pauseReplayBtn"
-    class="secondary"
-  >
-    Pause
-  </button>
+    <div class="card">
 
-</div>
+      <div class="sectionTitle">
+        Result
+      </div>
 
-<input
-  id="replaySlider"
-  class="replayBar"
-  type="range"
-  min="0"
-  max="100"
-  value="0"
-/>
-  </div>
+      <div class="resultTitle">
+
+        <span id="bestJumpValue">--</span>
+        <span class="resultUnit">cm</span>
+
+      </div>
+
+      <div class="smallText">
+        Best jump height estimate
+      </div>
+
+      <div class="pills">
+
+        <span
+          id="confidencePill"
+          class="pill"
+        >
+          Confidence
+        </span>
+
+        <span
+          id="readinessPill"
+          class="pill"
+        >
+          Readiness
+        </span>
+
+        <span
+          id="markerModePill"
+          class="pill"
+        >
+          Auto markers
+        </span>
+
+      </div>
+
+      <div class="metricGrid" style="margin-top:12px;">
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Flight Time
+          </div>
+
+          <div class="metricValue">
+            <span id="flightTimeMetric">--</span>
+            <span class="metricUnit">s</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Average
+          </div>
+
+          <div class="metricValue">
+            <span id="averageMetric">--</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Push Proxy
+          </div>
+
+          <div class="metricValue">
+            <span id="propulsionForceMetric">--</span>
+            <span class="metricUnit">N</span>
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metricLabel">
+            Land Proxy
+          </div>
+
+          <div class="metricValue">
+            <span id="landingForceMetric">--</span>
+            <span class="metricUnit">N</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        id="attemptPills"
+        class="pills"
+      ></div>
+
+      <div class="buttonStack">
+
+        <button id="openReplayBtn">
+          Review / Adjust Markers
+        </button>
+
+        <button
+          id="saveSessionBtn"
+          class="secondary"
+        >
+          Save Session
+        </button>
+
+        <button
+          id="newTestBtn"
+          class="ghost"
+        >
+          New Test
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
   <!-- =====================================================
-  RESULTS
+  REPLAY / MANUAL MARKER SCREEN
   ====================================================== -->
-  <div
-    id="resultsCard"
-    class="card hidden"
+
+  <section
+    id="screenReplay"
+    class="screen"
   >
-<div class="sectionTitle">
-  Results
-</div>
 
-<div class="bigResult">
+    <div class="card">
 
-  <span id="bestJumpValue">
-    --
-  </span>
+      <div class="sectionTitle">
+        Replay & Marker Edit
+      </div>
 
-  cm
+      <div
+        id="replayStatus"
+        class="status"
+      >
+        Auto markers shown. Select a marker tool, then tap the graph to correct it.
+      </div>
 
-</div>
+      <div class="graphWrap">
 
-<div class="resultSub">
-  Best jump height estimate
-</div>
+        <canvas
+          id="jumpGraph"
+          width="900"
+          height="280"
+        ></canvas>
 
-<div class="pills">
+      </div>
 
-  <span
-    id="confidencePill"
-    class="pill"
-  >
-    Confidence
-  </span>
+      <div class="markerHint">
 
-  <span
-    id="readinessPill"
-    class="pill"
-  >
-    Readiness
-  </span>
+        Yellow = propulsion, green = take-off,
+        red = landing, white = replay cursor.
 
-</div>
+      </div>
 
-<div
-  class="grid3"
-  style="margin-top:14px;"
->
+      <input
+        id="replaySlider"
+        class="replaySlider"
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+      />
 
-  <div class="metric">
+      <div class="buttonRow">
 
-    <div class="metricLabel">
-      Best Jump
-    </div>
+        <button
+          id="playReplayBtn"
+          class="secondary"
+        >
+          Play
+        </button>
 
-    <div class="metricValue">
+        <button
+          id="pauseReplayBtn"
+          class="secondary"
+        >
+          Pause
+        </button>
 
-      <span id="bestMetric">
-        --
-      </span>
+      </div>
 
-    </div>
+      <div class="manualTools">
 
-  </div>
+        <button
+          id="setTakeoffBtn"
+          class="secondary"
+        >
+          Set Take-off
+        </button>
 
-  <div class="metric">
+        <button
+          id="setLandingBtn"
+          class="secondary"
+        >
+          Set Landing
+        </button>
 
-    <div class="metricLabel">
-      Average Jump
-    </div>
+      </div>
 
-    <div class="metricValue">
+      <div class="buttonStack">
 
-      <span id="averageMetric">
-        --
-      </span>
+        <button
+          id="resetAutoMarkersBtn"
+          class="ghost"
+        >
+          Reset Auto Markers
+        </button>
 
-    </div>
+        <button id="applyMarkerEditBtn">
+          Apply & Return to Result
+        </button>
 
-  </div>
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Drop Off
-    </div>
-
-    <div class="metricValue">
-
-      <span id="dropoffMetric">
-        --
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ===================================================
-FORCE PROXY
-==================================================== -->
-
-<div
-  class="grid2"
-  style="margin-top:12px;"
->
-
-  <div class="metric">
-
-    <div class="metricLabel">
-      Peak Propulsion
-    </div>
-
-    <div class="metricValue">
-
-      <span id="propulsionForceMetric">
-        --
-      </span>
-
-      <span class="metricUnit">
-        N
-      </span>
+      </div>
 
     </div>
 
-  </div>
+  </section>
 
-  <div class="metric">
-
-    <div class="metricLabel">
-      Peak Landing
-    </div>
-
-    <div class="metricValue">
-
-      <span id="landingForceMetric">
-        --
-      </span>
-
-      <span class="metricUnit">
-        N
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div
-  id="attemptPills"
-  class="pills"
-></div>
-
-<div class="buttonRow">
-
-  <button id="saveSessionBtn">
-    Save Session
-  </button>
-
-</div>
-  </div>
   <!-- =====================================================
-  HISTORY
+  HISTORY SCREEN
   ====================================================== -->
-  <div class="card">
-<div class="sectionTitle">
-  History
-</div>
 
-<div class="buttonRow">
-
-  <button
-    id="exportCsvBtn"
-    class="secondary"
+  <section
+    id="screenHistory"
+    class="screen"
   >
-    Export CSV
-  </button>
 
-  <button
-    id="clearHistoryBtn"
-    class="danger"
-  >
-    Clear History
-  </button>
+    <div class="card">
 
-</div>
+      <div class="sectionTitle">
+        History
+      </div>
 
-<div
-  id="historyList"
-  style="margin-top:14px;"
-></div>
-  </div>
+      <div class="buttonRow">
+
+        <button
+          id="exportCsvBtn"
+          class="secondary"
+        >
+          Export CSV
+        </button>
+
+        <button
+          id="clearHistoryBtn"
+          class="danger"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <div
+        id="historyList"
+        style="margin-top:14px;"
+      ></div>
+
+    </div>
+
+  </section>
+
   <!-- =====================================================
-  FOOTER
+  FOOTER NOTE
   ====================================================== -->
-  <div class="footer">
-JumpCheck V3 is designed for trend tracking only.
-Force values are estimated proxies derived from
-phone acceleration and body mass.
+
+  <div class="footerNote">
+
+    JumpCheck estimates are for trend tracking only.
+    This is not a clinical, medical, or force-plate measurement.
+
   </div>
+
+  <!-- =====================================================
+  BOTTOM NAV
+  ====================================================== -->
+
+  <nav class="bottomNav">
+
+    <div class="navGrid">
+
+      <button
+        id="navHome"
+        class="navBtn active"
+      >
+        Home
+      </button>
+
+      <button
+        id="navSetup"
+        class="navBtn"
+      >
+        Setup
+      </button>
+
+      <button
+        id="navSensor"
+        class="navBtn"
+      >
+        Sensor
+      </button>
+
+      <button
+        id="navHistory"
+        class="navBtn"
+      >
+        History
+      </button>
+
+    </div>
+
+  </nav>
+
 </div>
+
 <!-- =========================================================
 PART 1 ENDS HERE
-PART 2 CONTINUES WITH:
-- STATE
-- SENSOR ENGINE
-- MODE SWITCHING
-- REPLAY ENGINE
-- LIVE MOTION
+
+PART 2 WILL ADD:
+- APP STATE
+- SCREEN NAVIGATION
+- DOM REFERENCES
+- BASIC HELPERS
 ========================================================= -->
 
+/* =========================================================
+JUMPCHECK V4 — PART 2 OF 8
+APP STATE + SCREEN NAVIGATION + DOM REFERENCES + HELPERS
+Paste directly after PART 1.
+========================================================= */
 
 <script>
+
 (() => {
 
 "use strict";
-
-/* =========================================================
-JUMPCHECK V3 — PART 2 OF 5
-STATE + SENSOR ENGINE + MODE SWITCHING + REPLAY ENGINE
-Paste this directly after PART 1
-========================================================= */
 
 /* =========================================================
 CONSTANTS
@@ -1295,7 +1396,7 @@ CONSTANTS
 
 const G = 9.80665;
 
-const STORAGE_KEY = "jumpcheck_v3_history";
+const STORAGE_KEY = "jumpcheck_v4_history";
 
 /* =========================================================
 APP STATE
@@ -1303,14 +1404,14 @@ APP STATE
 
 const state = {
 
-  motionEnabled:false,
-  demoMode:false,
-
+  // App mode
   mode:"single", // single | assessment
 
+  // Sensor state
+  motionEnabled:false,
+  demoMode:false,
   recording:false,
   calibrating:false,
-  testRunning:false,
 
   live:{
     x:0,
@@ -1324,19 +1425,28 @@ const state = {
 
   baseline:null,
 
+  // Test state
+  testRunning:false,
+  currentAttempt:0,
+  targetAttempts:1,
+
   samples:[],
   attempts:[],
 
-  currentAttempt:0,
-
   latestAnalysis:null,
 
+  // Manual marker editor
+  markerEditMode:null, // takeoff | landing | null
+  manualMarkersActive:false,
+
+  // Replay state
   replay:{
     playing:false,
     frame:0,
     timer:null
   },
 
+  // Saved sessions
   history:loadHistory()
 
 };
@@ -1346,7 +1456,9 @@ DOM SHORTCUT
 ========================================================= */
 
 function $(id){
+
   return document.getElementById(id);
+
 }
 
 /* =========================================================
@@ -1355,61 +1467,86 @@ DOM REFERENCES
 
 const ui = {
 
-  permissionStatus:$("permissionStatus"),
+  // Screens
+  screens:{
+    home:$("screenHome"),
+    setup:$("screenSetup"),
+    sensor:$("screenSensor"),
+    jump:$("screenJump"),
+    result:$("screenResult"),
+    replay:$("screenReplay"),
+    history:$("screenHistory")
+  },
 
-  enableMotionBtn:$("enableMotionBtn"),
-  demoModeBtn:$("demoModeBtn"),
+  // Nav
+  navHome:$("navHome"),
+  navSetup:$("navSetup"),
+  navSensor:$("navSensor"),
+  navHistory:$("navHistory"),
 
-  singleJumpModeBtn:$("singleJumpModeBtn"),
-  assessmentModeBtn:$("assessmentModeBtn"),
+  // Home
+  homeStatus:$("homeStatus"),
+  homeStartBtn:$("homeStartBtn"),
+  homeSensorBtn:$("homeSensorBtn"),
+  homeDemoBtn:$("homeDemoBtn"),
 
+  // Setup
+  setupStatus:$("setupStatus"),
+  singleModeCard:$("singleModeCard"),
+  assessmentModeCard:$("assessmentModeCard"),
+  bodyweightInput:$("bodyweightInput"),
+  heightInput:$("heightInput"),
+  testType:$("testType"),
+  sessionNotes:$("sessionNotes"),
+  calibrateBtn:$("calibrateBtn"),
+  setupStartBtn:$("setupStartBtn"),
+
+  // Sensor
+  sensorStatus:$("sensorStatus"),
   liveX:$("liveX"),
   liveY:$("liveY"),
   liveZ:$("liveZ"),
   liveMagnitude:$("liveMagnitude"),
   sampleRate:$("sampleRate"),
-
-  bodyweightInput:$("bodyweightInput"),
-  heightInput:$("heightInput"),
-
-  testType:$("testType"),
-  sessionNotes:$("sessionNotes"),
-
-  calibrateBtn:$("calibrateBtn"),
-  startTestBtn:$("startTestBtn"),
-
-  testStatus:$("testStatus"),
-  countdown:$("countdown"),
-
   baselineValue:$("baselineValue"),
+  enableMotionBtn:$("enableMotionBtn"),
+  demoModeBtn:$("demoModeBtn"),
+
+  // Jump
+  jumpStatus:$("jumpStatus"),
+  countdown:$("countdown"),
+  jumpInstruction:$("jumpInstruction"),
   attemptCounter:$("attemptCounter"),
+  activeModeLabel:$("activeModeLabel"),
 
-  jumpGraph:$("jumpGraph"),
-
-  playReplayBtn:$("playReplayBtn"),
-  pauseReplayBtn:$("pauseReplayBtn"),
-  replaySlider:$("replaySlider"),
-
-  resultsCard:$("resultsCard"),
-
+  // Result
   bestJumpValue:$("bestJumpValue"),
   confidencePill:$("confidencePill"),
   readinessPill:$("readinessPill"),
-
-  bestMetric:$("bestMetric"),
+  markerModePill:$("markerModePill"),
+  flightTimeMetric:$("flightTimeMetric"),
   averageMetric:$("averageMetric"),
-  dropoffMetric:$("dropoffMetric"),
-
   propulsionForceMetric:$("propulsionForceMetric"),
   landingForceMetric:$("landingForceMetric"),
-
   attemptPills:$("attemptPills"),
-
+  openReplayBtn:$("openReplayBtn"),
   saveSessionBtn:$("saveSessionBtn"),
+  newTestBtn:$("newTestBtn"),
 
+  // Replay
+  replayStatus:$("replayStatus"),
+  jumpGraph:$("jumpGraph"),
+  replaySlider:$("replaySlider"),
+  playReplayBtn:$("playReplayBtn"),
+  pauseReplayBtn:$("pauseReplayBtn"),
+  setTakeoffBtn:$("setTakeoffBtn"),
+  setLandingBtn:$("setLandingBtn"),
+  resetAutoMarkersBtn:$("resetAutoMarkersBtn"),
+  applyMarkerEditBtn:$("applyMarkerEditBtn"),
+
+  // History
   exportCsvBtn:$("exportCsvBtn"),
   clearHistoryBtn:$("clearHistoryBtn"),
-
   historyList:$("historyList")
 
 };
@@ -1425,6 +1562,12 @@ function formatNumber(value, decimals = 1){
   }
 
   return value.toFixed(decimals);
+
+}
+
+function sleep(ms){
+
+  return new Promise(resolve => setTimeout(resolve, ms));
 
 }
 
@@ -1452,9 +1595,36 @@ function setPill(element, message, type = ""){
 
 }
 
-function sleep(ms){
+function escapeHTML(value){
 
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+function getBodyMassKg(){
+
+  const value =
+    parseFloat(ui.bodyweightInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : 95;
+
+}
+
+function getHeightCm(){
+
+  const value =
+    parseFloat(ui.heightInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : 188;
 
 }
 
@@ -1488,72 +1658,46 @@ function saveHistory(){
 
 }
 
-function getBodyMassKg(){
-
-  const value =
-    parseFloat(ui.bodyweightInput.value);
-
-  return Number.isFinite(value) && value > 0
-    ? value
-    : 95;
-
-}
-
-function getHeightCm(){
-
-  const value =
-    parseFloat(ui.heightInput.value);
-
-  return Number.isFinite(value) && value > 0
-    ? value
-    : 188;
-
-}
-
 /* =========================================================
-MODE SWITCHING
+SCREEN NAVIGATION
 ========================================================= */
 
-function setMode(mode){
+function showScreen(screenName){
 
-  state.mode = mode;
+  Object.entries(ui.screens).forEach(([name, element]) => {
 
-  ui.singleJumpModeBtn.classList.toggle(
-    "active",
-    mode === "single"
-  );
-
-  ui.assessmentModeBtn.classList.toggle(
-    "active",
-    mode === "assessment"
-  );
-
-  if(mode === "single"){
-
-    ui.startTestBtn.textContent =
-      "Start Single Jump";
-
-    ui.attemptCounter.textContent =
-      "0 / 1";
-
-    setStatus(
-      ui.testStatus,
-      "Single jump mode selected.",
-      ""
+    element.classList.toggle(
+      "active",
+      name === screenName
     );
 
-  }else{
+  });
 
-    ui.startTestBtn.textContent =
-      "Start 3 Jump Assessment";
+  ui.navHome.classList.toggle(
+    "active",
+    screenName === "home"
+  );
 
-    ui.attemptCounter.textContent =
-      "0 / 3";
+  ui.navSetup.classList.toggle(
+    "active",
+    screenName === "setup"
+  );
 
-    setStatus(
-      ui.testStatus,
-      "3 jump assessment mode selected.",
-      ""
+  ui.navSensor.classList.toggle(
+    "active",
+    screenName === "sensor"
+  );
+
+  ui.navHistory.classList.toggle(
+    "active",
+    screenName === "history"
+  );
+
+  if(screenName === "replay" && state.latestAnalysis){
+
+    drawJumpGraph(
+      state.latestAnalysis,
+      state.replay.frame
     );
 
   }
@@ -1561,7 +1705,175 @@ function setMode(mode){
 }
 
 /* =========================================================
-MOTION PERMISSION
+MODE SELECTION
+========================================================= */
+
+function setMode(mode){
+
+  state.mode = mode;
+
+  state.targetAttempts =
+    mode === "single"
+      ? 1
+      : 3;
+
+  ui.singleModeCard.classList.toggle(
+    "active",
+    mode === "single"
+  );
+
+  ui.assessmentModeCard.classList.toggle(
+    "active",
+    mode === "assessment"
+  );
+
+  ui.activeModeLabel.textContent =
+    mode === "single"
+      ? "Single"
+      : "3 Jump";
+
+  ui.attemptCounter.textContent =
+    `0 / ${state.targetAttempts}`;
+
+  setStatus(
+    ui.setupStatus,
+    mode === "single"
+      ? "Single jump mode selected. Best for quick testing and marker tuning."
+      : "3-jump assessment mode selected. Best for readiness and drop-off.",
+    ""
+  );
+
+}
+
+/* =========================================================
+RESET CURRENT TEST
+========================================================= */
+
+function resetCurrentTest(){
+
+  stopReplay();
+
+  state.currentAttempt = 0;
+  state.samples = [];
+  state.attempts = [];
+  state.latestAnalysis = null;
+  state.markerEditMode = null;
+  state.manualMarkersActive = false;
+
+  state.replay.frame = 0;
+  ui.replaySlider.value = 0;
+
+  ui.bestJumpValue.textContent = "--";
+  ui.flightTimeMetric.textContent = "--";
+  ui.averageMetric.textContent = "--";
+  ui.propulsionForceMetric.textContent = "--";
+  ui.landingForceMetric.textContent = "--";
+  ui.attemptPills.innerHTML = "";
+
+  setPill(
+    ui.confidencePill,
+    "Confidence",
+    ""
+  );
+
+  setPill(
+    ui.readinessPill,
+    "Readiness",
+    ""
+  );
+
+  setPill(
+    ui.markerModePill,
+    "Auto markers",
+    ""
+  );
+
+  ui.attemptCounter.textContent =
+    `0 / ${state.targetAttempts}`;
+
+}
+
+/* =========================================================
+PART 2 EVENT LISTENERS
+========================================================= */
+
+ui.navHome.addEventListener(
+  "click",
+  () => showScreen("home")
+);
+
+ui.navSetup.addEventListener(
+  "click",
+  () => showScreen("setup")
+);
+
+ui.navSensor.addEventListener(
+  "click",
+  () => showScreen("sensor")
+);
+
+ui.navHistory.addEventListener(
+  "click",
+  () => showScreen("history")
+);
+
+ui.homeStartBtn.addEventListener(
+  "click",
+  () => showScreen("setup")
+);
+
+ui.singleModeCard.addEventListener(
+  "click",
+  () => setMode("single")
+);
+
+ui.assessmentModeCard.addEventListener(
+  "click",
+  () => setMode("assessment")
+);
+
+ui.openReplayBtn.addEventListener(
+  "click",
+  () => showScreen("replay")
+);
+
+ui.applyMarkerEditBtn.addEventListener(
+  "click",
+  () => showScreen("result")
+);
+
+ui.newTestBtn.addEventListener(
+  "click",
+  () => {
+    resetCurrentTest();
+    showScreen("setup");
+  }
+);
+
+/* =========================================================
+INITIALISE PART 2
+========================================================= */
+
+setMode("single");
+
+/* =========================================================
+PART 2 ENDS HERE
+
+PART 3 WILL ADD:
+- SENSOR PERMISSION
+- MOTION HANDLER
+- DEMO MODE
+- LIVE SENSOR LOOP
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V4 — PART 3 OF 8
+SENSOR PERMISSION + MOTION HANDLER + DEMO MODE + LIVE LOOP
+Paste directly after PART 2.
+========================================================= */
+
+/* =========================================================
+ENABLE MOTION SENSORS
 ========================================================= */
 
 async function enableMotionSensors(){
@@ -1571,14 +1883,27 @@ async function enableMotionSensors(){
     if(!window.DeviceMotionEvent){
 
       setStatus(
-        ui.permissionStatus,
-        "DeviceMotionEvent is not available in this browser. Try Safari or Chrome on your phone.",
+        ui.homeStatus,
+        "Motion sensors are not available in this browser. Try Safari or Chrome on your phone.",
         "bad"
       );
+
+      setStatus(
+        ui.sensorStatus,
+        "DeviceMotionEvent is unavailable in this browser.",
+        "bad"
+      );
+
+      showScreen("sensor");
 
       return;
 
     }
+
+    /*
+      iOS requires DeviceMotion permission from a direct
+      user button tap. Android usually skips this step.
+    */
 
     if(typeof DeviceMotionEvent.requestPermission === "function"){
 
@@ -1588,16 +1913,29 @@ async function enableMotionSensors(){
       if(response !== "granted"){
 
         setStatus(
-          ui.permissionStatus,
-          "Motion permission was not granted. Check Safari settings and allow Motion & Orientation access.",
+          ui.homeStatus,
+          "Motion permission was not granted. Check Safari Motion & Orientation Access settings.",
           "bad"
         );
+
+        setStatus(
+          ui.sensorStatus,
+          "Permission denied. Enable Motion & Orientation Access in Safari settings.",
+          "bad"
+        );
+
+        showScreen("sensor");
 
         return;
 
       }
 
     }
+
+    window.removeEventListener(
+      "devicemotion",
+      handleMotionEvent
+    );
 
     window.addEventListener(
       "devicemotion",
@@ -1608,18 +1946,34 @@ async function enableMotionSensors(){
     state.demoMode = false;
 
     setStatus(
-      ui.permissionStatus,
-      "Motion sensors enabled. Move your phone and watch the live sensor feed.",
+      ui.homeStatus,
+      "Motion sensors enabled. You can now calibrate and test.",
       "good"
     );
+
+    setStatus(
+      ui.sensorStatus,
+      "Motion sensors enabled. Move your phone to verify live values.",
+      "good"
+    );
+
+    showScreen("setup");
 
   }catch(error){
 
     setStatus(
-      ui.permissionStatus,
+      ui.homeStatus,
       "Unable to enable motion sensors: " + error.message,
       "bad"
     );
+
+    setStatus(
+      ui.sensorStatus,
+      "Unable to enable motion sensors: " + error.message,
+      "bad"
+    );
+
+    showScreen("sensor");
 
   }
 
@@ -1630,6 +1984,11 @@ MOTION HANDLER
 ========================================================= */
 
 function handleMotionEvent(event){
+
+  /*
+    accelerationIncludingGravity tends to give a stronger
+    take-off / flight / landing pattern for phone-on-hip use.
+  */
 
   const acceleration =
     event.accelerationIncludingGravity ||
@@ -1728,21 +2087,29 @@ function enableDemoMode(){
   state.sampleRate = 60;
 
   setStatus(
-    ui.permissionStatus,
-    "Demo mode enabled. The app will generate simulated jump data.",
+    ui.homeStatus,
+    "Demo mode enabled. Simulated jumps will be generated.",
     "warn"
   );
 
   setStatus(
-    ui.testStatus,
-    "Demo mode active. Calibrate, then start test.",
+    ui.sensorStatus,
+    "Demo mode enabled. Live values are simulated.",
     "warn"
   );
+
+  setStatus(
+    ui.setupStatus,
+    "Demo mode active. Calibrate, then begin test.",
+    "warn"
+  );
+
+  showScreen("setup");
 
 }
 
 /* =========================================================
-SIMULATED LIVE FEED
+SIMULATED LIVE SENSOR FEED
 ========================================================= */
 
 function updateDemoLiveFeed(){
@@ -1782,10 +2149,13 @@ function generateDemoJumpSamples(){
   const totalDurationMs = 5000;
 
   const flightDurationSeconds =
-    0.42 + Math.random() * 0.16;
+    0.42 + Math.random() * 0.15;
 
   const unweightStartMs =
-    1200;
+    1050;
+
+  const propulsionStartMs =
+    1450;
 
   const propulsionPeakMs =
     1650;
@@ -1804,22 +2174,44 @@ function generateDemoJumpSamples(){
   ){
 
     let magnitude =
-      G + (Math.random() - 0.5) * 0.38;
+      G + (Math.random() - 0.5) * 0.35;
+
+    /*
+      Unweighting dip.
+    */
 
     if(
-      t > unweightStartMs &&
+      t >= unweightStartMs &&
+      t < propulsionStartMs
+    ){
+
+      magnitude =
+        G * (0.55 + Math.random() * 0.18);
+
+    }
+
+    /*
+      Propulsion ramp.
+    */
+
+    if(
+      t >= propulsionStartMs &&
       t < propulsionPeakMs
     ){
 
       const phase =
-        (t - unweightStartMs) /
-        (propulsionPeakMs - unweightStartMs);
+        (t - propulsionStartMs) /
+        (propulsionPeakMs - propulsionStartMs);
 
       magnitude =
-        G * (0.65 + phase * 0.95) +
-        (Math.random() - 0.5) * 0.3;
+        G * (1.05 + phase * 0.85) +
+        (Math.random() - 0.5) * 0.25;
 
     }
+
+    /*
+      Propulsion peak through take-off.
+    */
 
     if(
       t >= propulsionPeakMs &&
@@ -1827,9 +2219,13 @@ function generateDemoJumpSamples(){
     ){
 
       magnitude =
-        G * (1.65 + Math.random() * 0.35);
+        G * (1.7 + Math.random() * 0.35);
 
     }
+
+    /*
+      Flight phase.
+    */
 
     if(
       t >= takeoffTimeMs &&
@@ -1837,9 +2233,13 @@ function generateDemoJumpSamples(){
     ){
 
       magnitude =
-        G * (0.06 + Math.random() * 0.08);
+        G * (0.05 + Math.random() * 0.08);
 
     }
+
+    /*
+      Landing impact.
+    */
 
     if(
       t > landingTimeMs &&
@@ -1847,20 +2247,28 @@ function generateDemoJumpSamples(){
     ){
 
       magnitude =
-        G * (2.25 + Math.random() * 0.95);
+        G * (2.2 + Math.random() * 0.95);
 
     }
+
+    /*
+      Stabilisation oscillation.
+    */
 
     if(
       t >= landingTimeMs + 220 &&
       t < landingTimeMs + 900
     ){
 
+      const decay =
+        Math.exp(-(t - landingTimeMs) / 430);
+
       magnitude =
         G +
-        Math.sin((t - landingTimeMs) / 90) *
-        G * 0.35 *
-        Math.exp(-(t - landingTimeMs) / 450);
+        Math.sin((t - landingTimeMs) / 85) *
+        G *
+        0.34 *
+        decay;
 
     }
 
@@ -1875,119 +2283,6 @@ function generateDemoJumpSamples(){
   }
 
   return samples;
-
-}
-
-/* =========================================================
-REPLAY ENGINE
-========================================================= */
-
-function resetReplay(){
-
-  stopReplay();
-
-  state.replay.frame = 0;
-
-  ui.replaySlider.value = 0;
-
-  if(state.latestAnalysis){
-    drawJumpGraph(state.latestAnalysis, 0);
-  }
-
-}
-
-function playReplay(){
-
-  if(
-    !state.latestAnalysis ||
-    !state.latestAnalysis.samples ||
-    !state.latestAnalysis.samples.length
-  ){
-
-    setStatus(
-      ui.testStatus,
-      "No jump capture available to replay yet.",
-      "warn"
-    );
-
-    return;
-
-  }
-
-  stopReplay();
-
-  state.replay.playing = true;
-
-  const totalFrames =
-    state.latestAnalysis.samples.length;
-
-  state.replay.timer =
-    setInterval(() => {
-
-      state.replay.frame++;
-
-      if(state.replay.frame >= totalFrames){
-
-        stopReplay();
-        state.replay.frame = totalFrames - 1;
-
-      }
-
-      const percent =
-        totalFrames > 1
-          ? (state.replay.frame / (totalFrames - 1)) * 100
-          : 0;
-
-      ui.replaySlider.value = percent;
-
-      drawJumpGraph(
-        state.latestAnalysis,
-        state.replay.frame
-      );
-
-    }, 30);
-
-}
-
-function stopReplay(){
-
-  state.replay.playing = false;
-
-  if(state.replay.timer){
-
-    clearInterval(state.replay.timer);
-
-    state.replay.timer = null;
-
-  }
-
-}
-
-function seekReplay(percent){
-
-  if(
-    !state.latestAnalysis ||
-    !state.latestAnalysis.samples ||
-    !state.latestAnalysis.samples.length
-  ){
-    return;
-  }
-
-  const totalFrames =
-    state.latestAnalysis.samples.length;
-
-  const frame =
-    Math.round(
-      (percent / 100) *
-      (totalFrames - 1)
-    );
-
-  state.replay.frame = frame;
-
-  drawJumpGraph(
-    state.latestAnalysis,
-    frame
-  );
 
 }
 
@@ -2023,25 +2318,27 @@ function updateLiveInterface(){
       ? formatNumber(state.baseline, 2)
       : "--";
 
-  const targetAttempts =
-    state.mode === "single"
-      ? 1
-      : 3;
-
-  ui.attemptCounter.textContent =
-    `${state.attempts.length} / ${targetAttempts}`;
-
   requestAnimationFrame(updateLiveInterface);
 
 }
 
 /* =========================================================
-PART 2 EVENT LISTENERS
+PART 3 EVENT LISTENERS
 ========================================================= */
+
+ui.homeSensorBtn.addEventListener(
+  "click",
+  enableMotionSensors
+);
 
 ui.enableMotionBtn.addEventListener(
   "click",
   enableMotionSensors
+);
+
+ui.homeDemoBtn.addEventListener(
+  "click",
+  enableDemoMode
 );
 
 ui.demoModeBtn.addEventListener(
@@ -2049,52 +2346,26 @@ ui.demoModeBtn.addEventListener(
   enableDemoMode
 );
 
-ui.singleJumpModeBtn.addEventListener(
-  "click",
-  () => setMode("single")
-);
-
-ui.assessmentModeBtn.addEventListener(
-  "click",
-  () => setMode("assessment")
-);
-
-ui.playReplayBtn.addEventListener(
-  "click",
-  playReplay
-);
-
-ui.pauseReplayBtn.addEventListener(
-  "click",
-  stopReplay
-);
-
-ui.replaySlider.addEventListener(
-  "input",
-  event => seekReplay(parseFloat(event.target.value))
-);
-
 /* =========================================================
-START LIVE UI LOOP
+INITIALISE PART 3
 ========================================================= */
-
-setMode("single");
 
 updateLiveInterface();
 
 /* =========================================================
-PART 2 ENDS HERE
-PART 3 CONTINUES WITH:
+PART 3 ENDS HERE
+
+PART 4 WILL ADD:
 - CALIBRATION
+- COUNTDOWN
 - RECORDING
-- SINGLE JUMP FLOW
-- 3 JUMP ASSESSMENT FLOW
+- SINGLE / 3-JUMP TEST FLOW
 ========================================================= */
 
 /* =========================================================
-JUMPCHECK V3 — PART 3 OF 5
-CALIBRATION + RECORDING + SINGLE JUMP + ASSESSMENT FLOW
-Paste this directly after PART 2
+JUMPCHECK V4 — PART 4 OF 8
+CALIBRATION + COUNTDOWN + RECORDING + TEST FLOW
+Paste directly after PART 3.
 ========================================================= */
 
 /* =========================================================
@@ -2106,10 +2377,12 @@ async function calibrateDevice(){
   if(!state.motionEnabled){
 
     setStatus(
-      ui.testStatus,
+      ui.setupStatus,
       "Enable motion sensors or demo mode first.",
       "warn"
     );
+
+    showScreen("sensor");
 
     return;
 
@@ -2118,7 +2391,7 @@ async function calibrateDevice(){
   state.calibrating = true;
 
   setStatus(
-    ui.testStatus,
+    ui.setupStatus,
     "Calibrating. Stand still for 3 seconds.",
     "warn"
   );
@@ -2156,16 +2429,16 @@ async function calibrateDevice(){
   if(standardDeviation > 1.2 && !state.demoMode){
 
     setStatus(
-      ui.testStatus,
-      "Calibration saved, but the phone moved during calibration. Tighten placement and recalibrate if needed.",
+      ui.setupStatus,
+      "Baseline saved, but the phone moved during calibration. Tighten placement and recalibrate if needed.",
       "warn"
     );
 
   }else{
 
     setStatus(
-      ui.testStatus,
-      "Calibration complete. Ready to jump.",
+      ui.setupStatus,
+      "Calibration complete. You’re ready to test.",
       "good"
     );
 
@@ -2181,16 +2454,20 @@ async function runCountdown(){
 
   ui.countdown.classList.remove("hidden");
 
-  const steps = ["3","2","1","JUMP"];
+  const steps = ["3", "2", "1", "JUMP"];
 
   for(const step of steps){
 
     ui.countdown.textContent = step;
 
     if(step === "JUMP"){
+
       await sleep(450);
+
     }else{
+
       await sleep(700);
+
     }
 
   }
@@ -2207,7 +2484,11 @@ async function recordMotionWindow(){
 
   state.samples = [];
 
-  resetReplay();
+  stopReplay();
+
+  state.replay.frame = 0;
+
+  ui.replaySlider.value = 0;
 
   if(state.demoMode){
 
@@ -2231,7 +2512,7 @@ async function recordMotionWindow(){
 }
 
 /* =========================================================
-RUN ONE JUMP CAPTURE
+RUN SINGLE JUMP CAPTURE
 ========================================================= */
 
 async function runJumpCapture(){
@@ -2239,10 +2520,12 @@ async function runJumpCapture(){
   if(!state.motionEnabled){
 
     setStatus(
-      ui.testStatus,
+      ui.jumpStatus,
       "Enable motion sensors or demo mode first.",
       "warn"
     );
+
+    showScreen("sensor");
 
     return null;
 
@@ -2251,22 +2534,32 @@ async function runJumpCapture(){
   if(!state.baseline){
 
     setStatus(
-      ui.testStatus,
-      "Calibrate first so the app knows your standing baseline.",
+      ui.setupStatus,
+      "Calibrate before testing so the app knows your standing baseline.",
       "warn"
     );
+
+    showScreen("setup");
 
     return null;
 
   }
 
+  showScreen("jump");
+
+  ui.jumpInstruction.textContent =
+    "Stay still until the countdown says JUMP.";
+
   await runCountdown();
 
   setStatus(
-    ui.testStatus,
+    ui.jumpStatus,
     `Recording attempt ${state.currentAttempt + 1}. Jump now.`,
     "warn"
   );
+
+  ui.jumpInstruction.textContent =
+    "Recording for 5 seconds. Land safely, then stay still.";
 
   const samples =
     await recordMotionWindow();
@@ -2276,38 +2569,34 @@ async function runJumpCapture(){
 
   state.latestAnalysis = analysis;
 
-  drawJumpGraph(analysis, null);
+  if(analysis.success){
 
-  if(!analysis.success){
+    state.attempts.push(analysis);
 
     setStatus(
-      ui.testStatus,
-      "Attempt not counted: " + analysis.reason,
-      "bad"
+      ui.jumpStatus,
+      `Attempt ${state.attempts.length} captured: ${formatNumber(analysis.heightCm,1)} cm.`,
+      analysis.confidenceType
     );
 
-    return null;
+    updateResults();
+
+    return analysis;
 
   }
 
-  state.attempts.push(analysis);
-
-  resetReplay();
-
   setStatus(
-    ui.testStatus,
-    `Attempt ${state.attempts.length}: ${formatNumber(analysis.heightCm,1)} cm. Replay available.`,
-    analysis.confidenceType
+    ui.jumpStatus,
+    "Attempt not counted: " + analysis.reason,
+    "bad"
   );
 
-  updateResults();
-
-  return analysis;
+  return null;
 
 }
 
 /* =========================================================
-START TEST
+START TEST FLOW
 ========================================================= */
 
 async function startTest(){
@@ -2319,10 +2608,12 @@ async function startTest(){
   if(!state.motionEnabled){
 
     setStatus(
-      ui.testStatus,
+      ui.setupStatus,
       "Enable motion sensors or demo mode first.",
       "warn"
     );
+
+    showScreen("sensor");
 
     return;
 
@@ -2331,7 +2622,7 @@ async function startTest(){
   if(!state.baseline){
 
     setStatus(
-      ui.testStatus,
+      ui.setupStatus,
       "Calibrate before starting your test.",
       "warn"
     );
@@ -2340,41 +2631,44 @@ async function startTest(){
 
   }
 
+  resetCurrentTest();
+
   state.testRunning = true;
 
-  state.attempts = [];
-
-  state.latestAnalysis = null;
-
-  ui.resultsCard.classList.add("hidden");
-
-  stopReplay();
-
-  ui.replaySlider.value = 0;
-
-  const targetAttempts =
+  state.targetAttempts =
     state.mode === "single"
       ? 1
       : 3;
 
+  ui.activeModeLabel.textContent =
+    state.mode === "single"
+      ? "Single"
+      : "3 Jump";
+
   for(
     state.currentAttempt = 0;
-    state.currentAttempt < targetAttempts;
+    state.currentAttempt < state.targetAttempts;
     state.currentAttempt++
   ){
+
+    ui.attemptCounter.textContent =
+      `${state.attempts.length} / ${state.targetAttempts}`;
 
     await runJumpCapture();
 
     if(
       state.mode === "assessment" &&
-      state.currentAttempt < targetAttempts - 1
+      state.currentAttempt < state.targetAttempts - 1
     ){
 
       setStatus(
-        ui.testStatus,
-        "Rest briefly. Next attempt coming up.",
+        ui.jumpStatus,
+        "Rest briefly. Next jump coming up.",
         "warn"
       );
+
+      ui.jumpInstruction.textContent =
+        "Breathe, reset your stance, and prepare for the next jump.";
 
       await sleep(1800);
 
@@ -2384,21 +2678,26 @@ async function startTest(){
 
   state.testRunning = false;
 
+  ui.attemptCounter.textContent =
+    `${state.attempts.length} / ${state.targetAttempts}`;
+
   if(state.attempts.length > 0){
 
     setStatus(
-      ui.testStatus,
+      ui.jumpStatus,
       state.mode === "single"
-        ? "Single jump complete. Review replay and results."
-        : "Assessment complete. Review replay and save your session.",
+        ? "Single jump complete."
+        : "Assessment complete.",
       "good"
     );
+
+    showScreen("result");
 
   }else{
 
     setStatus(
-      ui.testStatus,
-      "Test finished, but no valid jump was detected.",
+      ui.jumpStatus,
+      "Test finished, but no valid jumps were detected.",
       "bad"
     );
 
@@ -2407,7 +2706,7 @@ async function startTest(){
 }
 
 /* =========================================================
-PART 3 EVENT LISTENERS
+PART 4 EVENT LISTENERS
 ========================================================= */
 
 ui.calibrateBtn.addEventListener(
@@ -2415,27 +2714,28 @@ ui.calibrateBtn.addEventListener(
   calibrateDevice
 );
 
-ui.startTestBtn.addEventListener(
+ui.setupStartBtn.addEventListener(
   "click",
   startTest
 );
 
 /* =========================================================
-PART 3 ENDS HERE
-PART 4 CONTINUES WITH:
-- IMPROVED PHASE DETECTION
-- FORCE PROXY CALCULATIONS
-- RESULTS UI
+PART 4 ENDS HERE
+
+PART 5 WILL ADD:
+- AUTO DETECTION ENGINE
+- FORCE PROXY
+- SUMMARY CALCULATIONS
 ========================================================= */
 
 /* =========================================================
-JUMPCHECK V3 — PART 4 OF 5
-IMPROVED PHASE DETECTION + FORCE PROXY + RESULTS UI
-Paste this directly after PART 3
+JUMPCHECK V4 — PART 5 OF 8
+AUTO DETECTION ENGINE + FORCE PROXY + SUMMARY CALCULATIONS
+Paste directly after PART 4.
 ========================================================= */
 
 /* =========================================================
-MOVING AVERAGE SMOOTHING
+MOVING AVERAGE
 ========================================================= */
 
 function movingAverage(values, windowSize = 7){
@@ -2474,7 +2774,7 @@ function movingAverage(values, windowSize = 7){
 }
 
 /* =========================================================
-JUMP PHASE DETECTION
+AUTO JUMP DETECTION
 ========================================================= */
 
 function analyseJump(samples){
@@ -2489,9 +2789,10 @@ function analyseJump(samples){
       reason:"Not enough motion samples were recorded.",
       samples:samples || [],
       smooth:[],
+      propulsionIndex:-1,
       takeoffIndex:-1,
       landingIndex:-1,
-      propulsionIndex:-1,
+      autoMarkers:null,
       confidenceType:"bad"
     };
 
@@ -2509,11 +2810,11 @@ function analyseJump(samples){
   const flightThreshold =
     baseline * 0.45;
 
-  const landingThreshold =
-    baseline * 1.65;
-
   const propulsionThreshold =
     baseline * 1.15;
+
+  const landingThreshold =
+    baseline * 1.65;
 
   const minimumFlightSeconds =
     0.20;
@@ -2532,9 +2833,7 @@ function analyseJump(samples){
   let landingIndex = -1;
 
   /* =======================================================
-  FIND PROPULSION PEAK FIRST
-  This prevents the detector from treating early unloading
-  as the actual flight phase.
+  FIND PROPULSION PEAK
   ======================================================= */
 
   let bestPropulsionValue = -Infinity;
@@ -2557,12 +2856,13 @@ function analyseJump(samples){
 
     return {
       success:false,
-      reason:"No clear propulsion phase detected before flight.",
+      reason:"No clear propulsion peak detected.",
       samples,
       smooth,
+      propulsionIndex,
       takeoffIndex,
       landingIndex,
-      propulsionIndex,
+      autoMarkers:null,
       confidenceType:"bad"
     };
 
@@ -2570,7 +2870,6 @@ function analyseJump(samples){
 
   /* =======================================================
   FIND TAKE-OFF AFTER PROPULSION
-  We now search only after the main propulsion signal.
   ======================================================= */
 
   for(
@@ -2612,18 +2911,17 @@ function analyseJump(samples){
       reason:"No sustained flight phase detected after propulsion.",
       samples,
       smooth,
+      propulsionIndex,
       takeoffIndex,
       landingIndex,
-      propulsionIndex,
+      autoMarkers:null,
       confidenceType:"bad"
     };
 
   }
 
   /* =======================================================
-  FIND LANDING
-  Instead of first spike, search for the strongest spike
-  after a valid minimum flight window.
+  FIND STRONGEST LANDING SPIKE AFTER VALID FLIGHT WINDOW
   ======================================================= */
 
   let bestLandingValue = -Infinity;
@@ -2659,20 +2957,67 @@ function analyseJump(samples){
 
     return {
       success:false,
-      reason:"Take-off was found, but no clear landing spike followed.",
+      reason:"Take-off detected, but landing spike was unclear.",
       samples,
       smooth,
+      propulsionIndex,
       takeoffIndex,
       landingIndex,
-      propulsionIndex,
+      autoMarkers:null,
       confidenceType:"bad"
     };
 
   }
 
-  /* =======================================================
-  CALCULATE FLIGHT TIME + JUMP HEIGHT
-  ======================================================= */
+  return buildAnalysisFromMarkers({
+    samples,
+    smooth,
+    propulsionIndex,
+    takeoffIndex,
+    landingIndex,
+    markerSource:"auto"
+  });
+
+}
+
+/* =========================================================
+BUILD ANALYSIS FROM MARKERS
+Used by both auto detection and manual marker correction.
+========================================================= */
+
+function buildAnalysisFromMarkers({
+  samples,
+  smooth,
+  propulsionIndex,
+  takeoffIndex,
+  landingIndex,
+  markerSource
+}){
+
+  const baseline =
+    state.baseline || G;
+
+  if(
+    takeoffIndex < 0 ||
+    landingIndex < 0 ||
+    landingIndex <= takeoffIndex ||
+    !samples[takeoffIndex] ||
+    !samples[landingIndex]
+  ){
+
+    return {
+      success:false,
+      reason:"Invalid take-off or landing marker positions.",
+      samples,
+      smooth,
+      propulsionIndex,
+      takeoffIndex,
+      landingIndex,
+      markerSource,
+      confidenceType:"bad"
+    };
+
+  }
 
   const flightTimeSeconds =
     (samples[landingIndex].time - samples[takeoffIndex].time) /
@@ -2683,12 +3028,6 @@ function analyseJump(samples){
 
   const heightCm =
     heightMetres * 100;
-
-  /* =======================================================
-  FORCE PROXY
-  Phone acceleration-derived force proxy.
-  This is not force plate ground reaction force.
-  ======================================================= */
 
   const massKg =
     getBodyMassKg();
@@ -2714,17 +3053,20 @@ function analyseJump(samples){
   const landingBodyweight =
     landingForceN / bodyweightForceN;
 
-  /* =======================================================
-  IMPULSE PROXY
-  Simple area-under-above-baseline during propulsion window.
-  Useful as a comparative trend, not a lab measure.
-  ======================================================= */
+  const sampleRate =
+    state.sampleRate || 60;
 
   const propulsionWindowStart =
-    Math.max(0, propulsionIndex - Math.round(sampleRate * 0.25));
+    Math.max(
+      0,
+      propulsionIndex - Math.round(sampleRate * 0.25)
+    );
 
   const propulsionWindowEnd =
-    Math.min(smooth.length - 1, takeoffIndex);
+    Math.min(
+      smooth.length - 1,
+      takeoffIndex
+    );
 
   let impulseProxy = 0;
 
@@ -2738,13 +3080,11 @@ function analyseJump(samples){
       Math.max(0, smooth[i] - baseline);
 
     impulseProxy +=
-      aboveBaseline * massKg * (1 / sampleRate);
+      aboveBaseline *
+      massKg *
+      (1 / sampleRate);
 
   }
-
-  /* =======================================================
-  CONFIDENCE SCORING
-  ======================================================= */
 
   let confidence =
     "High confidence";
@@ -2754,7 +3094,17 @@ function analyseJump(samples){
 
   const flags = [];
 
-  if(flightTimeSeconds < minimumFlightSeconds + 0.04){
+  if(flightTimeSeconds < 0.20){
+
+    confidence =
+      "Low confidence";
+
+    confidenceType =
+      "bad";
+
+    flags.push("flight time too short");
+
+  }else if(flightTimeSeconds < 0.24){
 
     confidence =
       "Medium confidence";
@@ -2762,19 +3112,33 @@ function analyseJump(samples){
     confidenceType =
       "warn";
 
-    flags.push("short flight window");
+    flags.push("short flight time");
 
   }
 
-  if(flightTimeSeconds > maximumFlightSeconds - 0.05){
+  if(flightTimeSeconds > 0.95){
 
     confidence =
-      "Medium confidence";
+      "Low confidence";
 
     confidenceType =
-      "warn";
+      "bad";
 
-    flags.push("long flight window");
+    flags.push("flight time too long");
+
+  }else if(flightTimeSeconds > 0.90){
+
+    confidence =
+      confidenceType === "bad"
+        ? "Low confidence"
+        : "Medium confidence";
+
+    confidenceType =
+      confidenceType === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("long flight time");
 
   }
 
@@ -2798,7 +3162,7 @@ function analyseJump(samples){
     confidenceType =
       "bad";
 
-    flags.push("low sample rate");
+    flags.push("low sensor sample rate");
 
   }
 
@@ -2844,6 +3208,14 @@ function analyseJump(samples){
     takeoffIndex,
     landingIndex,
 
+    autoMarkers:{
+      propulsionIndex,
+      takeoffIndex,
+      landingIndex
+    },
+
+    markerSource,
+
     flightTimeSeconds,
     heightCm,
 
@@ -2862,6 +3234,49 @@ function analyseJump(samples){
     confidenceType,
     flags
   };
+
+}
+
+/* =========================================================
+RECALCULATE LATEST ANALYSIS AFTER MANUAL MARKER EDIT
+========================================================= */
+
+function recalculateLatestFromMarkers(){
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(!analysis || !analysis.samples || !analysis.smooth){
+    return;
+  }
+
+  const recalculated =
+    buildAnalysisFromMarkers({
+      samples:analysis.samples,
+      smooth:analysis.smooth,
+      propulsionIndex:analysis.propulsionIndex,
+      takeoffIndex:analysis.takeoffIndex,
+      landingIndex:analysis.landingIndex,
+      markerSource:state.manualMarkersActive
+        ? "manual"
+        : "auto"
+    });
+
+  state.latestAnalysis = recalculated;
+
+  if(state.attempts.length){
+
+    state.attempts[state.attempts.length - 1] =
+      recalculated;
+
+  }
+
+  updateResults();
+
+  drawJumpGraph(
+    state.latestAnalysis,
+    state.replay.frame
+  );
 
 }
 
@@ -2919,6 +3334,9 @@ function calculateAssessmentSummary(){
       )
     );
 
+  const latest =
+    successfulAttempts[successfulAttempts.length - 1];
+
   return {
     attempts:successfulAttempts,
     heights,
@@ -2927,6 +3345,7 @@ function calculateAssessmentSummary(){
     average,
     dropoff,
     bestAttempt,
+    latest,
     maxPropulsionForce,
     maxLandingForce
   };
@@ -2999,6 +3418,21 @@ function getReadiness(bestJump){
 }
 
 /* =========================================================
+PART 5 ENDS HERE
+
+PART 6 WILL ADD:
+- RESULTS UI UPDATE
+- GRAPH RENDERING
+- REPLAY CURSOR
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V4 — PART 6 OF 8
+RESULTS UI + GRAPH RENDERING + REPLAY CURSOR
+Paste directly after PART 5.
+========================================================= */
+
+/* =========================================================
 UPDATE RESULTS UI
 ========================================================= */
 
@@ -3011,19 +3445,19 @@ function updateResults(){
     return;
   }
 
-  ui.resultsCard.classList.remove("hidden");
+  const latest =
+    summary.latest;
 
   ui.bestJumpValue.textContent =
     formatNumber(summary.best, 1);
 
-  ui.bestMetric.textContent =
-    formatNumber(summary.best, 1) + " cm";
+  ui.flightTimeMetric.textContent =
+    latest && latest.flightTimeSeconds
+      ? formatNumber(latest.flightTimeSeconds, 3)
+      : "--";
 
   ui.averageMetric.textContent =
     formatNumber(summary.average, 1) + " cm";
-
-  ui.dropoffMetric.textContent =
-    formatNumber(summary.dropoff, 1) + "%";
 
   ui.propulsionForceMetric.textContent =
     formatNumber(summary.maxPropulsionForce, 0);
@@ -3076,6 +3510,27 @@ function updateResults(){
     readiness.type
   );
 
+  if(
+    latest &&
+    latest.markerSource === "manual"
+  ){
+
+    setPill(
+      ui.markerModePill,
+      "Manual markers",
+      "warn"
+    );
+
+  }else{
+
+    setPill(
+      ui.markerModePill,
+      "Auto markers",
+      "good"
+    );
+
+  }
+
   ui.attemptPills.innerHTML =
     summary.attempts
       .map((attempt,index) => {
@@ -3100,20 +3555,72 @@ function updateResults(){
 }
 
 /* =========================================================
-PART 4 ENDS HERE
-PART 5 CONTINUES WITH:
-- GRAPH RENDERING
-- REPLAY CURSOR
-- HISTORY
-- CSV EXPORT
-- FINAL CLOSING
+GRAPH GEOMETRY HELPERS
 ========================================================= */
 
-/* =========================================================
-JUMPCHECK V3 — PART 5 OF 5
-GRAPH + REPLAY CURSOR + HISTORY + EXPORT + FINAL CLOSING
-Paste this directly after PART 4
-========================================================= */
+function getGraphValues(analysis){
+
+  if(!analysis){
+    return [];
+  }
+
+  if(
+    analysis.smooth &&
+    analysis.smooth.length
+  ){
+    return analysis.smooth;
+  }
+
+  if(
+    analysis.samples &&
+    analysis.samples.length
+  ){
+    return analysis.samples.map(
+      sample => sample.magnitude
+    );
+  }
+
+  return [];
+
+}
+
+function graphIndexFromClientX(clientX){
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(
+    !analysis ||
+    !analysis.samples ||
+    !analysis.samples.length
+  ){
+    return -1;
+  }
+
+  const canvas =
+    ui.jumpGraph;
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  const x =
+    clientX - rect.left;
+
+  const ratio =
+    Math.max(
+      0,
+      Math.min(1, x / rect.width)
+    );
+
+  const index =
+    Math.round(
+      ratio *
+      (analysis.samples.length - 1)
+    );
+
+  return index;
+
+}
 
 /* =========================================================
 GRAPH RENDERING
@@ -3121,79 +3628,149 @@ GRAPH RENDERING
 
 function drawJumpGraph(analysis, replayFrame = null){
 
-  const canvas = ui.jumpGraph;
-  const ctx = canvas.getContext("2d");
+  const canvas =
+    ui.jumpGraph;
 
-  const width = canvas.width;
-  const height = canvas.height;
+  const ctx =
+    canvas.getContext("2d");
 
-  ctx.clearRect(0,0,width,height);
+  const width =
+    canvas.width;
 
-  ctx.fillStyle = "rgba(0,0,0,.18)";
-  ctx.fillRect(0,0,width,height);
+  const height =
+    canvas.height;
 
-  if(!analysis || !analysis.samples || analysis.samples.length < 2){
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.18)";
+
+  ctx.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+  if(
+    !analysis ||
+    !analysis.samples ||
+    analysis.samples.length < 2
+  ){
     return;
   }
 
   const values =
-    analysis.smooth && analysis.smooth.length
-      ? analysis.smooth
-      : analysis.samples.map(sample => sample.magnitude);
+    getGraphValues(analysis);
 
-  const minValue = Math.min(...values, 0);
-  const maxValue = Math.max(...values, (state.baseline || G) * 3);
+  const minValue =
+    Math.min(...values, 0);
+
+  const maxValue =
+    Math.max(
+      ...values,
+      (state.baseline || G) * 3
+    );
 
   const padding = 22;
 
   function xFor(index){
-    return padding + (index / (values.length - 1)) * (width - padding * 2);
+
+    return (
+      padding +
+      (index / (values.length - 1)) *
+      (width - padding * 2)
+    );
+
   }
 
   function yFor(value){
-    return height - padding - ((value - minValue) / (maxValue - minValue || 1)) * (height - padding * 2);
+
+    return (
+      height -
+      padding -
+      ((value - minValue) /
+      (maxValue - minValue || 1)) *
+      (height - padding * 2)
+    );
+
   }
 
-  ctx.strokeStyle = "rgba(255,255,255,.10)";
+  /* Grid */
+
+  ctx.strokeStyle =
+    "rgba(255,255,255,.10)";
+
   ctx.lineWidth = 1;
 
   for(let i = 0; i < 4; i++){
-    const y = padding + i * ((height - padding * 2) / 3);
+
+    const y =
+      padding +
+      i *
+      ((height - padding * 2) / 3);
+
     ctx.beginPath();
-    ctx.moveTo(padding,y);
-    ctx.lineTo(width - padding,y);
+    ctx.moveTo(padding, y);
+    ctx.lineTo(width - padding, y);
     ctx.stroke();
+
   }
+
+  /* Baseline */
 
   if(state.baseline){
 
-    ctx.strokeStyle = "rgba(123,199,255,.55)";
+    const baselineY =
+      yFor(state.baseline);
+
+    ctx.strokeStyle =
+      "rgba(123,199,255,.55)";
+
     ctx.setLineDash([6,6]);
 
-    const baselineY = yFor(state.baseline);
-
     ctx.beginPath();
-    ctx.moveTo(padding,baselineY);
-    ctx.lineTo(width - padding,baselineY);
+    ctx.moveTo(padding, baselineY);
+    ctx.lineTo(width - padding, baselineY);
     ctx.stroke();
 
     ctx.setLineDash([]);
 
-    ctx.fillStyle = "rgba(123,199,255,.9)";
-    ctx.font = "12px system-ui";
-    ctx.fillText("baseline", padding + 4, baselineY - 6);
+    ctx.fillStyle =
+      "rgba(123,199,255,.92)";
+
+    ctx.font =
+      "12px system-ui";
+
+    ctx.fillText(
+      "baseline",
+      padding + 4,
+      baselineY - 6
+    );
 
   }
 
-  ctx.strokeStyle = "rgba(255,255,255,.94)";
+  /* Signal line */
+
+  ctx.strokeStyle =
+    "rgba(255,255,255,.94)";
+
   ctx.lineWidth = 2;
 
   ctx.beginPath();
 
   values.forEach((value,index) => {
 
-    const x = xFor(index);
-    const y = yFor(value);
+    const x =
+      xFor(index);
+
+    const y =
+      yFor(value);
 
     if(index === 0){
       ctx.moveTo(x,y);
@@ -3207,23 +3784,32 @@ function drawJumpGraph(analysis, replayFrame = null){
 
   function drawMarker(index, colour, label, yOffset){
 
-    if(index < 0 || index >= values.length){
+    if(
+      index < 0 ||
+      index >= values.length
+    ){
       return;
     }
 
-    const x = xFor(index);
+    const x =
+      xFor(index);
 
     ctx.strokeStyle = colour;
     ctx.lineWidth = 2;
 
     ctx.beginPath();
-    ctx.moveTo(x,padding);
-    ctx.lineTo(x,height - padding);
+    ctx.moveTo(x, padding);
+    ctx.lineTo(x, height - padding);
     ctx.stroke();
 
     ctx.fillStyle = colour;
     ctx.font = "12px system-ui";
-    ctx.fillText(label, x + 4, yOffset);
+
+    ctx.fillText(
+      label,
+      x + 4,
+      yOffset
+    );
 
   }
 
@@ -3248,34 +3834,523 @@ function drawJumpGraph(analysis, replayFrame = null){
     54
   );
 
-  if(replayFrame !== null && Number.isFinite(replayFrame)){
+  /* Replay cursor */
+
+  if(
+    replayFrame !== null &&
+    Number.isFinite(replayFrame)
+  ){
 
     const frame =
       Math.max(
         0,
-        Math.min(values.length - 1, replayFrame)
+        Math.min(
+          values.length - 1,
+          replayFrame
+        )
       );
 
-    const x = xFor(frame);
-    const y = yFor(values[frame]);
+    const x =
+      xFor(frame);
 
-    ctx.strokeStyle = "rgba(255,255,255,.85)";
+    const y =
+      yFor(values[frame]);
+
+    ctx.strokeStyle =
+      "rgba(255,255,255,.85)";
+
     ctx.lineWidth = 2;
 
     ctx.beginPath();
-    ctx.moveTo(x,padding);
-    ctx.lineTo(x,height - padding);
+    ctx.moveTo(x, padding);
+    ctx.lineTo(x, height - padding);
     ctx.stroke();
 
     ctx.fillStyle = "white";
 
     ctx.beginPath();
-    ctx.arc(x,y,6,0,Math.PI * 2);
+    ctx.arc(
+      x,
+      y,
+      6,
+      0,
+      Math.PI * 2
+    );
     ctx.fill();
 
   }
 
 }
+
+/* =========================================================
+REPLAY ENGINE
+========================================================= */
+
+function resetReplay(){
+
+  stopReplay();
+
+  state.replay.frame = 0;
+
+  ui.replaySlider.value = 0;
+
+  if(state.latestAnalysis){
+
+    drawJumpGraph(
+      state.latestAnalysis,
+      0
+    );
+
+  }
+
+}
+
+function playReplay(){
+
+  if(
+    !state.latestAnalysis ||
+    !state.latestAnalysis.samples ||
+    !state.latestAnalysis.samples.length
+  ){
+
+    setStatus(
+      ui.replayStatus,
+      "No jump capture available to replay yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  stopReplay();
+
+  state.replay.playing = true;
+
+  const totalFrames =
+    state.latestAnalysis.samples.length;
+
+  state.replay.timer =
+    setInterval(() => {
+
+      state.replay.frame++;
+
+      if(state.replay.frame >= totalFrames){
+
+        state.replay.frame = totalFrames - 1;
+
+        stopReplay();
+
+      }
+
+      const percent =
+        totalFrames > 1
+          ? (state.replay.frame / (totalFrames - 1)) * 100
+          : 0;
+
+      ui.replaySlider.value =
+        percent;
+
+      drawJumpGraph(
+        state.latestAnalysis,
+        state.replay.frame
+      );
+
+    }, 30);
+
+}
+
+function stopReplay(){
+
+  state.replay.playing = false;
+
+  if(state.replay.timer){
+
+    clearInterval(
+      state.replay.timer
+    );
+
+    state.replay.timer = null;
+
+  }
+
+}
+
+function seekReplay(percent){
+
+  if(
+    !state.latestAnalysis ||
+    !state.latestAnalysis.samples ||
+    !state.latestAnalysis.samples.length
+  ){
+    return;
+  }
+
+  const totalFrames =
+    state.latestAnalysis.samples.length;
+
+  const frame =
+    Math.round(
+      (percent / 100) *
+      (totalFrames - 1)
+    );
+
+  state.replay.frame =
+    frame;
+
+  drawJumpGraph(
+    state.latestAnalysis,
+    frame
+  );
+
+}
+
+/* =========================================================
+PART 6 EVENT LISTENERS
+========================================================= */
+
+ui.playReplayBtn.addEventListener(
+  "click",
+  playReplay
+);
+
+ui.pauseReplayBtn.addEventListener(
+  "click",
+  stopReplay
+);
+
+ui.replaySlider.addEventListener(
+  "input",
+  event => seekReplay(parseFloat(event.target.value))
+);
+
+/* =========================================================
+PART 6 ENDS HERE
+
+PART 7 WILL ADD:
+- MANUAL MARKER EDITING
+- TAP GRAPH TO SET TAKE-OFF / LANDING
+- RESET TO AUTO MARKERS
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V4 — PART 7 OF 8
+MANUAL MARKER EDITING + TAP GRAPH CORRECTION
+Paste directly after PART 6.
+========================================================= */
+
+/* =========================================================
+SET MARKER EDIT MODE
+========================================================= */
+
+function setMarkerEditMode(mode){
+
+  state.markerEditMode = mode;
+
+  ui.setTakeoffBtn.classList.toggle(
+    "danger",
+    mode === "takeoff"
+  );
+
+  ui.setLandingBtn.classList.toggle(
+    "danger",
+    mode === "landing"
+  );
+
+  if(mode === "takeoff"){
+
+    setStatus(
+      ui.replayStatus,
+      "Tap the graph where true take-off begins. The green marker will move.",
+      "warn"
+    );
+
+  }else if(mode === "landing"){
+
+    setStatus(
+      ui.replayStatus,
+      "Tap the graph where touchdown / landing begins. The red marker will move.",
+      "warn"
+    );
+
+  }else{
+
+    setStatus(
+      ui.replayStatus,
+      "Auto markers shown. Select a marker tool, then tap the graph to correct it.",
+      ""
+    );
+
+  }
+
+}
+
+/* =========================================================
+HANDLE GRAPH TAP
+========================================================= */
+
+function handleGraphTap(event){
+
+  if(!state.latestAnalysis){
+
+    setStatus(
+      ui.replayStatus,
+      "No jump capture available yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  if(!state.markerEditMode){
+
+    const index =
+      graphIndexFromClientX(event.clientX);
+
+    if(index >= 0){
+
+      state.replay.frame = index;
+
+      const percent =
+        state.latestAnalysis.samples.length > 1
+          ? (index / (state.latestAnalysis.samples.length - 1)) * 100
+          : 0;
+
+      ui.replaySlider.value = percent;
+
+      drawJumpGraph(
+        state.latestAnalysis,
+        state.replay.frame
+      );
+
+    }
+
+    return;
+
+  }
+
+  const selectedIndex =
+    graphIndexFromClientX(event.clientX);
+
+  if(selectedIndex < 0){
+    return;
+  }
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(state.markerEditMode === "takeoff"){
+
+    if(
+      analysis.landingIndex >= 0 &&
+      selectedIndex >= analysis.landingIndex
+    ){
+
+      setStatus(
+        ui.replayStatus,
+        "Take-off must be before landing.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    analysis.takeoffIndex =
+      selectedIndex;
+
+    state.manualMarkersActive = true;
+
+    setStatus(
+      ui.replayStatus,
+      "Take-off marker updated. You can now set landing or apply the edit.",
+      "good"
+    );
+
+  }
+
+  if(state.markerEditMode === "landing"){
+
+    if(
+      analysis.takeoffIndex >= 0 &&
+      selectedIndex <= analysis.takeoffIndex
+    ){
+
+      setStatus(
+        ui.replayStatus,
+        "Landing must be after take-off.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    analysis.landingIndex =
+      selectedIndex;
+
+    state.manualMarkersActive = true;
+
+    setStatus(
+      ui.replayStatus,
+      "Landing marker updated. Apply the edit to update jump height.",
+      "good"
+    );
+
+  }
+
+  setMarkerEditMode(null);
+
+  recalculateLatestFromMarkers();
+
+}
+
+/* =========================================================
+RESET AUTO MARKERS
+========================================================= */
+
+function resetAutoMarkers(){
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(
+    !analysis ||
+    !analysis.autoMarkers
+  ){
+
+    setStatus(
+      ui.replayStatus,
+      "No auto markers are available to reset to.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  analysis.propulsionIndex =
+    analysis.autoMarkers.propulsionIndex;
+
+  analysis.takeoffIndex =
+    analysis.autoMarkers.takeoffIndex;
+
+  analysis.landingIndex =
+    analysis.autoMarkers.landingIndex;
+
+  state.manualMarkersActive = false;
+
+  setMarkerEditMode(null);
+
+  recalculateLatestFromMarkers();
+
+  setStatus(
+    ui.replayStatus,
+    "Markers reset to auto detection.",
+    "good"
+  );
+
+}
+
+/* =========================================================
+APPLY MARKER EDIT
+========================================================= */
+
+function applyMarkerEdit(){
+
+  if(!state.latestAnalysis){
+
+    showScreen("result");
+
+    return;
+
+  }
+
+  recalculateLatestFromMarkers();
+
+  updateResults();
+
+  showScreen("result");
+
+}
+
+/* =========================================================
+TOUCH SUPPORT
+========================================================= */
+
+function handleGraphTouch(event){
+
+  if(
+    !event.touches ||
+    !event.touches.length
+  ){
+    return;
+  }
+
+  event.preventDefault();
+
+  handleGraphTap(
+    event.touches[0]
+  );
+
+}
+
+/* =========================================================
+PART 7 EVENT LISTENERS
+========================================================= */
+
+ui.setTakeoffBtn.addEventListener(
+  "click",
+  () => setMarkerEditMode("takeoff")
+);
+
+ui.setLandingBtn.addEventListener(
+  "click",
+  () => setMarkerEditMode("landing")
+);
+
+ui.resetAutoMarkersBtn.addEventListener(
+  "click",
+  resetAutoMarkers
+);
+
+ui.applyMarkerEditBtn.removeEventListener(
+  "click",
+  () => showScreen("result")
+);
+
+ui.applyMarkerEditBtn.addEventListener(
+  "click",
+  applyMarkerEdit
+);
+
+ui.jumpGraph.addEventListener(
+  "click",
+  handleGraphTap
+);
+
+ui.jumpGraph.addEventListener(
+  "touchstart",
+  handleGraphTouch,
+  {passive:false}
+);
+
+/* =========================================================
+PART 7 ENDS HERE
+
+PART 8 WILL ADD:
+- HISTORY SAVE
+- CSV EXPORT
+- FINAL INITIALISATION
+- CLOSING SCRIPT / HTML
+========================================================= */
+
+/* =========================================================
+JUMPCHECK V4 — PART 8 OF 8
+HISTORY + CSV EXPORT + FINAL INITIALISATION + CLOSING
+Paste directly after PART 7.
+========================================================= */
 
 /* =========================================================
 SAVE SESSION
@@ -3289,7 +4364,7 @@ function saveSession(){
   if(!summary){
 
     setStatus(
-      ui.testStatus,
+      ui.homeStatus,
       "No valid test to save yet.",
       "warn"
     );
@@ -3298,22 +4373,37 @@ function saveSession(){
 
   }
 
+  const latest =
+    summary.latest;
+
   const session = {
     id:String(Date.now()),
     date:new Date().toISOString(),
+
     mode:state.mode,
     type:ui.testType.value,
+
     bodyweightKg:getBodyMassKg(),
     heightCm:getHeightCm(),
+
     notes:ui.sessionNotes.value.trim(),
 
     jumps:summary.heights.map(value => Number(value.toFixed(2))),
+
     best:Number(summary.best.toFixed(2)),
     average:Number(summary.average.toFixed(2)),
     dropoff:Number(summary.dropoff.toFixed(2)),
 
+    latestFlightTimeSeconds:latest
+      ? Number(latest.flightTimeSeconds.toFixed(3))
+      : null,
+
     peakPropulsionForceN:Number(summary.maxPropulsionForce.toFixed(0)),
     peakLandingForceN:Number(summary.maxLandingForce.toFixed(0)),
+
+    markerSource:latest
+      ? latest.markerSource
+      : "auto",
 
     baseline:Number((state.baseline || G).toFixed(3))
   };
@@ -3325,27 +4415,18 @@ function saveSession(){
   renderHistory();
 
   setStatus(
-    ui.testStatus,
-    "Session saved on this device.",
+    ui.homeStatus,
+    "Session saved.",
     "good"
   );
+
+  showScreen("history");
 
 }
 
 /* =========================================================
-HISTORY RENDERING
+RENDER HISTORY
 ========================================================= */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
 
 function renderHistory(){
 
@@ -3359,66 +4440,87 @@ function renderHistory(){
   }
 
   ui.historyList.innerHTML =
-    state.history.map(session => {
+    state.history
+      .map(session => {
 
-      const date =
-        new Date(session.date).toLocaleString();
+        const date =
+          new Date(session.date).toLocaleString();
 
-      const jumps =
-        session.jumps
-          .map((jump,index) => {
-            return `
+        const jumps =
+          session.jumps
+            .map((jump,index) => {
+
+              return `
+                <span class="pill">
+                  J${index + 1}: ${formatNumber(jump,1)} cm
+                </span>
+              `;
+
+            })
+            .join("");
+
+        return `
+          <div class="historyItem">
+
+            <div class="metricGrid">
+
+              <div>
+
+                <strong>
+                  ${escapeHTML(date)}
+                </strong>
+
+                <div class="smallText">
+                  ${escapeHTML(session.mode)}
+                  /
+                  ${escapeHTML(session.type)}
+                </div>
+
+              </div>
+
+              <div style="text-align:right;">
+
+                <div class="metricValue">
+                  ${formatNumber(session.best,1)} cm
+                </div>
+
+                <div class="smallText">
+                  avg ${formatNumber(session.average,1)}
+                  /
+                  drop ${formatNumber(session.dropoff,1)}%
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="pills">
+              ${jumps}
+
               <span class="pill">
-                J${index + 1}: ${formatNumber(jump,1)} cm
+                ${escapeHTML(session.markerSource)} markers
               </span>
-            `;
-          })
 
-          .join("");
-      return `
-        <div class="historyItem">
+              <span class="pill">
+                Push ${formatNumber(session.peakPropulsionForceN,0)} N
+              </span>
 
-          <div class="grid2">
-
-            <div>
-              <strong>${escapeHTML(date)}</strong>
-              <div class="resultSub">
-                ${escapeHTML(session.mode)} / ${escapeHTML(session.type)}
-              </div>
+              <span class="pill">
+                Land ${formatNumber(session.peakLandingForceN,0)} N
+              </span>
             </div>
 
-            <div style="text-align:right;">
-              <div class="metricValue">
-                ${formatNumber(session.best,1)} cm
-              </div>
-              <div class="resultSub">
-                avg ${formatNumber(session.average,1)} /
-                drop ${formatNumber(session.dropoff,1)}%
-              </div>
-            </div>
+            ${
+              session.notes
+                ? `<div class="smallText">${escapeHTML(session.notes)}</div>`
+                : ""
+            }
 
           </div>
+        `;
 
-          <div class="pills">
-            ${jumps}
-            <span class="pill">
-              Push ${formatNumber(session.peakPropulsionForceN,0)} N
-            </span>
-            <span class="pill">
-              Land ${formatNumber(session.peakLandingForceN,0)} N
-            </span>
-          </div>
-
-          ${
-            session.notes
-              ? `<div class="resultSub">${escapeHTML(session.notes)}</div>`
-              : ""
-          }
-
-        </div>
-      `;
-
-    }).join("");
+      })
+      .join("");
 
 }
 
@@ -3431,7 +4533,7 @@ function exportCsv(){
   if(!state.history.length){
 
     setStatus(
-      ui.testStatus,
+      ui.homeStatus,
       "No history to export yet.",
       "warn"
     );
@@ -3452,8 +4554,10 @@ function exportCsv(){
     "best_cm",
     "average_cm",
     "dropoff_percent",
+    "latest_flight_time_seconds",
     "peak_propulsion_force_n",
     "peak_landing_force_n",
+    "marker_source",
     "baseline",
     "notes"
   ];
@@ -3476,8 +4580,10 @@ function exportCsv(){
         session.best,
         session.average,
         session.dropoff,
+        session.latestFlightTimeSeconds || "",
         session.peakPropulsionForceN,
         session.peakLandingForceN,
+        session.markerSource,
         session.baseline,
         safeNotes
       ].join(",");
@@ -3497,10 +4603,14 @@ function exportCsv(){
     document.createElement("a");
 
   link.href = url;
-  link.download = "jumpcheck-v3-history.csv";
+
+  link.download =
+    "jumpcheck-v4-history.csv";
 
   document.body.appendChild(link);
+
   link.click();
+
   document.body.removeChild(link);
 
   URL.revokeObjectURL(url);
@@ -3527,7 +4637,7 @@ function clearHistory(){
   renderHistory();
 
   setStatus(
-    ui.testStatus,
+    ui.homeStatus,
     "History cleared.",
     "warn"
   );
@@ -3554,12 +4664,20 @@ ui.clearHistoryBtn.addEventListener(
 );
 
 /* =========================================================
+FINAL INITIALISATION
 ========================================================= */
-INITIALISE APP
 
 renderHistory();
 
+setMode("single");
+
 drawJumpGraph(null);
+
+showScreen("home");
+
+/* =========================================================
+END APP
+========================================================= */
 
 })();
 
