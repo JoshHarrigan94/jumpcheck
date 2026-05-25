@@ -1,0 +1,7533 @@
+<!-- =========================================================
+JUMPCHECK LAB V1 — PART 1 OF 14
+APP SHELL + SCREENS
+Paste this first into a blank index.html file.
+========================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+/>
+
+<title>JumpCheck Lab V1</title>
+
+<!-- =========================================================
+PART 2 WILL ADD THE FULL MOBILE CSS DESIGN SYSTEM
+========================================================= -->
+
+</head>
+
+<body>
+
+<div id="app" class="app">
+
+  <!-- =====================================================
+  TOP BAR
+  ====================================================== -->
+
+  <header class="topbar">
+
+    <div>
+      <div class="brand">
+        JumpCheck Lab
+      </div>
+
+      <div class="brandSub">
+        Plyometric assessment prototype
+      </div>
+    </div>
+
+    <div class="versionPill">
+      Lab V1
+    </div>
+
+  </header>
+
+  <!-- =====================================================
+  HOME SCREEN
+  ====================================================== -->
+
+  <section id="screenHome" class="screen active">
+
+    <div class="heroCard">
+
+      <div class="heroKicker">
+        Field testing from your phone
+      </div>
+
+      <h1 class="heroTitle">
+        Jump.
+        <br />
+        Contact.
+        <br />
+        Repeat.
+      </h1>
+
+      <p class="heroText">
+        A mobile-first plyometric testing lab for jump height,
+        ground contact time, repeated contacts, force proxies,
+        replay, and manual marker correction.
+      </p>
+
+      <div id="homeStatus" class="status warn">
+        Motion sensors are not enabled yet.
+      </div>
+
+      <div class="buttonStack">
+
+        <button id="homeStartBtn" class="primaryBtn">
+          Start Test
+        </button>
+
+        <button id="homeEnableSensorsBtn" class="secondaryBtn">
+          Enable Sensors
+        </button>
+
+        <button id="homeDemoBtn" class="ghostBtn">
+          Try Demo Mode
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        North Star
+      </div>
+
+      <p class="bodyText">
+        This MVP is designed to become a wearable-ready
+        plyometric exposure tracker. The phone version proves
+        the signal engine before moving to a dedicated IMU.
+      </p>
+
+      <div class="featureGrid">
+
+        <div class="miniFeature">
+          <strong>Vertical</strong>
+          <span>Jump height and flight time</span>
+        </div>
+
+        <div class="miniFeature">
+          <strong>Repeated</strong>
+          <span>Contact rhythm and fatigue</span>
+        </div>
+
+        <div class="miniFeature">
+          <strong>Lateral</strong>
+          <span>Side-to-side exposure</span>
+        </div>
+
+        <div class="miniFeature">
+          <strong>Broad</strong>
+          <span>Distance plus impact profile</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  SENSOR SCREEN
+  ====================================================== -->
+
+  <section id="screenSensor" class="screen">
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        Sensor Check
+      </div>
+
+      <div id="sensorStatus" class="status warn">
+        Enable sensors to view live accelerometer and gyroscope data.
+      </div>
+
+      <div class="metricGrid twoCol">
+
+        <div class="metric">
+          <div class="metricLabel">Accel X</div>
+          <div class="metricValue"><span id="accelX">--</span></div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Accel Y</div>
+          <div class="metricValue"><span id="accelY">--</span></div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Accel Z</div>
+          <div class="metricValue"><span id="accelZ">--</span></div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Accel Mag</div>
+          <div class="metricValue">
+            <span id="accelMag">--</span>
+            <span class="metricUnit">m/s²</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Gyro α</div>
+          <div class="metricValue">
+            <span id="gyroAlpha">--</span>
+            <span class="metricUnit">°/s</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Gyro β</div>
+          <div class="metricValue">
+            <span id="gyroBeta">--</span>
+            <span class="metricUnit">°/s</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Gyro γ</div>
+          <div class="metricValue">
+            <span id="gyroGamma">--</span>
+            <span class="metricUnit">°/s</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Sample Rate</div>
+          <div class="metricValue">
+            <span id="sampleRate">--</span>
+            <span class="metricUnit">Hz</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="buttonStack">
+
+        <button id="sensorEnableBtn" class="primaryBtn">
+          Enable Sensors
+        </button>
+
+        <button id="sensorDemoBtn" class="secondaryBtn">
+          Demo Mode
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  SETUP SCREEN
+  ====================================================== -->
+
+  <section id="screenSetup" class="screen">
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        Test Setup
+      </div>
+
+      <div id="setupStatus" class="status">
+        Choose a test type, enter your details, then calibrate.
+      </div>
+
+      <div class="modeList">
+
+        <button id="modeVerticalBtn" class="modeOption active">
+          <span>Vertical Jump</span>
+          <small>Single jump height and force proxy</small>
+        </button>
+
+        <button id="modeRepeatedBtn" class="modeOption">
+          <span>Repeated Contacts</span>
+          <small>Pogos, extensive plyos, contact rhythm</small>
+        </button>
+
+        <button id="modeLateralBtn" class="modeOption">
+          <span>Lateral Bounds</span>
+          <small>Side-to-side exposure and stability</small>
+        </button>
+
+        <button id="modeBroadBtn" class="modeOption">
+          <span>Broad Jump</span>
+          <small>Manual distance plus impact profile</small>
+        </button>
+
+      </div>
+
+      <div class="formGrid">
+
+        <div>
+          <label for="bodyweightInput">
+            Bodyweight kg
+          </label>
+
+          <input
+            id="bodyweightInput"
+            type="number"
+            inputmode="decimal"
+            value="95"
+          />
+        </div>
+
+        <div>
+          <label for="heightInput">
+            Height cm
+          </label>
+
+          <input
+            id="heightInput"
+            type="number"
+            inputmode="decimal"
+            value="188"
+          />
+        </div>
+
+      </div>
+
+      <label for="testSubtype">
+        Test subtype
+      </label>
+
+      <select id="testSubtype">
+
+        <option value="countermovement">
+          Countermovement Jump
+        </option>
+
+        <option value="squat">
+          Squat Jump
+        </option>
+
+        <option value="pogo">
+          Pogos / Extensive Contacts
+        </option>
+
+        <option value="lateral-bound">
+          Lateral Bounds
+        </option>
+
+        <option value="broad">
+          Broad Jump
+        </option>
+
+      </select>
+
+      <label for="broadDistanceInput">
+        Broad jump distance cm optional
+      </label>
+
+      <input
+        id="broadDistanceInput"
+        type="number"
+        inputmode="decimal"
+        placeholder="Enter measured distance if using broad jump"
+      />
+
+      <label for="sessionNotes">
+        Notes
+      </label>
+
+      <textarea
+        id="sessionNotes"
+        placeholder="Sleep, fatigue, soreness, surface, footwear, caffeine, session context..."
+      ></textarea>
+
+      <div class="buttonStack">
+
+        <button id="calibrateBtn" class="secondaryBtn">
+          Calibrate Standing Baseline
+        </button>
+
+        <button id="beginTestBtn" class="primaryBtn">
+          Begin Test
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  CAPTURE SCREEN
+  ====================================================== -->
+
+  <section id="screenCapture" class="screen">
+
+    <div class="card captureCard">
+
+      <div class="sectionTitle">
+        Capture
+      </div>
+
+      <div id="captureStatus" class="status">
+        Get ready.
+      </div>
+
+      <div id="countdown" class="countdown hidden">
+        3
+      </div>
+
+      <p id="captureInstruction" class="centerText">
+        Stay still until the countdown says JUMP.
+      </p>
+
+      <div class="metricGrid twoCol">
+
+        <div class="metric">
+          <div class="metricLabel">Mode</div>
+          <div class="metricValue smaller">
+            <span id="activeModeLabel">Vertical</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Attempt</div>
+          <div class="metricValue">
+            <span id="attemptCounter">0 / 1</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  RESULT SCREEN
+  ====================================================== -->
+
+  <section id="screenResult" class="screen">
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        Result
+      </div>
+
+      <div class="resultHero">
+        <span id="primaryResultValue">--</span>
+        <span id="primaryResultUnit">cm</span>
+      </div>
+
+      <div id="primaryResultLabel" class="bodyText">
+        Jump height estimate
+      </div>
+
+      <div class="pillRow">
+
+        <span id="confidencePill" class="pill">
+          Confidence
+        </span>
+
+        <span id="markerSourcePill" class="pill">
+          Auto markers
+        </span>
+
+        <span id="exposurePill" class="pill">
+          Exposure
+        </span>
+
+      </div>
+
+      <div class="metricGrid twoCol">
+
+        <div class="metric">
+          <div class="metricLabel">Flight Time</div>
+          <div class="metricValue">
+            <span id="flightTimeMetric">--</span>
+            <span class="metricUnit">s</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Ground Contact</div>
+          <div class="metricValue">
+            <span id="groundContactMetric">--</span>
+            <span class="metricUnit">s</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">RSI Proxy</div>
+          <div class="metricValue">
+            <span id="rsiMetric">--</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Contact Count</div>
+          <div class="metricValue">
+            <span id="contactCountMetric">--</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Push Force</div>
+          <div class="metricValue">
+            <span id="pushForceMetric">--</span>
+            <span class="metricUnit">N</span>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="metricLabel">Landing Force</div>
+          <div class="metricValue">
+            <span id="landingForceMetric">--</span>
+            <span class="metricUnit">N</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="attemptSummary" class="pillRow"></div>
+
+      <div class="buttonStack">
+
+        <button id="reviewReplayBtn" class="primaryBtn">
+          Review Signal
+        </button>
+
+        <button id="saveSessionBtn" class="secondaryBtn">
+          Save Session
+        </button>
+
+        <button id="newTestBtn" class="ghostBtn">
+          New Test
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  REPLAY / MARKER SCREEN
+  ====================================================== -->
+
+  <section id="screenReplay" class="screen">
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        Signal Replay
+      </div>
+
+      <div id="replayStatus" class="status">
+        Auto markers shown. Select a marker tool, then tap the graph to correct it.
+      </div>
+
+      <canvas
+        id="signalCanvas"
+        width="900"
+        height="320"
+      ></canvas>
+
+      <div class="graphLegend">
+        Yellow = push/contact, green = take-off,
+        red = landing/contact, white = replay cursor.
+      </div>
+
+      <input
+        id="replaySlider"
+        class="replaySlider"
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+      />
+
+      <div class="buttonRow">
+
+        <button id="playReplayBtn" class="secondaryBtn">
+          Play
+        </button>
+
+        <button id="pauseReplayBtn" class="secondaryBtn">
+          Pause
+        </button>
+
+      </div>
+
+      <div class="buttonRow">
+
+        <button id="setTakeoffBtn" class="secondaryBtn">
+          Set Take-off
+        </button>
+
+        <button id="setLandingBtn" class="secondaryBtn">
+          Set Landing
+        </button>
+
+      </div>
+
+      <div class="buttonRow">
+
+        <button id="setContactStartBtn" class="secondaryBtn">
+          Set Contact Start
+        </button>
+
+        <button id="setContactEndBtn" class="secondaryBtn">
+          Set Contact End
+        </button>
+
+      </div>
+
+      <div class="buttonStack">
+
+        <button id="resetAutoMarkersBtn" class="ghostBtn">
+          Reset Auto Markers
+        </button>
+
+        <button id="applyMarkerEditsBtn" class="primaryBtn">
+          Apply & Return
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  HISTORY SCREEN
+  ====================================================== -->
+
+  <section id="screenHistory" class="screen">
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        History
+      </div>
+
+      <div class="buttonRow">
+
+        <button id="exportCsvBtn" class="secondaryBtn">
+          Export CSV
+        </button>
+
+        <button id="clearHistoryBtn" class="dangerBtn">
+          Clear
+        </button>
+
+      </div>
+
+      <div id="historyList" class="historyList"></div>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  DEBUG SCREEN
+  ====================================================== -->
+
+  <section id="screenDebug" class="screen">
+
+    <div class="card">
+
+      <div class="sectionTitle">
+        Debug
+      </div>
+
+      <div id="debugStatus" class="status">
+        Debug data will appear after a capture.
+      </div>
+
+      <pre id="debugOutput" class="debugOutput"></pre>
+
+    </div>
+
+  </section>
+
+  <!-- =====================================================
+  BOTTOM NAV
+  ====================================================== -->
+
+  <nav class="bottomNav">
+
+    <div class="navGrid">
+
+      <button id="navHome" class="navBtn active">
+        Home
+      </button>
+
+      <button id="navSetup" class="navBtn">
+        Setup
+      </button>
+
+      <button id="navSensor" class="navBtn">
+        Sensor
+      </button>
+
+      <button id="navHistory" class="navBtn">
+        History
+      </button>
+
+      <button id="navDebug" class="navBtn">
+        Debug
+      </button>
+
+    </div>
+
+  </nav>
+
+</div>
+
+<!-- =========================================================
+PART 1 ENDS HERE
+
+PART 2 WILL ADD:
+- MOBILE CSS DESIGN SYSTEM
+- RESPONSIVE LAYOUT
+- BUTTON STATES
+- GRAPH STYLING
+========================================================= -->
+<!-- =========================================================
+JUMPCHECK LAB V1 — PART 2 OF 14
+MOBILE CSS DESIGN SYSTEM
+Paste this directly after PART 1, before any scripts.
+========================================================= -->
+
+<style>
+
+/* =========================================================
+RESET
+========================================================= */
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+  background:#050812;
+  color:#f5f7fb;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(123,199,255,.16),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(157,124,255,.13),
+      transparent 30rem
+    ),
+    #050812;
+}
+
+/* =========================================================
+TOKENS
+========================================================= */
+
+:root{
+  --bg:#050812;
+  --panel:#101827;
+  --panel2:#172236;
+  --line:#27344a;
+
+  --text:#f5f7fb;
+  --muted:#9ba9bd;
+
+  --accent:#7bc7ff;
+  --accent2:#9d7cff;
+
+  --green:#37d67a;
+  --amber:#ffc857;
+  --red:#ff5f7a;
+
+  --radius:24px;
+}
+
+/* =========================================================
+APP
+========================================================= */
+
+.app{
+  max-width:520px;
+  margin:0 auto;
+  min-height:100vh;
+  padding:
+    env(safe-area-inset-top)
+    14px
+    calc(92px + env(safe-area-inset-bottom));
+}
+
+/* =========================================================
+TOP BAR
+========================================================= */
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 4px 10px;
+}
+
+.brand{
+  font-size:24px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.brandSub{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
+.versionPill{
+  font-size:12px;
+  font-weight:900;
+  color:#061019;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+  padding:8px 10px;
+  border-radius:999px;
+}
+
+/* =========================================================
+SCREENS
+========================================================= */
+
+.screen{
+  display:none;
+  animation:fadeIn .18s ease-out;
+}
+
+.screen.active{
+  display:block;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =========================================================
+CARDS
+========================================================= */
+
+.card,
+.heroCard{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.06),
+      rgba(255,255,255,.025)
+    );
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.32);
+  backdrop-filter:blur(12px);
+}
+
+.heroCard{
+  padding:22px 18px;
+}
+
+/* =========================================================
+TYPOGRAPHY
+========================================================= */
+
+.heroKicker{
+  color:var(--accent);
+  font-size:13px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.heroTitle{
+  font-size:48px;
+  line-height:.88;
+  font-weight:950;
+  letter-spacing:-2.8px;
+  margin:0 0 14px;
+}
+
+.heroText,
+.bodyText{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.48;
+}
+
+.sectionTitle{
+  font-size:21px;
+  font-weight:950;
+  letter-spacing:-.5px;
+  margin-bottom:12px;
+}
+
+.centerText{
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.45;
+}
+
+.graphLegend{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:8px;
+}
+
+/* =========================================================
+STATUS
+========================================================= */
+
+.status{
+  border-left:4px solid var(--accent);
+  border-radius:16px;
+  background:rgba(123,199,255,.08);
+  color:#dbefff;
+  padding:12px 14px;
+  font-size:14px;
+  line-height:1.45;
+}
+
+.status.good{
+  border-left-color:var(--green);
+  background:rgba(55,214,122,.11);
+  color:#ddffe9;
+}
+
+.status.warn{
+  border-left-color:var(--amber);
+  background:rgba(255,200,87,.12);
+  color:#fff2cd;
+}
+
+.status.bad{
+  border-left-color:var(--red);
+  background:rgba(255,95,122,.13);
+  color:#ffe0e6;
+}
+
+/* =========================================================
+BUTTONS
+========================================================= */
+
+button{
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:16px;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+  color:#061019;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+  box-shadow:
+    0 10px 24px rgba(123,199,255,.16);
+}
+
+.primaryBtn{
+  color:#061019;
+}
+
+.secondaryBtn{
+  background:rgba(255,255,255,.08);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:none;
+}
+
+.ghostBtn{
+  background:transparent;
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:none;
+}
+
+.dangerBtn{
+  background:rgba(255,95,122,.16);
+  color:#ffdce4;
+  border:1px solid rgba(255,95,122,.22);
+  box-shadow:none;
+}
+
+button:disabled{
+  opacity:.45;
+}
+
+.buttonStack{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.buttonRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+/* =========================================================
+FEATURE GRID
+========================================================= */
+
+.featureGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+.miniFeature{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:14px;
+}
+
+.miniFeature strong{
+  display:block;
+  font-size:14px;
+  margin-bottom:6px;
+}
+
+.miniFeature span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+}
+
+/* =========================================================
+MODE OPTIONS
+========================================================= */
+
+.modeList{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.modeOption{
+  text-align:left;
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:none;
+}
+
+.modeOption.active{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(123,199,255,.24),
+      rgba(157,124,255,.18)
+    );
+  border-color:rgba(123,199,255,.42);
+}
+
+.modeOption span{
+  display:block;
+  font-size:15px;
+  font-weight:950;
+}
+
+.modeOption small{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+}
+
+/* =========================================================
+FORMS
+========================================================= */
+
+label{
+  display:block;
+  color:var(--muted);
+  margin:12px 0 6px;
+  font-size:13px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  padding:14px;
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,.08);
+  font-size:15px;
+}
+
+textarea{
+  min-height:88px;
+  resize:vertical;
+}
+
+.formGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+/* =========================================================
+METRICS
+========================================================= */
+
+.metricGrid{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+
+.metricGrid.twoCol{
+  grid-template-columns:1fr 1fr;
+}
+
+.metric{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:14px;
+}
+
+.metricLabel{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.metricValue{
+  font-size:28px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.metricValue.smaller{
+  font-size:20px;
+}
+
+.metricUnit{
+  color:var(--muted);
+  font-size:12px;
+  margin-left:3px;
+}
+
+/* =========================================================
+CAPTURE / RESULT
+========================================================= */
+
+.captureCard{
+  min-height:58vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.countdown{
+  text-align:center;
+  font-size:96px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-4px;
+  padding:34px 0 22px;
+}
+
+.resultHero{
+  font-size:72px;
+  line-height:.86;
+  font-weight:950;
+  letter-spacing:-4px;
+  margin:10px 0 8px;
+}
+
+#primaryResultUnit{
+  font-size:24px;
+  color:var(--muted);
+  letter-spacing:0;
+}
+
+/* =========================================================
+PILLS
+========================================================= */
+
+.pillRow{
+  margin-top:12px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  border-radius:999px;
+  padding:8px 12px;
+  margin:0 8px 8px 0;
+  font-size:12px;
+  font-weight:900;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.pill.good{
+  background:rgba(55,214,122,.14);
+  color:#ddffe9;
+}
+
+.pill.warn{
+  background:rgba(255,200,87,.14);
+  color:#fff2c8;
+}
+
+.pill.bad{
+  background:rgba(255,95,122,.16);
+  color:#ffe0e5;
+}
+
+/* =========================================================
+GRAPH / REPLAY
+========================================================= */
+
+canvas{
+  width:100%;
+  height:280px;
+  display:block;
+  margin-top:12px;
+  border-radius:18px;
+  background:rgba(0,0,0,.24);
+  border:1px solid rgba(255,255,255,.08);
+  touch-action:none;
+}
+
+.replaySlider{
+  width:100%;
+  margin-top:12px;
+}
+
+/* =========================================================
+HISTORY / DEBUG
+========================================================= */
+
+.historyList{
+  margin-top:14px;
+}
+
+.historyItem{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding:14px 0;
+}
+
+.historyItem:first-child{
+  border-top:none;
+}
+
+.debugOutput{
+  white-space:pre-wrap;
+  word-break:break-word;
+  color:#dbefff;
+  background:rgba(0,0,0,.24);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:14px;
+  font-size:12px;
+  line-height:1.45;
+  overflow:auto;
+}
+
+/* =========================================================
+BOTTOM NAV
+========================================================= */
+
+.bottomNav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:50;
+  padding:
+    10px 14px
+    calc(10px + env(safe-area-inset-bottom));
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(5,8,18,.96) 22%
+    );
+}
+
+.navGrid{
+  max-width:520px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:7px;
+}
+
+.navBtn{
+  padding:11px 4px;
+  border-radius:15px;
+  font-size:11px;
+  background:rgba(255,255,255,.07);
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:none;
+}
+
+.navBtn.active{
+  color:#061019;
+  background:
+    linear-gradient(
+      135deg,
+      var(--accent),
+      var(--accent2)
+    );
+}
+
+/* =========================================================
+UTILITIES
+========================================================= */
+
+.hidden{
+  display:none !important;
+}
+
+/* =========================================================
+SMALL SCREENS
+========================================================= */
+
+@media(max-width:380px){
+
+  .heroTitle{
+    font-size:40px;
+  }
+
+  .resultHero{
+    font-size:60px;
+  }
+
+  .countdown{
+    font-size:78px;
+  }
+
+  .metricValue{
+    font-size:24px;
+  }
+
+  button{
+    padding:14px;
+  }
+
+}
+
+</style>
+
+<!-- =========================================================
+PART 2 ENDS HERE
+
+PART 3 WILL ADD:
+- APP STATE
+- DOM REFERENCES
+- SCREEN NAVIGATION
+- HELPERS
+========================================================= -->
+/* =========================================================
+JUMPCHECK LAB V1 — PART 3 OF 14
+APP STATE + DOM REFERENCES + NAVIGATION + HELPERS
+Paste this directly after PART 2.
+========================================================= */
+
+<script>
+
+(() => {
+
+"use strict";
+
+/* =========================================================
+CONSTANTS
+========================================================= */
+
+const G = 9.80665;
+
+const STORAGE_KEY = "jumpcheck_lab_v1_history";
+
+/* =========================================================
+APP STATE
+========================================================= */
+
+const state = {
+
+  // App test mode
+  testMode:"vertical",
+  testSubtype:"countermovement",
+
+  // Sensors
+  sensorsEnabled:false,
+  demoMode:false,
+  recording:false,
+  calibrating:false,
+
+  live:{
+    ax:0,
+    ay:0,
+    az:0,
+    accelMag:0,
+
+    alpha:0,
+    beta:0,
+    gamma:0,
+
+    rotationMag:0
+  },
+
+  sampleRate:0,
+  lastSampleTime:null,
+
+  baseline:{
+    accelMag:null,
+    rotationMag:null,
+    stabilityScore:null
+  },
+
+  // Capture
+  testRunning:false,
+  currentAttempt:0,
+  targetAttempts:1,
+
+  samples:[],
+  attempts:[],
+  latestAnalysis:null,
+
+  // Marker editing
+  markerEditMode:null,
+  manualMarkersActive:false,
+
+  // Replay
+  replay:{
+    playing:false,
+    frame:0,
+    timer:null
+  },
+
+  // Stored sessions
+  history:loadHistory()
+
+};
+
+/* =========================================================
+DOM SHORTCUT
+========================================================= */
+
+function $(id){
+
+  return document.getElementById(id);
+
+}
+
+/* =========================================================
+DOM REFERENCES
+========================================================= */
+
+const ui = {
+
+  // Screens
+  screens:{
+    home:$("screenHome"),
+    sensor:$("screenSensor"),
+    setup:$("screenSetup"),
+    capture:$("screenCapture"),
+    result:$("screenResult"),
+    replay:$("screenReplay"),
+    history:$("screenHistory"),
+    debug:$("screenDebug")
+  },
+
+  // Nav
+  navHome:$("navHome"),
+  navSetup:$("navSetup"),
+  navSensor:$("navSensor"),
+  navHistory:$("navHistory"),
+  navDebug:$("navDebug"),
+
+  // Home
+  homeStatus:$("homeStatus"),
+  homeStartBtn:$("homeStartBtn"),
+  homeEnableSensorsBtn:$("homeEnableSensorsBtn"),
+  homeDemoBtn:$("homeDemoBtn"),
+
+  // Sensor
+  sensorStatus:$("sensorStatus"),
+  sensorEnableBtn:$("sensorEnableBtn"),
+  sensorDemoBtn:$("sensorDemoBtn"),
+
+  accelX:$("accelX"),
+  accelY:$("accelY"),
+  accelZ:$("accelZ"),
+  accelMag:$("accelMag"),
+
+  gyroAlpha:$("gyroAlpha"),
+  gyroBeta:$("gyroBeta"),
+  gyroGamma:$("gyroGamma"),
+
+  sampleRate:$("sampleRate"),
+
+  // Setup
+  setupStatus:$("setupStatus"),
+  modeVerticalBtn:$("modeVerticalBtn"),
+  modeRepeatedBtn:$("modeRepeatedBtn"),
+  modeLateralBtn:$("modeLateralBtn"),
+  modeBroadBtn:$("modeBroadBtn"),
+
+  bodyweightInput:$("bodyweightInput"),
+  heightInput:$("heightInput"),
+  testSubtype:$("testSubtype"),
+  broadDistanceInput:$("broadDistanceInput"),
+  sessionNotes:$("sessionNotes"),
+
+  calibrateBtn:$("calibrateBtn"),
+  beginTestBtn:$("beginTestBtn"),
+
+  // Capture
+  captureStatus:$("captureStatus"),
+  countdown:$("countdown"),
+  captureInstruction:$("captureInstruction"),
+  activeModeLabel:$("activeModeLabel"),
+  attemptCounter:$("attemptCounter"),
+
+  // Result
+  primaryResultValue:$("primaryResultValue"),
+  primaryResultUnit:$("primaryResultUnit"),
+  primaryResultLabel:$("primaryResultLabel"),
+
+  confidencePill:$("confidencePill"),
+  markerSourcePill:$("markerSourcePill"),
+  exposurePill:$("exposurePill"),
+
+  flightTimeMetric:$("flightTimeMetric"),
+  groundContactMetric:$("groundContactMetric"),
+  rsiMetric:$("rsiMetric"),
+  contactCountMetric:$("contactCountMetric"),
+  pushForceMetric:$("pushForceMetric"),
+  landingForceMetric:$("landingForceMetric"),
+
+  attemptSummary:$("attemptSummary"),
+
+  reviewReplayBtn:$("reviewReplayBtn"),
+  saveSessionBtn:$("saveSessionBtn"),
+  newTestBtn:$("newTestBtn"),
+
+  // Replay
+  replayStatus:$("replayStatus"),
+  signalCanvas:$("signalCanvas"),
+  replaySlider:$("replaySlider"),
+
+  playReplayBtn:$("playReplayBtn"),
+  pauseReplayBtn:$("pauseReplayBtn"),
+
+  setTakeoffBtn:$("setTakeoffBtn"),
+  setLandingBtn:$("setLandingBtn"),
+  setContactStartBtn:$("setContactStartBtn"),
+  setContactEndBtn:$("setContactEndBtn"),
+
+  resetAutoMarkersBtn:$("resetAutoMarkersBtn"),
+  applyMarkerEditsBtn:$("applyMarkerEditsBtn"),
+
+  // History
+  exportCsvBtn:$("exportCsvBtn"),
+  clearHistoryBtn:$("clearHistoryBtn"),
+  historyList:$("historyList"),
+
+  // Debug
+  debugStatus:$("debugStatus"),
+  debugOutput:$("debugOutput")
+
+};
+
+/* =========================================================
+HELPERS
+========================================================= */
+
+function formatNumber(value, decimals = 1){
+
+  if(!Number.isFinite(value)){
+    return "--";
+  }
+
+  return value.toFixed(decimals);
+
+}
+
+function sleep(ms){
+
+  return new Promise(resolve => setTimeout(resolve, ms));
+
+}
+
+function setStatus(element, message, type = ""){
+
+  if(!element){
+    return;
+  }
+
+  element.className = "status";
+
+  if(type){
+    element.classList.add(type);
+  }
+
+  element.textContent = message;
+
+}
+
+function setPill(element, message, type = ""){
+
+  if(!element){
+    return;
+  }
+
+  element.className = "pill";
+
+  if(type){
+    element.classList.add(type);
+  }
+
+  element.textContent = message;
+
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+function clamp(value, min, max){
+
+  return Math.max(
+    min,
+    Math.min(max, value)
+  );
+
+}
+
+function getBodyMassKg(){
+
+  const value =
+    parseFloat(ui.bodyweightInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : 95;
+
+}
+
+function getHeightCm(){
+
+  const value =
+    parseFloat(ui.heightInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : 188;
+
+}
+
+function getBroadDistanceCm(){
+
+  const value =
+    parseFloat(ui.broadDistanceInput.value);
+
+  return Number.isFinite(value) && value > 0
+    ? value
+    : null;
+
+}
+
+/* =========================================================
+LOCAL STORAGE
+========================================================= */
+
+function loadHistory(){
+
+  try{
+
+    const raw =
+      localStorage.getItem(STORAGE_KEY);
+
+    if(!raw){
+      return [];
+    }
+
+    return JSON.parse(raw);
+
+  }catch(error){
+
+    return [];
+
+  }
+
+}
+
+function saveHistory(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state.history)
+  );
+
+}
+
+/* =========================================================
+SCREEN NAVIGATION
+========================================================= */
+
+function showScreen(screenName){
+
+  Object.entries(ui.screens).forEach(([name, element]) => {
+
+    element.classList.toggle(
+      "active",
+      name === screenName
+    );
+
+  });
+
+  ui.navHome.classList.toggle(
+    "active",
+    screenName === "home"
+  );
+
+  ui.navSetup.classList.toggle(
+    "active",
+    screenName === "setup"
+  );
+
+  ui.navSensor.classList.toggle(
+    "active",
+    screenName === "sensor"
+  );
+
+  ui.navHistory.classList.toggle(
+    "active",
+    screenName === "history"
+  );
+
+  ui.navDebug.classList.toggle(
+    "active",
+    screenName === "debug"
+  );
+
+  if(screenName === "replay" && state.latestAnalysis){
+
+    drawSignalGraph(
+      state.latestAnalysis,
+      state.replay.frame
+    );
+
+  }
+
+}
+
+/* =========================================================
+TEST MODE SELECTION
+========================================================= */
+
+function setTestMode(mode){
+
+  state.testMode = mode;
+
+  const buttons = [
+    ui.modeVerticalBtn,
+    ui.modeRepeatedBtn,
+    ui.modeLateralBtn,
+    ui.modeBroadBtn
+  ];
+
+  buttons.forEach(button => {
+    button.classList.remove("active");
+  });
+
+  if(mode === "vertical"){
+    ui.modeVerticalBtn.classList.add("active");
+    state.targetAttempts = 1;
+    ui.testSubtype.value = "countermovement";
+    ui.activeModeLabel.textContent = "Vertical";
+  }
+
+  if(mode === "repeated"){
+    ui.modeRepeatedBtn.classList.add("active");
+    state.targetAttempts = 1;
+    ui.testSubtype.value = "pogo";
+    ui.activeModeLabel.textContent = "Repeated";
+  }
+
+  if(mode === "lateral"){
+    ui.modeLateralBtn.classList.add("active");
+    state.targetAttempts = 1;
+    ui.testSubtype.value = "lateral-bound";
+    ui.activeModeLabel.textContent = "Lateral";
+  }
+
+  if(mode === "broad"){
+    ui.modeBroadBtn.classList.add("active");
+    state.targetAttempts = 1;
+    ui.testSubtype.value = "broad";
+    ui.activeModeLabel.textContent = "Broad";
+  }
+
+  state.testSubtype =
+    ui.testSubtype.value;
+
+  ui.attemptCounter.textContent =
+    `0 / ${state.targetAttempts}`;
+
+  setStatus(
+    ui.setupStatus,
+    getModeDescription(mode),
+    ""
+  );
+
+}
+
+function getModeDescription(mode){
+
+  if(mode === "vertical"){
+    return "Vertical jump mode selected. Best for single jump height, flight time, and force proxy.";
+  }
+
+  if(mode === "repeated"){
+    return "Repeated contact mode selected. Best for pogos, extensive plyos, contact count, ground contact, and rhythm.";
+  }
+
+  if(mode === "lateral"){
+    return "Lateral bound mode selected. Best for side-to-side exposure and landing stability.";
+  }
+
+  if(mode === "broad"){
+    return "Broad jump mode selected. Add measured distance if available, then capture impact and flight profile.";
+  }
+
+  return "Choose a test mode.";
+
+}
+
+/* =========================================================
+RESET CURRENT TEST
+========================================================= */
+
+function resetCurrentTest(){
+
+  stopReplay();
+
+  state.currentAttempt = 0;
+  state.samples = [];
+  state.attempts = [];
+  state.latestAnalysis = null;
+
+  state.markerEditMode = null;
+  state.manualMarkersActive = false;
+
+  state.replay.frame = 0;
+  ui.replaySlider.value = 0;
+
+  ui.primaryResultValue.textContent = "--";
+  ui.primaryResultUnit.textContent = "cm";
+  ui.primaryResultLabel.textContent = "Jump height estimate";
+
+  ui.flightTimeMetric.textContent = "--";
+  ui.groundContactMetric.textContent = "--";
+  ui.rsiMetric.textContent = "--";
+  ui.contactCountMetric.textContent = "--";
+  ui.pushForceMetric.textContent = "--";
+  ui.landingForceMetric.textContent = "--";
+
+  ui.attemptSummary.innerHTML = "";
+
+  setPill(
+    ui.confidencePill,
+    "Confidence",
+    ""
+  );
+
+  setPill(
+    ui.markerSourcePill,
+    "Auto markers",
+    ""
+  );
+
+  setPill(
+    ui.exposurePill,
+    "Exposure",
+    ""
+  );
+
+  ui.attemptCounter.textContent =
+    `0 / ${state.targetAttempts}`;
+
+}
+
+/* =========================================================
+DEBUG OUTPUT
+========================================================= */
+
+function updateDebugOutput(extra = null){
+
+  const payload = {
+    testMode:state.testMode,
+    testSubtype:state.testSubtype,
+    sensorsEnabled:state.sensorsEnabled,
+    demoMode:state.demoMode,
+    sampleRate:state.sampleRate,
+    baseline:state.baseline,
+    latestAnalysis:state.latestAnalysis
+      ? {
+          success:state.latestAnalysis.success,
+          mode:state.latestAnalysis.mode,
+          markerSource:state.latestAnalysis.markerSource,
+          contactCount:state.latestAnalysis.contactCount,
+          flightTimeSeconds:state.latestAnalysis.flightTimeSeconds,
+          groundContactSeconds:state.latestAnalysis.groundContactSeconds,
+          jumpHeightCm:state.latestAnalysis.jumpHeightCm,
+          exposureScore:state.latestAnalysis.exposureScore,
+          confidence:state.latestAnalysis.confidence,
+          flags:state.latestAnalysis.flags
+        }
+      : null,
+    extra
+  };
+
+  ui.debugOutput.textContent =
+    JSON.stringify(payload, null, 2);
+
+}
+
+/* =========================================================
+PART 3 EVENT LISTENERS
+========================================================= */
+
+ui.navHome.addEventListener(
+  "click",
+  () => showScreen("home")
+);
+
+ui.navSetup.addEventListener(
+  "click",
+  () => showScreen("setup")
+);
+
+ui.navSensor.addEventListener(
+  "click",
+  () => showScreen("sensor")
+);
+
+ui.navHistory.addEventListener(
+  "click",
+  () => showScreen("history")
+);
+
+ui.navDebug.addEventListener(
+  "click",
+  () => showScreen("debug")
+);
+
+ui.homeStartBtn.addEventListener(
+  "click",
+  () => showScreen("setup")
+);
+
+ui.modeVerticalBtn.addEventListener(
+  "click",
+  () => setTestMode("vertical")
+);
+
+ui.modeRepeatedBtn.addEventListener(
+  "click",
+  () => setTestMode("repeated")
+);
+
+ui.modeLateralBtn.addEventListener(
+  "click",
+  () => setTestMode("lateral")
+);
+
+ui.modeBroadBtn.addEventListener(
+  "click",
+  () => setTestMode("broad")
+);
+
+ui.testSubtype.addEventListener(
+  "change",
+  () => {
+    state.testSubtype = ui.testSubtype.value;
+  }
+);
+
+ui.reviewReplayBtn.addEventListener(
+  "click",
+  () => showScreen("replay")
+);
+
+ui.newTestBtn.addEventListener(
+  "click",
+  () => {
+    resetCurrentTest();
+    showScreen("setup");
+  }
+);
+
+/* =========================================================
+INITIALISE PART 3
+========================================================= */
+
+setTestMode("vertical");
+
+updateDebugOutput();
+
+/* =========================================================
+PART 3 ENDS HERE
+
+PART 4 WILL ADD:
+- SENSOR ENGINE
+- ACCELEROMETER + GYROSCOPE
+- DEMO SENSOR DATA
+- LIVE UI LOOP
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 4 OF 14
+SENSOR ENGINE: ACCELEROMETER + GYROSCOPE + DEMO DATA
+Paste this directly after PART 3.
+========================================================= */
+
+/* =========================================================
+ENABLE SENSORS
+========================================================= */
+
+async function enableSensors(){
+
+  try{
+
+    if(!window.DeviceMotionEvent){
+
+      setStatus(
+        ui.homeStatus,
+        "Motion sensors are not available in this browser. Try Safari or Chrome on your phone.",
+        "bad"
+      );
+
+      setStatus(
+        ui.sensorStatus,
+        "DeviceMotionEvent is unavailable in this browser.",
+        "bad"
+      );
+
+      showScreen("sensor");
+
+      return;
+
+    }
+
+    /*
+      iOS requires motion permission from a direct user tap.
+      Android Chrome usually does not require this explicit call.
+    */
+
+    if(typeof DeviceMotionEvent.requestPermission === "function"){
+
+      const response =
+        await DeviceMotionEvent.requestPermission();
+
+      if(response !== "granted"){
+
+        setStatus(
+          ui.homeStatus,
+          "Motion permission was not granted. Check Safari Motion & Orientation settings.",
+          "bad"
+        );
+
+        setStatus(
+          ui.sensorStatus,
+          "Permission denied. Enable Motion & Orientation Access in Safari settings.",
+          "bad"
+        );
+
+        showScreen("sensor");
+
+        return;
+
+      }
+
+    }
+
+    window.removeEventListener(
+      "devicemotion",
+      handleMotionEvent
+    );
+
+    window.addEventListener(
+      "devicemotion",
+      handleMotionEvent
+    );
+
+    state.sensorsEnabled = true;
+    state.demoMode = false;
+
+    setStatus(
+      ui.homeStatus,
+      "Sensors enabled. You can now calibrate and begin testing.",
+      "good"
+    );
+
+    setStatus(
+      ui.sensorStatus,
+      "Sensors enabled. Move your phone to verify live accelerometer and gyroscope values.",
+      "good"
+    );
+
+    showScreen("setup");
+
+  }catch(error){
+
+    setStatus(
+      ui.homeStatus,
+      "Unable to enable sensors: " + error.message,
+      "bad"
+    );
+
+    setStatus(
+      ui.sensorStatus,
+      "Unable to enable sensors: " + error.message,
+      "bad"
+    );
+
+    showScreen("sensor");
+
+  }
+
+}
+
+/* =========================================================
+MOTION EVENT HANDLER
+========================================================= */
+
+function handleMotionEvent(event){
+
+  const acceleration =
+    event.accelerationIncludingGravity ||
+    event.acceleration ||
+    {x:0,y:0,z:0};
+
+  const rotation =
+    event.rotationRate ||
+    {alpha:0,beta:0,gamma:0};
+
+  const ax = acceleration.x || 0;
+  const ay = acceleration.y || 0;
+  const az = acceleration.z || 0;
+
+  const alpha = rotation.alpha || 0;
+  const beta = rotation.beta || 0;
+  const gamma = rotation.gamma || 0;
+
+  const accelMag =
+    Math.sqrt(
+      ax * ax +
+      ay * ay +
+      az * az
+    );
+
+  const rotationMag =
+    Math.sqrt(
+      alpha * alpha +
+      beta * beta +
+      gamma * gamma
+    );
+
+  const now =
+    performance.now();
+
+  updateSampleRate(now);
+
+  state.live = {
+    ax,
+    ay,
+    az,
+    accelMag,
+
+    alpha,
+    beta,
+    gamma,
+
+    rotationMag
+  };
+
+  if(state.recording){
+
+    state.samples.push({
+      time:now,
+
+      ax,
+      ay,
+      az,
+      accelMag,
+
+      alpha,
+      beta,
+      gamma,
+      rotationMag
+    });
+
+  }
+
+}
+
+/* =========================================================
+SAMPLE RATE
+========================================================= */
+
+function updateSampleRate(now){
+
+  if(state.lastSampleTime){
+
+    const deltaSeconds =
+      (now - state.lastSampleTime) / 1000;
+
+    if(deltaSeconds > 0){
+
+      const instantRate =
+        1 / deltaSeconds;
+
+      if(state.sampleRate === 0){
+
+        state.sampleRate = instantRate;
+
+      }else{
+
+        state.sampleRate =
+          state.sampleRate * 0.9 +
+          instantRate * 0.1;
+
+      }
+
+    }
+
+  }
+
+  state.lastSampleTime = now;
+
+}
+
+/* =========================================================
+DEMO MODE
+========================================================= */
+
+function enableDemoMode(){
+
+  state.demoMode = true;
+  state.sensorsEnabled = true;
+
+  state.live = {
+    ax:0,
+    ay:0,
+    az:G,
+    accelMag:G,
+
+    alpha:0,
+    beta:0,
+    gamma:0,
+    rotationMag:0
+  };
+
+  state.sampleRate = 60;
+
+  setStatus(
+    ui.homeStatus,
+    "Demo mode enabled. Simulated jump and contact data will be generated.",
+    "warn"
+  );
+
+  setStatus(
+    ui.sensorStatus,
+    "Demo mode enabled. Live sensor values are simulated.",
+    "warn"
+  );
+
+  setStatus(
+    ui.setupStatus,
+    "Demo mode active. Calibrate, then begin a test.",
+    "warn"
+  );
+
+  showScreen("setup");
+
+}
+
+/* =========================================================
+SIMULATED LIVE SENSOR FEED
+========================================================= */
+
+function updateDemoLiveFeed(){
+
+  if(!state.demoMode){
+    return;
+  }
+
+  const accelNoise =
+    (Math.random() - 0.5) * 0.35;
+
+  const gyroNoise =
+    (Math.random() - 0.5) * 4;
+
+  state.live = {
+    ax:accelNoise,
+    ay:accelNoise * 0.8,
+    az:G + accelNoise,
+    accelMag:G + accelNoise,
+
+    alpha:gyroNoise,
+    beta:gyroNoise * 0.7,
+    gamma:gyroNoise * 0.5,
+    rotationMag:Math.abs(gyroNoise)
+  };
+
+}
+
+/* =========================================================
+DEMO SAMPLE GENERATOR
+========================================================= */
+
+function generateDemoSamplesForMode(mode){
+
+  if(mode === "repeated"){
+    return generateRepeatedDemoSamples();
+  }
+
+  if(mode === "lateral"){
+    return generateLateralDemoSamples();
+  }
+
+  if(mode === "broad"){
+    return generateBroadDemoSamples();
+  }
+
+  return generateVerticalDemoSamples();
+
+}
+
+/* =========================================================
+VERTICAL JUMP DEMO
+========================================================= */
+
+function generateVerticalDemoSamples(){
+
+  const samples = [];
+
+  const startTime =
+    performance.now();
+
+  const sampleRate = 60;
+  const interval = 1000 / sampleRate;
+  const totalDurationMs = 5000;
+
+  const flightDurationSeconds =
+    0.42 + Math.random() * 0.16;
+
+  const unweightStartMs = 1050;
+  const propulsionStartMs = 1450;
+  const propulsionPeakMs = 1660;
+  const takeoffTimeMs = 1860;
+
+  const landingTimeMs =
+    takeoffTimeMs +
+    flightDurationSeconds * 1000;
+
+  for(
+    let t = 0;
+    t <= totalDurationMs;
+    t += interval
+  ){
+
+    let accelMag =
+      G + (Math.random() - 0.5) * 0.35;
+
+    let rotationMag =
+      Math.abs((Math.random() - 0.5) * 5);
+
+    if(
+      t >= unweightStartMs &&
+      t < propulsionStartMs
+    ){
+
+      accelMag =
+        G * (0.55 + Math.random() * 0.18);
+
+      rotationMag =
+        10 + Math.random() * 12;
+
+    }
+
+    if(
+      t >= propulsionStartMs &&
+      t < propulsionPeakMs
+    ){
+
+      const phase =
+        (t - propulsionStartMs) /
+        (propulsionPeakMs - propulsionStartMs);
+
+      accelMag =
+        G * (1.05 + phase * 0.85) +
+        (Math.random() - 0.5) * 0.25;
+
+      rotationMag =
+        18 + phase * 18 +
+        Math.random() * 4;
+
+    }
+
+    if(
+      t >= propulsionPeakMs &&
+      t < takeoffTimeMs
+    ){
+
+      accelMag =
+        G * (1.7 + Math.random() * 0.35);
+
+      rotationMag =
+        20 + Math.random() * 10;
+
+    }
+
+    if(
+      t >= takeoffTimeMs &&
+      t <= landingTimeMs
+    ){
+
+      accelMag =
+        G * (0.05 + Math.random() * 0.08);
+
+      rotationMag =
+        5 + Math.random() * 8;
+
+    }
+
+    if(
+      t > landingTimeMs &&
+      t < landingTimeMs + 220
+    ){
+
+      accelMag =
+        G * (2.2 + Math.random() * 0.95);
+
+      rotationMag =
+        24 + Math.random() * 22;
+
+    }
+
+    if(
+      t >= landingTimeMs + 220 &&
+      t < landingTimeMs + 900
+    ){
+
+      const decay =
+        Math.exp(-(t - landingTimeMs) / 430);
+
+      accelMag =
+        G +
+        Math.sin((t - landingTimeMs) / 85) *
+        G *
+        0.34 *
+        decay;
+
+      rotationMag =
+        8 +
+        Math.sin((t - landingTimeMs) / 95) *
+        18 *
+        decay;
+
+    }
+
+    samples.push(
+      makeDemoSample(startTime + t, accelMag, rotationMag)
+    );
+
+  }
+
+  return samples;
+
+}
+
+/* =========================================================
+REPEATED CONTACT DEMO
+========================================================= */
+
+function generateRepeatedDemoSamples(){
+
+  const samples = [];
+
+  const startTime =
+    performance.now();
+
+  const sampleRate = 60;
+  const interval = 1000 / sampleRate;
+  const totalDurationMs = 7000;
+
+  const firstContactStartMs = 900;
+  const cycleMs = 520;
+  const contactMs = 160;
+  const jumps = 8;
+
+  for(
+    let t = 0;
+    t <= totalDurationMs;
+    t += interval
+  ){
+
+    let accelMag =
+      G + (Math.random() - 0.5) * 0.35;
+
+    let rotationMag =
+      Math.abs((Math.random() - 0.5) * 6);
+
+    for(let j = 0; j < jumps; j++){
+
+      const contactStart =
+        firstContactStartMs + j * cycleMs;
+
+      const contactEnd =
+        contactStart + contactMs;
+
+      const flightEnd =
+        contactStart + cycleMs;
+
+      if(t >= contactStart && t < contactEnd){
+
+        const phase =
+          (t - contactStart) / contactMs;
+
+        accelMag =
+          G * (1.45 + Math.sin(phase * Math.PI) * 1.0) +
+          (Math.random() - 0.5) * 0.4;
+
+        rotationMag =
+          10 + Math.random() * 16;
+
+      }
+
+      if(t >= contactEnd && t < flightEnd){
+
+        accelMag =
+          G * (0.06 + Math.random() * 0.1);
+
+        rotationMag =
+          5 + Math.random() * 10;
+
+      }
+
+    }
+
+    samples.push(
+      makeDemoSample(startTime + t, accelMag, rotationMag)
+    );
+
+  }
+
+  return samples;
+
+}
+
+/* =========================================================
+LATERAL DEMO
+========================================================= */
+
+function generateLateralDemoSamples(){
+
+  const samples = [];
+
+  const startTime =
+    performance.now();
+
+  const sampleRate = 60;
+  const interval = 1000 / sampleRate;
+  const totalDurationMs = 6000;
+
+  const firstJumpMs = 1200;
+  const cycleMs = 950;
+  const contacts = 5;
+
+  for(
+    let t = 0;
+    t <= totalDurationMs;
+    t += interval
+  ){
+
+    let accelMag =
+      G + (Math.random() - 0.5) * 0.35;
+
+    let rotationMag =
+      4 + Math.random() * 5;
+
+    for(let j = 0; j < contacts; j++){
+
+      const pushStart =
+        firstJumpMs + j * cycleMs;
+
+      const takeoff =
+        pushStart + 240;
+
+      const landing =
+        takeoff + 360 + Math.random() * 50;
+
+      if(t >= pushStart && t < takeoff){
+
+        accelMag =
+          G * (1.3 + Math.random() * 0.55);
+
+        rotationMag =
+          26 + Math.random() * 26;
+
+      }
+
+      if(t >= takeoff && t < landing){
+
+        accelMag =
+          G * (0.08 + Math.random() * 0.12);
+
+        rotationMag =
+          16 + Math.random() * 24;
+
+      }
+
+      if(t >= landing && t < landing + 180){
+
+        accelMag =
+          G * (2.0 + Math.random() * 0.9);
+
+        rotationMag =
+          32 + Math.random() * 36;
+
+      }
+
+    }
+
+    samples.push(
+      makeDemoSample(startTime + t, accelMag, rotationMag)
+    );
+
+  }
+
+  return samples;
+
+}
+
+/* =========================================================
+BROAD JUMP DEMO
+========================================================= */
+
+function generateBroadDemoSamples(){
+
+  const samples =
+    generateVerticalDemoSamples();
+
+  return samples.map((sample, index) => {
+
+    const phase =
+      index / Math.max(1, samples.length - 1);
+
+    const extraRotation =
+      phase > 0.25 && phase < 0.65
+        ? 16
+        : 0;
+
+    return {
+      ...sample,
+      alpha:sample.alpha + extraRotation,
+      beta:sample.beta + extraRotation * 0.7,
+      gamma:sample.gamma + extraRotation * 0.5,
+      rotationMag:sample.rotationMag + extraRotation
+    };
+
+  });
+
+}
+
+/* =========================================================
+DEMO SAMPLE FACTORY
+========================================================= */
+
+function makeDemoSample(time, accelMag, rotationMag){
+
+  return {
+    time,
+
+    ax:0,
+    ay:0,
+    az:accelMag,
+    accelMag,
+
+    alpha:rotationMag * 0.7,
+    beta:rotationMag * 0.45,
+    gamma:rotationMag * 0.3,
+    rotationMag
+  };
+
+}
+
+/* =========================================================
+LIVE UI LOOP
+========================================================= */
+
+function updateLiveInterface(){
+
+  if(state.demoMode){
+    updateDemoLiveFeed();
+  }
+
+  ui.accelX.textContent =
+    formatNumber(state.live.ax, 2);
+
+  ui.accelY.textContent =
+    formatNumber(state.live.ay, 2);
+
+  ui.accelZ.textContent =
+    formatNumber(state.live.az, 2);
+
+  ui.accelMag.textContent =
+    formatNumber(state.live.accelMag, 2);
+
+  ui.gyroAlpha.textContent =
+    formatNumber(state.live.alpha, 1);
+
+  ui.gyroBeta.textContent =
+    formatNumber(state.live.beta, 1);
+
+  ui.gyroGamma.textContent =
+    formatNumber(state.live.gamma, 1);
+
+  ui.sampleRate.textContent =
+    state.sampleRate
+      ? Math.round(state.sampleRate)
+      : "--";
+
+  requestAnimationFrame(updateLiveInterface);
+
+}
+
+/* =========================================================
+PART 4 EVENT LISTENERS
+========================================================= */
+
+ui.homeEnableSensorsBtn.addEventListener(
+  "click",
+  enableSensors
+);
+
+ui.sensorEnableBtn.addEventListener(
+  "click",
+  enableSensors
+);
+
+ui.homeDemoBtn.addEventListener(
+  "click",
+  enableDemoMode
+);
+
+ui.sensorDemoBtn.addEventListener(
+  "click",
+  enableDemoMode
+);
+
+/* =========================================================
+INITIALISE PART 4
+========================================================= */
+
+updateLiveInterface();
+
+/* =========================================================
+PART 4 ENDS HERE
+
+PART 5 WILL ADD:
+- CALIBRATION
+- SENSOR QUALITY
+- CAPTURE RECORDING
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 5 OF 14
+CALIBRATION + SENSOR QUALITY + CAPTURE RECORDING
+Paste this directly after PART 4.
+========================================================= */
+
+/* =========================================================
+CALIBRATION
+========================================================= */
+
+async function calibrateDevice(){
+
+  if(!state.sensorsEnabled){
+
+    setStatus(
+      ui.setupStatus,
+      "Enable sensors or demo mode first.",
+      "warn"
+    );
+
+    showScreen("sensor");
+
+    return;
+
+  }
+
+  state.calibrating = true;
+
+  setStatus(
+    ui.setupStatus,
+    "Calibrating. Stand still for 3 seconds.",
+    "warn"
+  );
+
+  const accelReadings = [];
+  const rotationReadings = [];
+
+  const startTime =
+    performance.now();
+
+  while(performance.now() - startTime < 3000){
+
+    accelReadings.push(
+      state.live.accelMag || G
+    );
+
+    rotationReadings.push(
+      state.live.rotationMag || 0
+    );
+
+    await sleep(50);
+
+  }
+
+  const accelAverage =
+    average(accelReadings) || G;
+
+  const rotationAverage =
+    average(rotationReadings) || 0;
+
+  const accelSd =
+    standardDeviation(accelReadings);
+
+  const rotationSd =
+    standardDeviation(rotationReadings);
+
+  const stabilityScore =
+    calculateCalibrationStability(
+      accelSd,
+      rotationSd
+    );
+
+  state.baseline = {
+    accelMag:accelAverage,
+    rotationMag:rotationAverage,
+    stabilityScore
+  };
+
+  state.calibrating = false;
+
+  if(stabilityScore < 65 && !state.demoMode){
+
+    setStatus(
+      ui.setupStatus,
+      "Baseline saved, but calibration was noisy. Tighten the phone placement and recalibrate if needed.",
+      "warn"
+    );
+
+  }else{
+
+    setStatus(
+      ui.setupStatus,
+      "Calibration complete. Baseline is stable enough to test.",
+      "good"
+    );
+
+  }
+
+  updateDebugOutput({
+    calibration:{
+      accelAverage,
+      rotationAverage,
+      accelSd,
+      rotationSd,
+      stabilityScore
+    }
+  });
+
+}
+
+/* =========================================================
+CALIBRATION QUALITY
+========================================================= */
+
+function calculateCalibrationStability(accelSd, rotationSd){
+
+  /*
+    Higher is better.
+    This is a practical field score, not a clinical measure.
+  */
+
+  const accelPenalty =
+    clamp(accelSd / 1.2, 0, 1) * 55;
+
+  const rotationPenalty =
+    clamp(rotationSd / 18, 0, 1) * 45;
+
+  return Math.round(
+    clamp(
+      100 - accelPenalty - rotationPenalty,
+      0,
+      100
+    )
+  );
+
+}
+
+/* =========================================================
+BASIC STATS
+========================================================= */
+
+function average(values){
+
+  if(!values || !values.length){
+    return 0;
+  }
+
+  return values.reduce(
+    (sum,value) => sum + value,
+    0
+  ) / values.length;
+
+}
+
+function standardDeviation(values){
+
+  if(!values || values.length < 2){
+    return 0;
+  }
+
+  const avg =
+    average(values);
+
+  const variance =
+    values.reduce(
+      (sum,value) => sum + Math.pow(value - avg, 2),
+      0
+    ) / values.length;
+
+  return Math.sqrt(variance);
+
+}
+
+/* =========================================================
+CAPTURE DURATION BY MODE
+========================================================= */
+
+function getCaptureDurationMs(){
+
+  if(state.testMode === "repeated"){
+    return 7000;
+  }
+
+  if(state.testMode === "lateral"){
+    return 6000;
+  }
+
+  return 5000;
+
+}
+
+/* =========================================================
+RECORD SENSOR WINDOW
+========================================================= */
+
+async function recordSensorWindow(){
+
+  state.samples = [];
+
+  stopReplay();
+
+  state.replay.frame = 0;
+
+  ui.replaySlider.value = 0;
+
+  const durationMs =
+    getCaptureDurationMs();
+
+  if(state.demoMode){
+
+    state.samples =
+      generateDemoSamplesForMode(
+        state.testMode
+      );
+
+    await sleep(600);
+
+    return state.samples;
+
+  }
+
+  state.recording = true;
+
+  await sleep(durationMs);
+
+  state.recording = false;
+
+  return state.samples;
+
+}
+
+/* =========================================================
+COUNTDOWN
+========================================================= */
+
+async function runCountdown(){
+
+  ui.countdown.classList.remove("hidden");
+
+  const steps =
+    state.testMode === "repeated"
+      ? ["3","2","1","GO"]
+      : ["3","2","1","JUMP"];
+
+  for(const step of steps){
+
+    ui.countdown.textContent = step;
+
+    await sleep(
+      step === "JUMP" || step === "GO"
+        ? 450
+        : 700
+    );
+
+  }
+
+  ui.countdown.classList.add("hidden");
+
+}
+
+/* =========================================================
+CAPTURE INSTRUCTION TEXT
+========================================================= */
+
+function setCaptureInstruction(){
+
+  if(state.testMode === "repeated"){
+
+    ui.captureInstruction.textContent =
+      "Perform repeated contacts until the timer ends. Keep rhythm consistent.";
+
+    return;
+
+  }
+
+  if(state.testMode === "lateral"){
+
+    ui.captureInstruction.textContent =
+      "Perform controlled lateral bounds. Stick each landing cleanly.";
+
+    return;
+
+  }
+
+  if(state.testMode === "broad"){
+
+    ui.captureInstruction.textContent =
+      "Perform one broad jump. Land safely, then stay still.";
+
+    return;
+
+  }
+
+  ui.captureInstruction.textContent =
+    "Perform one vertical jump. Land safely, then stay still.";
+
+}
+
+/* =========================================================
+CAPTURE VALIDATION
+========================================================= */
+
+function validateCapturedSamples(samples){
+
+  if(!samples || samples.length < 30){
+
+    return {
+      valid:false,
+      reason:"Too few sensor samples were captured."
+    };
+
+  }
+
+  const durationSeconds =
+    (samples[samples.length - 1].time - samples[0].time) /
+    1000;
+
+  if(durationSeconds < 1){
+
+    return {
+      valid:false,
+      reason:"Capture duration was too short."
+    };
+
+  }
+
+  const accelValues =
+    samples.map(sample => sample.accelMag);
+
+  const accelRange =
+    Math.max(...accelValues) -
+    Math.min(...accelValues);
+
+  if(accelRange < 2 && !state.demoMode){
+
+    return {
+      valid:false,
+      reason:"Sensor signal barely changed. Check phone placement or sensor permission."
+    };
+
+  }
+
+  return {
+    valid:true,
+    reason:"Capture looks usable."
+  };
+
+}
+
+/* =========================================================
+PART 5 EVENT LISTENERS
+========================================================= */
+
+ui.calibrateBtn.addEventListener(
+  "click",
+  calibrateDevice
+);
+
+/* =========================================================
+PART 5 ENDS HERE
+
+PART 6 WILL ADD:
+- TEST FLOW
+- SINGLE CAPTURE
+- MODE-SPECIFIC ROUTING
+- RESULT SCREEN TRANSITIONS
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 6 OF 14
+TEST FLOW + SINGLE CAPTURE + MODE ROUTING
+Paste this directly after PART 5.
+========================================================= */
+
+/* =========================================================
+START TEST
+========================================================= */
+
+async function startTest(){
+
+  if(state.testRunning){
+    return;
+  }
+
+  if(!state.sensorsEnabled){
+
+    setStatus(
+      ui.setupStatus,
+      "Enable sensors or demo mode first.",
+      "warn"
+    );
+
+    showScreen("sensor");
+
+    return;
+
+  }
+
+  if(!state.baseline.accelMag){
+
+    setStatus(
+      ui.setupStatus,
+      "Calibrate before testing so the app has a stable baseline.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  resetCurrentTest();
+
+  state.testRunning = true;
+
+  state.testSubtype =
+    ui.testSubtype.value;
+
+  state.targetAttempts =
+    getTargetAttemptsForMode();
+
+  ui.attemptCounter.textContent =
+    `0 / ${state.targetAttempts}`;
+
+  setCaptureInstruction();
+
+  showScreen("capture");
+
+  const successfulCaptures = [];
+
+  for(
+    state.currentAttempt = 0;
+    state.currentAttempt < state.targetAttempts;
+    state.currentAttempt++
+  ){
+
+    ui.attemptCounter.textContent =
+      `${successfulCaptures.length} / ${state.targetAttempts}`;
+
+    const analysis =
+      await runSingleCapture();
+
+    if(analysis && analysis.success){
+
+      successfulCaptures.push(analysis);
+
+      state.attempts.push(analysis);
+
+    }
+
+    if(
+      state.currentAttempt < state.targetAttempts - 1
+    ){
+
+      setStatus(
+        ui.captureStatus,
+        "Rest briefly. Next attempt coming up.",
+        "warn"
+      );
+
+      await sleep(1800);
+
+    }
+
+  }
+
+  state.testRunning = false;
+
+  ui.attemptCounter.textContent =
+    `${state.attempts.length} / ${state.targetAttempts}`;
+
+  if(state.attempts.length){
+
+    state.latestAnalysis =
+      state.attempts[state.attempts.length - 1];
+
+    updateResults();
+
+    updateDebugOutput({
+      testComplete:true
+    });
+
+    showScreen("result");
+
+  }else{
+
+    setStatus(
+      ui.captureStatus,
+      "Test finished, but no valid capture was detected.",
+      "bad"
+    );
+
+    updateDebugOutput({
+      testComplete:false,
+      reason:"No valid captures"
+    });
+
+  }
+
+}
+
+/* =========================================================
+TARGET ATTEMPTS
+========================================================= */
+
+function getTargetAttemptsForMode(){
+
+  /*
+    Lab V1 keeps each mode simple.
+    Vertical/broad/lateral use one capture.
+    Repeated contacts are one timed set.
+  */
+
+  return 1;
+
+}
+
+/* =========================================================
+RUN SINGLE CAPTURE
+========================================================= */
+
+async function runSingleCapture(){
+
+  showScreen("capture");
+
+  setStatus(
+    ui.captureStatus,
+    "Get ready. Stay still until the countdown ends.",
+    ""
+  );
+
+  setCaptureInstruction();
+
+  await runCountdown();
+
+  setStatus(
+    ui.captureStatus,
+    "Recording. Perform the test now.",
+    "warn"
+  );
+
+  const samples =
+    await recordSensorWindow();
+
+  const validation =
+    validateCapturedSamples(samples);
+
+  if(!validation.valid){
+
+    setStatus(
+      ui.captureStatus,
+      "Capture rejected: " + validation.reason,
+      "bad"
+    );
+
+    updateDebugOutput({
+      validation
+    });
+
+    return null;
+
+  }
+
+  const analysis =
+    analyseCaptureByMode(
+      samples,
+      state.testMode
+    );
+
+  state.latestAnalysis =
+    analysis;
+
+  if(!analysis.success){
+
+    setStatus(
+      ui.captureStatus,
+      "Capture analysed but failed: " + analysis.reason,
+      "bad"
+    );
+
+    updateDebugOutput({
+      analysisFailed:analysis.reason
+    });
+
+    return analysis;
+
+  }
+
+  setStatus(
+    ui.captureStatus,
+    "Capture complete.",
+    analysis.confidenceType || "good"
+  );
+
+  return analysis;
+
+}
+
+/* =========================================================
+ANALYSE BY MODE ROUTER
+========================================================= */
+
+function analyseCaptureByMode(samples, mode){
+
+  if(mode === "repeated"){
+
+    return analyseRepeatedContacts(
+      samples
+    );
+
+  }
+
+  if(mode === "lateral"){
+
+    return analyseLateralBounds(
+      samples
+    );
+
+  }
+
+  if(mode === "broad"){
+
+    return analyseBroadJump(
+      samples
+    );
+
+  }
+
+  return analyseVerticalJump(
+    samples
+  );
+
+}
+
+/* =========================================================
+SET ACTIVE MODE TEXT
+========================================================= */
+
+function updateActiveModeLabel(){
+
+  if(state.testMode === "vertical"){
+
+    ui.activeModeLabel.textContent =
+      "Vertical";
+
+  }
+
+  if(state.testMode === "repeated"){
+
+    ui.activeModeLabel.textContent =
+      "Repeated";
+
+  }
+
+  if(state.testMode === "lateral"){
+
+    ui.activeModeLabel.textContent =
+      "Lateral";
+
+  }
+
+  if(state.testMode === "broad"){
+
+    ui.activeModeLabel.textContent =
+      "Broad";
+
+  }
+
+}
+
+/* =========================================================
+OVERRIDE MODE SELECTION TO UPDATE LABEL
+========================================================= */
+
+const originalSetTestMode =
+  setTestMode;
+
+setTestMode = function(mode){
+
+  originalSetTestMode(mode);
+
+  updateActiveModeLabel();
+
+};
+
+/* =========================================================
+PART 6 EVENT LISTENERS
+========================================================= */
+
+ui.beginTestBtn.addEventListener(
+  "click",
+  startTest
+);
+
+/* =========================================================
+PART 6 ENDS HERE
+
+PART 7 WILL ADD:
+- VERTICAL JUMP DETECTION ENGINE
+- FLIGHT TIME
+- JUMP HEIGHT
+- FORCE PROXY
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 7 OF 14
+VERTICAL JUMP DETECTION ENGINE
+Paste this directly after PART 6.
+========================================================= */
+
+/* =========================================================
+SIGNAL HELPERS
+========================================================= */
+
+function getAccelValues(samples){
+
+  return samples.map(
+    sample => sample.accelMag
+  );
+
+}
+
+function getRotationValues(samples){
+
+  return samples.map(
+    sample => sample.rotationMag || 0
+  );
+
+}
+
+function movingAverage(values, windowSize = 7){
+
+  const smoothed = [];
+
+  const halfWindow =
+    Math.floor(windowSize / 2);
+
+  for(let i = 0; i < values.length; i++){
+
+    let sum = 0;
+    let count = 0;
+
+    for(
+      let j = i - halfWindow;
+      j <= i + halfWindow;
+      j++
+    ){
+
+      if(j >= 0 && j < values.length){
+
+        sum += values[j];
+        count++;
+
+      }
+
+    }
+
+    smoothed.push(
+      sum / Math.max(1, count)
+    );
+
+  }
+
+  return smoothed;
+
+}
+
+/* =========================================================
+VERTICAL JUMP ANALYSIS
+========================================================= */
+
+function analyseVerticalJump(samples){
+
+  const baseline =
+    state.baseline.accelMag || G;
+
+  const accelValues =
+    getAccelValues(samples);
+
+  const rotationValues =
+    getRotationValues(samples);
+
+  const smoothAccel =
+    movingAverage(accelValues, 7);
+
+  const smoothRotation =
+    movingAverage(rotationValues, 7);
+
+  if(!samples || samples.length < 30){
+
+    return makeFailedAnalysis(
+      "vertical",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "Not enough samples."
+    );
+
+  }
+
+  const sampleRate =
+    state.sampleRate || 60;
+
+  const propulsionThreshold =
+    baseline * 1.15;
+
+  const flightThreshold =
+    baseline * 0.45;
+
+  const landingThreshold =
+    baseline * 1.65;
+
+  const minFlightSeconds =
+    0.20;
+
+  const maxFlightSeconds =
+    0.95;
+
+  const sustainedFlightSamples =
+    Math.max(
+      4,
+      Math.round(sampleRate * 0.07)
+    );
+
+  let propulsionIndex = -1;
+  let takeoffIndex = -1;
+  let landingIndex = -1;
+
+  /* =======================================================
+  FIND PROPULSION PEAK
+  ======================================================= */
+
+  let bestPropulsionValue =
+    -Infinity;
+
+  for(let i = 0; i < smoothAccel.length; i++){
+
+    if(
+      smoothAccel[i] > propulsionThreshold &&
+      smoothAccel[i] > bestPropulsionValue
+    ){
+
+      bestPropulsionValue =
+        smoothAccel[i];
+
+      propulsionIndex = i;
+
+    }
+
+  }
+
+  if(propulsionIndex === -1){
+
+    return makeFailedAnalysis(
+      "vertical",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "No clear propulsion peak detected."
+    );
+
+  }
+
+  /* =======================================================
+  FIND TAKE-OFF AFTER PROPULSION
+  ======================================================= */
+
+  for(
+    let i = propulsionIndex + 1;
+    i < smoothAccel.length - sustainedFlightSamples;
+    i++
+  ){
+
+    let sustainedLowForce = true;
+
+    for(
+      let j = 0;
+      j < sustainedFlightSamples;
+      j++
+    ){
+
+      if(smoothAccel[i + j] > flightThreshold){
+
+        sustainedLowForce = false;
+        break;
+
+      }
+
+    }
+
+    if(sustainedLowForce){
+
+      takeoffIndex = i;
+      break;
+
+    }
+
+  }
+
+  if(takeoffIndex === -1){
+
+    return makeFailedAnalysis(
+      "vertical",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "No sustained flight phase detected after propulsion."
+    );
+
+  }
+
+  /* =======================================================
+  FIND LANDING SPIKE
+  ======================================================= */
+
+  let bestLandingValue =
+    -Infinity;
+
+  for(
+    let i = takeoffIndex + sustainedFlightSamples;
+    i < smoothAccel.length;
+    i++
+  ){
+
+    const flightSeconds =
+      (samples[i].time - samples[takeoffIndex].time) /
+      1000;
+
+    if(flightSeconds > maxFlightSeconds){
+      break;
+    }
+
+    if(
+      flightSeconds >= minFlightSeconds &&
+      smoothAccel[i] > landingThreshold &&
+      smoothAccel[i] > bestLandingValue
+    ){
+
+      bestLandingValue =
+        smoothAccel[i];
+
+      landingIndex = i;
+
+    }
+
+  }
+
+  if(landingIndex === -1){
+
+    return makeFailedAnalysis(
+      "vertical",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "Take-off found, but landing spike was unclear."
+    );
+
+  }
+
+  return buildJumpAnalysisFromMarkers({
+    mode:"vertical",
+    samples,
+    smoothAccel,
+    smoothRotation,
+    propulsionIndex,
+    takeoffIndex,
+    landingIndex,
+    contactStartIndex:propulsionIndex,
+    contactEndIndex:takeoffIndex,
+    markerSource:"auto"
+  });
+
+}
+
+/* =========================================================
+BUILD JUMP ANALYSIS FROM MARKERS
+Used by vertical, broad, lateral, and manual edits.
+========================================================= */
+
+function buildJumpAnalysisFromMarkers({
+  mode,
+  samples,
+  smoothAccel,
+  smoothRotation,
+  propulsionIndex,
+  takeoffIndex,
+  landingIndex,
+  contactStartIndex = null,
+  contactEndIndex = null,
+  markerSource = "auto"
+}){
+
+  const baseline =
+    state.baseline.accelMag || G;
+
+  if(
+    takeoffIndex < 0 ||
+    landingIndex < 0 ||
+    landingIndex <= takeoffIndex ||
+    !samples[takeoffIndex] ||
+    !samples[landingIndex]
+  ){
+
+    return makeFailedAnalysis(
+      mode,
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "Invalid take-off or landing marker positions."
+    );
+
+  }
+
+  const flightTimeSeconds =
+    (samples[landingIndex].time - samples[takeoffIndex].time) /
+    1000;
+
+  const jumpHeightCm =
+    (G * flightTimeSeconds * flightTimeSeconds / 8) *
+    100;
+
+  let groundContactSeconds = null;
+
+  if(
+    contactStartIndex !== null &&
+    contactEndIndex !== null &&
+    samples[contactStartIndex] &&
+    samples[contactEndIndex] &&
+    contactEndIndex > contactStartIndex
+  ){
+
+    groundContactSeconds =
+      (samples[contactEndIndex].time - samples[contactStartIndex].time) /
+      1000;
+
+  }
+
+  const massKg =
+    getBodyMassKg();
+
+  const bodyweightForceN =
+    massKg * G;
+
+  const pushAccel =
+    smoothAccel[propulsionIndex] || baseline;
+
+  const landingAccel =
+    smoothAccel[landingIndex] || baseline;
+
+  const pushForceN =
+    massKg * pushAccel;
+
+  const landingForceN =
+    massKg * landingAccel;
+
+  const pushBodyweight =
+    pushForceN / bodyweightForceN;
+
+  const landingBodyweight =
+    landingForceN / bodyweightForceN;
+
+  const rsiProxy =
+    groundContactSeconds && groundContactSeconds > 0
+      ? (jumpHeightCm / 100) / groundContactSeconds
+      : null;
+
+  const stabilityScore =
+    calculateLandingStabilityScore({
+      smoothRotation,
+      landingIndex,
+      sampleRate:state.sampleRate || 60
+    });
+
+  const exposureScore =
+    calculateExposureScore({
+      mode,
+      contactCount:1,
+      jumpHeightCm,
+      landingBodyweight,
+      pushBodyweight,
+      groundContactSeconds,
+      stabilityScore
+    });
+
+  const confidencePayload =
+    scoreJumpConfidence({
+      flightTimeSeconds,
+      jumpHeightCm,
+      pushBodyweight,
+      landingBodyweight,
+      sampleRate:state.sampleRate || 60,
+      markerSource
+    });
+
+  return {
+    success:true,
+
+    mode,
+    testSubtype:state.testSubtype,
+
+    samples,
+    smoothAccel,
+    smoothRotation,
+
+    propulsionIndex,
+    takeoffIndex,
+    landingIndex,
+
+    contactStartIndex,
+    contactEndIndex,
+
+    autoMarkers:{
+      propulsionIndex,
+      takeoffIndex,
+      landingIndex,
+      contactStartIndex,
+      contactEndIndex
+    },
+
+    markerSource,
+
+    contactCount:1,
+
+    flightTimeSeconds,
+    groundContactSeconds,
+    jumpHeightCm,
+
+    pushForceN,
+    landingForceN,
+    pushBodyweight,
+    landingBodyweight,
+
+    rsiProxy,
+    stabilityScore,
+    exposureScore,
+
+    confidence:confidencePayload.confidence,
+    confidenceType:confidencePayload.type,
+    flags:confidencePayload.flags
+  };
+
+}
+
+/* =========================================================
+FAILED ANALYSIS
+========================================================= */
+
+function makeFailedAnalysis(
+  mode,
+  samples,
+  smoothAccel,
+  smoothRotation,
+  reason
+){
+
+  return {
+    success:false,
+    mode,
+    testSubtype:state.testSubtype,
+
+    reason,
+
+    samples:samples || [],
+    smoothAccel:smoothAccel || [],
+    smoothRotation:smoothRotation || [],
+
+    propulsionIndex:-1,
+    takeoffIndex:-1,
+    landingIndex:-1,
+
+    contactStartIndex:-1,
+    contactEndIndex:-1,
+
+    autoMarkers:null,
+
+    markerSource:"auto",
+
+    contactCount:0,
+
+    flightTimeSeconds:null,
+    groundContactSeconds:null,
+    jumpHeightCm:null,
+
+    pushForceN:null,
+    landingForceN:null,
+    pushBodyweight:null,
+    landingBodyweight:null,
+
+    rsiProxy:null,
+    stabilityScore:null,
+    exposureScore:0,
+
+    confidence:"Low confidence",
+    confidenceType:"bad",
+    flags:[reason]
+  };
+
+}
+
+/* =========================================================
+LANDING STABILITY SCORE
+========================================================= */
+
+function calculateLandingStabilityScore({
+  smoothRotation,
+  landingIndex,
+  sampleRate
+}){
+
+  if(
+    !smoothRotation ||
+    landingIndex < 0
+  ){
+    return null;
+  }
+
+  const windowEnd =
+    Math.min(
+      smoothRotation.length,
+      landingIndex + Math.round(sampleRate * 0.75)
+    );
+
+  const windowValues =
+    smoothRotation.slice(
+      landingIndex,
+      windowEnd
+    );
+
+  if(!windowValues.length){
+    return null;
+  }
+
+  const avgRotation =
+    average(windowValues);
+
+  /*
+    Lower rotation after landing = better control.
+  */
+
+  const score =
+    100 -
+    clamp(avgRotation / 60, 0, 1) * 100;
+
+  return Math.round(
+    clamp(score, 0, 100)
+  );
+
+}
+
+/* =========================================================
+JUMP CONFIDENCE
+========================================================= */
+
+function scoreJumpConfidence({
+  flightTimeSeconds,
+  jumpHeightCm,
+  pushBodyweight,
+  landingBodyweight,
+  sampleRate,
+  markerSource
+}){
+
+  let confidence =
+    "High confidence";
+
+  let type =
+    "good";
+
+  const flags = [];
+
+  if(markerSource === "manual"){
+
+    confidence =
+      "Manual markers";
+
+    type =
+      "warn";
+
+    flags.push("manual marker correction applied");
+
+  }
+
+  if(flightTimeSeconds < 0.20){
+
+    confidence =
+      "Low confidence";
+
+    type =
+      "bad";
+
+    flags.push("flight time too short");
+
+  }else if(flightTimeSeconds < 0.24){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("short flight time");
+
+  }
+
+  if(flightTimeSeconds > 0.95){
+
+    confidence =
+      "Low confidence";
+
+    type =
+      "bad";
+
+    flags.push("flight time too long");
+
+  }else if(flightTimeSeconds > 0.90){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("long flight time");
+
+  }
+
+  if(jumpHeightCm < 5 || jumpHeightCm > 95){
+
+    confidence =
+      "Low confidence";
+
+    type =
+      "bad";
+
+    flags.push("height outside expected range");
+
+  }
+
+  if(sampleRate < 25 && !state.demoMode){
+
+    confidence =
+      "Low confidence";
+
+    type =
+      "bad";
+
+    flags.push("low sample rate");
+
+  }
+
+  if(pushBodyweight < 1.1){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("weak push signal");
+
+  }
+
+  if(landingBodyweight < 1.4){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("weak landing signal");
+
+  }
+
+  return {
+    confidence,
+    type,
+    flags
+  };
+
+}
+
+/* =========================================================
+EXPOSURE SCORE
+========================================================= */
+
+function calculateExposureScore({
+  mode,
+  contactCount,
+  jumpHeightCm,
+  landingBodyweight,
+  pushBodyweight,
+  groundContactSeconds,
+  stabilityScore
+}){
+
+  let modeMultiplier = 1;
+
+  if(mode === "repeated"){
+    modeMultiplier = 0.75;
+  }
+
+  if(mode === "lateral"){
+    modeMultiplier = 1.15;
+  }
+
+  if(mode === "broad"){
+    modeMultiplier = 1.2;
+  }
+
+  const heightComponent =
+    clamp((jumpHeightCm || 0) / 40, 0, 2);
+
+  const landingComponent =
+    clamp((landingBodyweight || 0) / 3, 0, 2);
+
+  const pushComponent =
+    clamp((pushBodyweight || 0) / 2.5, 0, 2);
+
+  const contactComponent =
+    Math.max(1, contactCount || 1);
+
+  const stiffnessComponent =
+    groundContactSeconds
+      ? clamp(0.35 / groundContactSeconds, 0.5, 2)
+      : 1;
+
+  const stabilityComponent =
+    stabilityScore !== null
+      ? clamp((100 - stabilityScore) / 50, 0.4, 1.8)
+      : 1;
+
+  const score =
+    10 *
+    modeMultiplier *
+    contactComponent *
+    (
+      heightComponent * 0.35 +
+      landingComponent * 0.3 +
+      pushComponent * 0.2 +
+      stiffnessComponent * 0.1 +
+      stabilityComponent * 0.05
+    );
+
+  return Math.round(score);
+
+}
+
+/* =========================================================
+PART 7 ENDS HERE
+
+PART 8 WILL ADD:
+- REPEATED CONTACT ANALYSIS
+- GROUND CONTACT TIME
+- RSI PROXY
+- CONTACT COUNT
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 8 OF 14
+REPEATED CONTACT ANALYSIS + GCT + RSI PROXY + CONTACT COUNT
+Paste this directly after PART 7.
+========================================================= */
+
+/* =========================================================
+REPEATED CONTACT ANALYSIS
+========================================================= */
+
+function analyseRepeatedContacts(samples){
+
+  const baseline =
+    state.baseline.accelMag || G;
+
+  const accelValues =
+    getAccelValues(samples);
+
+  const rotationValues =
+    getRotationValues(samples);
+
+  const smoothAccel =
+    movingAverage(accelValues, 7);
+
+  const smoothRotation =
+    movingAverage(rotationValues, 7);
+
+  if(!samples || samples.length < 60){
+
+    return makeFailedAnalysis(
+      "repeated",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "Not enough samples for repeated contact analysis."
+    );
+
+  }
+
+  const sampleRate =
+    state.sampleRate || 60;
+
+  const contactThreshold =
+    baseline * 1.22;
+
+  const flightThreshold =
+    baseline * 0.55;
+
+  const minContactSeconds =
+    0.06;
+
+  const maxContactSeconds =
+    0.45;
+
+  const minFlightSeconds =
+    0.08;
+
+  const contacts =
+    detectRepeatedContacts({
+      samples,
+      smoothAccel,
+      contactThreshold,
+      flightThreshold,
+      minContactSeconds,
+      maxContactSeconds,
+      minFlightSeconds,
+      sampleRate
+    });
+
+  if(!contacts.length){
+
+    return makeFailedAnalysis(
+      "repeated",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "No repeated contacts detected."
+    );
+
+  }
+
+  const contactDurations =
+    contacts
+      .map(contact => contact.contactSeconds)
+      .filter(Number.isFinite);
+
+  const flightDurations =
+    contacts
+      .map(contact => contact.flightSeconds)
+      .filter(Number.isFinite);
+
+  const jumpHeights =
+    flightDurations.map(
+      flightTime =>
+        (G * flightTime * flightTime / 8) * 100
+    );
+
+  const averageContact =
+    average(contactDurations);
+
+  const averageFlight =
+    average(flightDurations);
+
+  const averageHeight =
+    average(jumpHeights);
+
+  const bestHeight =
+    jumpHeights.length
+      ? Math.max(...jumpHeights)
+      : null;
+
+  const rsiValues =
+    contacts
+      .map((contact,index) => {
+
+        const heightM =
+          jumpHeights[index] !== undefined
+            ? jumpHeights[index] / 100
+            : null;
+
+        if(
+          heightM === null ||
+          !contact.contactSeconds ||
+          contact.contactSeconds <= 0
+        ){
+          return null;
+        }
+
+        return heightM / contact.contactSeconds;
+
+      })
+      .filter(Number.isFinite);
+
+  const averageRsi =
+    average(rsiValues);
+
+  const maxLandingAccel =
+    Math.max(
+      ...contacts.map(contact => contact.peakAccel)
+    );
+
+  const maxPushAccel =
+    maxLandingAccel;
+
+  const massKg =
+    getBodyMassKg();
+
+  const pushForceN =
+    massKg * maxPushAccel;
+
+  const landingForceN =
+    massKg * maxLandingAccel;
+
+  const pushBodyweight =
+    pushForceN / (massKg * G);
+
+  const landingBodyweight =
+    landingForceN / (massKg * G);
+
+  const stabilityScore =
+    calculateRepeatedStabilityScore({
+      contacts,
+      smoothRotation,
+      sampleRate
+    });
+
+  const exposureScore =
+    calculateExposureScore({
+      mode:"repeated",
+      contactCount:contacts.length,
+      jumpHeightCm:averageHeight || 0,
+      landingBodyweight,
+      pushBodyweight,
+      groundContactSeconds:averageContact,
+      stabilityScore
+    });
+
+  const confidencePayload =
+    scoreRepeatedConfidence({
+      contactCount:contacts.length,
+      averageContact,
+      averageFlight,
+      averageHeight,
+      sampleRate
+    });
+
+  const firstContact =
+    contacts[0];
+
+  const lastContact =
+    contacts[contacts.length - 1];
+
+  return {
+    success:true,
+
+    mode:"repeated",
+    testSubtype:state.testSubtype,
+
+    samples,
+    smoothAccel,
+    smoothRotation,
+
+    contacts,
+
+    propulsionIndex:firstContact.peakIndex,
+    takeoffIndex:firstContact.endIndex,
+    landingIndex:lastContact.startIndex,
+
+    contactStartIndex:firstContact.startIndex,
+    contactEndIndex:firstContact.endIndex,
+
+    autoMarkers:{
+      propulsionIndex:firstContact.peakIndex,
+      takeoffIndex:firstContact.endIndex,
+      landingIndex:lastContact.startIndex,
+      contactStartIndex:firstContact.startIndex,
+      contactEndIndex:firstContact.endIndex
+    },
+
+    markerSource:"auto",
+
+    contactCount:contacts.length,
+
+    flightTimeSeconds:averageFlight,
+    groundContactSeconds:averageContact,
+    jumpHeightCm:averageHeight,
+
+    bestJumpHeightCm:bestHeight,
+
+    pushForceN,
+    landingForceN,
+    pushBodyweight,
+    landingBodyweight,
+
+    rsiProxy:averageRsi,
+    stabilityScore,
+    exposureScore,
+
+    confidence:confidencePayload.confidence,
+    confidenceType:confidencePayload.type,
+    flags:confidencePayload.flags
+  };
+
+}
+
+/* =========================================================
+CONTACT DETECTION
+========================================================= */
+
+function detectRepeatedContacts({
+  samples,
+  smoothAccel,
+  contactThreshold,
+  flightThreshold,
+  minContactSeconds,
+  maxContactSeconds,
+  minFlightSeconds,
+  sampleRate
+}){
+
+  const contacts = [];
+
+  let inContact = false;
+
+  let startIndex = -1;
+  let peakIndex = -1;
+  let peakAccel = -Infinity;
+
+  for(let i = 0; i < smoothAccel.length; i++){
+
+    const value =
+      smoothAccel[i];
+
+    if(!inContact && value > contactThreshold){
+
+      inContact = true;
+      startIndex = i;
+      peakIndex = i;
+      peakAccel = value;
+
+      continue;
+
+    }
+
+    if(inContact){
+
+      if(value > peakAccel){
+        peakAccel = value;
+        peakIndex = i;
+      }
+
+      const contactSeconds =
+        (samples[i].time - samples[startIndex].time) /
+        1000;
+
+      const contactEnded =
+        value < flightThreshold &&
+        contactSeconds >= minContactSeconds;
+
+      const contactTooLong =
+        contactSeconds > maxContactSeconds;
+
+      if(contactEnded || contactTooLong){
+
+        const endIndex = i;
+
+        let flightEndIndex = -1;
+
+        for(
+          let j = endIndex + 1;
+          j < smoothAccel.length;
+          j++
+        ){
+
+          const belowFlight =
+            smoothAccel[j] < flightThreshold;
+
+          const flightSeconds =
+            (samples[j].time - samples[endIndex].time) /
+            1000;
+
+          const nextContact =
+            smoothAccel[j] > contactThreshold &&
+            flightSeconds >= minFlightSeconds;
+
+          if(nextContact){
+
+            flightEndIndex = j;
+            break;
+
+          }
+
+          if(!belowFlight && flightSeconds > 1.2){
+            break;
+          }
+
+        }
+
+        const flightSeconds =
+          flightEndIndex > 0
+            ? (samples[flightEndIndex].time - samples[endIndex].time) / 1000
+            : null;
+
+        contacts.push({
+          startIndex,
+          endIndex,
+          peakIndex,
+          peakAccel,
+          contactSeconds,
+          flightEndIndex,
+          flightSeconds
+        });
+
+        inContact = false;
+        startIndex = -1;
+        peakIndex = -1;
+        peakAccel = -Infinity;
+
+      }
+
+    }
+
+  }
+
+  return cleanRepeatedContacts(
+    contacts
+  );
+
+}
+
+/* =========================================================
+CLEAN CONTACTS
+========================================================= */
+
+function cleanRepeatedContacts(contacts){
+
+  if(!contacts.length){
+    return [];
+  }
+
+  /*
+    Remove tiny duplicate contacts caused by ringing.
+  */
+
+  const cleaned = [];
+
+  for(const contact of contacts){
+
+    const previous =
+      cleaned[cleaned.length - 1];
+
+    if(
+      previous &&
+      contact.startIndex - previous.endIndex < 4
+    ){
+
+      if(contact.peakAccel > previous.peakAccel){
+        cleaned[cleaned.length - 1] = contact;
+      }
+
+      continue;
+
+    }
+
+    cleaned.push(contact);
+
+  }
+
+  return cleaned;
+
+}
+
+/* =========================================================
+REPEATED STABILITY SCORE
+========================================================= */
+
+function calculateRepeatedStabilityScore({
+  contacts,
+  smoothRotation,
+  sampleRate
+}){
+
+  if(
+    !contacts ||
+    !contacts.length ||
+    !smoothRotation
+  ){
+    return null;
+  }
+
+  const postContactRotation = [];
+
+  contacts.forEach(contact => {
+
+    const start =
+      contact.startIndex;
+
+    const end =
+      Math.min(
+        smoothRotation.length,
+        start + Math.round(sampleRate * 0.35)
+      );
+
+    const window =
+      smoothRotation.slice(start, end);
+
+    if(window.length){
+
+      postContactRotation.push(
+        average(window)
+      );
+
+    }
+
+  });
+
+  if(!postContactRotation.length){
+    return null;
+  }
+
+  const avgRotation =
+    average(postContactRotation);
+
+  const score =
+    100 -
+    clamp(avgRotation / 70, 0, 1) * 100;
+
+  return Math.round(
+    clamp(score, 0, 100)
+  );
+
+}
+
+/* =========================================================
+REPEATED CONFIDENCE
+========================================================= */
+
+function scoreRepeatedConfidence({
+  contactCount,
+  averageContact,
+  averageFlight,
+  averageHeight,
+  sampleRate
+}){
+
+  let confidence =
+    "High confidence";
+
+  let type =
+    "good";
+
+  const flags = [];
+
+  if(contactCount < 3){
+
+    confidence =
+      "Low confidence";
+
+    type =
+      "bad";
+
+    flags.push("too few contacts detected");
+
+  }
+
+  if(averageContact && averageContact > 0.45){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("long ground contact time");
+
+  }
+
+  if(averageFlight && averageFlight < 0.08){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("short flight time");
+
+  }
+
+  if(averageHeight && averageHeight > 60){
+
+    confidence =
+      type === "bad"
+        ? confidence
+        : "Medium confidence";
+
+    type =
+      type === "bad"
+        ? "bad"
+        : "warn";
+
+    flags.push("unusually high repeated contact height");
+
+  }
+
+  if(sampleRate < 25 && !state.demoMode){
+
+    confidence =
+      "Low confidence";
+
+    type =
+      "bad";
+
+    flags.push("low sensor sample rate");
+
+  }
+
+  return {
+    confidence,
+    type,
+    flags
+  };
+
+}
+
+/* =========================================================
+PART 8 ENDS HERE
+
+PART 9 WILL ADD:
+- LATERAL BOUND ANALYSIS
+- BROAD JUMP ANALYSIS
+- DIRECTIONAL EXPOSURE
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 9 OF 14
+LATERAL BOUND + BROAD JUMP ANALYSIS + DIRECTIONAL EXPOSURE
+Paste this directly after PART 8.
+========================================================= */
+
+/* =========================================================
+LATERAL BOUND ANALYSIS
+========================================================= */
+
+function analyseLateralBounds(samples){
+
+  const baseline =
+    state.baseline.accelMag || G;
+
+  const accelValues =
+    getAccelValues(samples);
+
+  const rotationValues =
+    getRotationValues(samples);
+
+  const smoothAccel =
+    movingAverage(accelValues, 7);
+
+  const smoothRotation =
+    movingAverage(rotationValues, 7);
+
+  const verticalLike =
+    analyseVerticalLikeDirectionalJump({
+      mode:"lateral",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      baseline
+    });
+
+  if(!verticalLike.success){
+    return verticalLike;
+  }
+
+  const lateralStabilityScore =
+    calculateLateralStabilityScore({
+      smoothRotation,
+      landingIndex:verticalLike.landingIndex,
+      sampleRate:state.sampleRate || 60
+    });
+
+  const directionalExposure =
+    calculateDirectionalExposure({
+      direction:"lateral",
+      jumpHeightCm:verticalLike.jumpHeightCm,
+      landingBodyweight:verticalLike.landingBodyweight,
+      rotationLoad:calculateRotationLoad(smoothRotation),
+      contactCount:1
+    });
+
+  return {
+    ...verticalLike,
+    stabilityScore:lateralStabilityScore,
+    exposureScore:directionalExposure,
+    directionalExposure,
+    flags:[
+      ...verticalLike.flags,
+      "lateral mode uses rotation and landing control as key signals"
+    ]
+  };
+
+}
+
+/* =========================================================
+BROAD JUMP ANALYSIS
+========================================================= */
+
+function analyseBroadJump(samples){
+
+  const baseline =
+    state.baseline.accelMag || G;
+
+  const accelValues =
+    getAccelValues(samples);
+
+  const rotationValues =
+    getRotationValues(samples);
+
+  const smoothAccel =
+    movingAverage(accelValues, 7);
+
+  const smoothRotation =
+    movingAverage(rotationValues, 7);
+
+  const verticalLike =
+    analyseVerticalLikeDirectionalJump({
+      mode:"broad",
+      samples,
+      smoothAccel,
+      smoothRotation,
+      baseline
+    });
+
+  if(!verticalLike.success){
+    return verticalLike;
+  }
+
+  const measuredDistanceCm =
+    getBroadDistanceCm();
+
+  const rotationLoad =
+    calculateRotationLoad(smoothRotation);
+
+  const broadExposure =
+    calculateDirectionalExposure({
+      direction:"horizontal",
+      jumpHeightCm:verticalLike.jumpHeightCm,
+      landingBodyweight:verticalLike.landingBodyweight,
+      rotationLoad,
+      contactCount:1
+    });
+
+  const horizontalPowerProxy =
+    measuredDistanceCm
+      ? calculateHorizontalPowerProxy({
+          distanceCm:measuredDistanceCm,
+          bodyMassKg:getBodyMassKg(),
+          flightTimeSeconds:verticalLike.flightTimeSeconds
+        })
+      : null;
+
+  return {
+    ...verticalLike,
+    measuredDistanceCm,
+    horizontalPowerProxy,
+    rotationLoad,
+    exposureScore:broadExposure,
+    directionalExposure:broadExposure,
+    flags:[
+      ...verticalLike.flags,
+      measuredDistanceCm
+        ? "broad distance entered manually"
+        : "no broad distance entered"
+    ]
+  };
+
+}
+
+/* =========================================================
+VERTICAL-LIKE DIRECTIONAL JUMP ROUTER
+Used by broad and lateral.
+========================================================= */
+
+function analyseVerticalLikeDirectionalJump({
+  mode,
+  samples,
+  smoothAccel,
+  smoothRotation,
+  baseline
+}){
+
+  const sampleRate =
+    state.sampleRate || 60;
+
+  const propulsionThreshold =
+    baseline * 1.12;
+
+  const flightThreshold =
+    baseline * 0.50;
+
+  const landingThreshold =
+    baseline * 1.55;
+
+  const minFlightSeconds =
+    0.16;
+
+  const maxFlightSeconds =
+    1.05;
+
+  const sustainedFlightSamples =
+    Math.max(
+      4,
+      Math.round(sampleRate * 0.06)
+    );
+
+  let propulsionIndex = -1;
+  let takeoffIndex = -1;
+  let landingIndex = -1;
+
+  let bestPropulsionValue =
+    -Infinity;
+
+  for(let i = 0; i < smoothAccel.length; i++){
+
+    if(
+      smoothAccel[i] > propulsionThreshold &&
+      smoothAccel[i] > bestPropulsionValue
+    ){
+
+      bestPropulsionValue =
+        smoothAccel[i];
+
+      propulsionIndex = i;
+
+    }
+
+  }
+
+  if(propulsionIndex === -1){
+
+    return makeFailedAnalysis(
+      mode,
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "No clear propulsion phase detected."
+    );
+
+  }
+
+  for(
+    let i = propulsionIndex + 1;
+    i < smoothAccel.length - sustainedFlightSamples;
+    i++
+  ){
+
+    let sustainedLowForce = true;
+
+    for(
+      let j = 0;
+      j < sustainedFlightSamples;
+      j++
+    ){
+
+      if(smoothAccel[i + j] > flightThreshold){
+
+        sustainedLowForce = false;
+        break;
+
+      }
+
+    }
+
+    if(sustainedLowForce){
+
+      takeoffIndex = i;
+      break;
+
+    }
+
+  }
+
+  if(takeoffIndex === -1){
+
+    return makeFailedAnalysis(
+      mode,
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "No clear airborne phase detected."
+    );
+
+  }
+
+  let bestLandingValue =
+    -Infinity;
+
+  for(
+    let i = takeoffIndex + sustainedFlightSamples;
+    i < smoothAccel.length;
+    i++
+  ){
+
+    const flightSeconds =
+      (samples[i].time - samples[takeoffIndex].time) /
+      1000;
+
+    if(flightSeconds > maxFlightSeconds){
+      break;
+    }
+
+    if(
+      flightSeconds >= minFlightSeconds &&
+      smoothAccel[i] > landingThreshold &&
+      smoothAccel[i] > bestLandingValue
+    ){
+
+      bestLandingValue =
+        smoothAccel[i];
+
+      landingIndex = i;
+
+    }
+
+  }
+
+  if(landingIndex === -1){
+
+    return makeFailedAnalysis(
+      mode,
+      samples,
+      smoothAccel,
+      smoothRotation,
+      "Airborne phase found, but landing spike was unclear."
+    );
+
+  }
+
+  return buildJumpAnalysisFromMarkers({
+    mode,
+    samples,
+    smoothAccel,
+    smoothRotation,
+    propulsionIndex,
+    takeoffIndex,
+    landingIndex,
+    contactStartIndex:propulsionIndex,
+    contactEndIndex:takeoffIndex,
+    markerSource:"auto"
+  });
+
+}
+
+/* =========================================================
+LATERAL STABILITY SCORE
+========================================================= */
+
+function calculateLateralStabilityScore({
+  smoothRotation,
+  landingIndex,
+  sampleRate
+}){
+
+  if(
+    !smoothRotation ||
+    landingIndex < 0
+  ){
+    return null;
+  }
+
+  const firstWindowEnd =
+    Math.min(
+      smoothRotation.length,
+      landingIndex + Math.round(sampleRate * 0.35)
+    );
+
+  const secondWindowEnd =
+    Math.min(
+      smoothRotation.length,
+      landingIndex + Math.round(sampleRate * 0.90)
+    );
+
+  const earlyRotation =
+    average(
+      smoothRotation.slice(
+        landingIndex,
+        firstWindowEnd
+      )
+    );
+
+  const lateRotation =
+    average(
+      smoothRotation.slice(
+        firstWindowEnd,
+        secondWindowEnd
+      )
+    );
+
+  const correctionDemand =
+    earlyRotation + lateRotation * 0.7;
+
+  const score =
+    100 -
+    clamp(correctionDemand / 85, 0, 1) * 100;
+
+  return Math.round(
+    clamp(score, 0, 100)
+  );
+
+}
+
+/* =========================================================
+ROTATION LOAD
+========================================================= */
+
+function calculateRotationLoad(smoothRotation){
+
+  if(!smoothRotation || !smoothRotation.length){
+    return 0;
+  }
+
+  const sampleRate =
+    state.sampleRate || 60;
+
+  const total =
+    smoothRotation.reduce(
+      (sum,value) => sum + Math.abs(value),
+      0
+    );
+
+  return total / sampleRate;
+
+}
+
+/* =========================================================
+DIRECTIONAL EXPOSURE
+========================================================= */
+
+function calculateDirectionalExposure({
+  direction,
+  jumpHeightCm,
+  landingBodyweight,
+  rotationLoad,
+  contactCount
+}){
+
+  let directionMultiplier = 1;
+
+  if(direction === "lateral"){
+    directionMultiplier = 1.25;
+  }
+
+  if(direction === "horizontal"){
+    directionMultiplier = 1.2;
+  }
+
+  const heightComponent =
+    clamp((jumpHeightCm || 0) / 35, 0, 2);
+
+  const landingComponent =
+    clamp((landingBodyweight || 0) / 3, 0, 2);
+
+  const rotationComponent =
+    clamp((rotationLoad || 0) / 80, 0.5, 2.2);
+
+  const contactComponent =
+    Math.max(1, contactCount || 1);
+
+  const score =
+    10 *
+    directionMultiplier *
+    contactComponent *
+    (
+      heightComponent * 0.3 +
+      landingComponent * 0.35 +
+      rotationComponent * 0.35
+    );
+
+  return Math.round(score);
+
+}
+
+/* =========================================================
+HORIZONTAL POWER PROXY
+========================================================= */
+
+function calculateHorizontalPowerProxy({
+  distanceCm,
+  bodyMassKg,
+  flightTimeSeconds
+}){
+
+  if(
+    !distanceCm ||
+    !bodyMassKg ||
+    !flightTimeSeconds ||
+    flightTimeSeconds <= 0
+  ){
+    return null;
+  }
+
+  const distanceM =
+    distanceCm / 100;
+
+  const horizontalVelocity =
+    distanceM / flightTimeSeconds;
+
+  /*
+    Simple kinetic energy proxy.
+    Not a true power measure, but useful as a trend.
+  */
+
+  const kineticEnergyProxy =
+    0.5 *
+    bodyMassKg *
+    horizontalVelocity *
+    horizontalVelocity;
+
+  return Math.round(
+    kineticEnergyProxy
+  );
+
+}
+
+/* =========================================================
+PART 9 ENDS HERE
+
+PART 10 WILL ADD:
+- MANUAL MARKER EDITING
+- TAP GRAPH CORRECTION
+- RECALCULATION FROM MARKERS
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 10 OF 14
+MANUAL MARKER EDITING + TAP GRAPH CORRECTION + RECALCULATION
+Paste this directly after PART 9.
+========================================================= */
+
+/* =========================================================
+SET MARKER EDIT MODE
+========================================================= */
+
+function setMarkerEditMode(mode){
+
+  state.markerEditMode = mode;
+
+  const buttons = [
+    ui.setTakeoffBtn,
+    ui.setLandingBtn,
+    ui.setContactStartBtn,
+    ui.setContactEndBtn
+  ];
+
+  buttons.forEach(button => {
+    button.classList.remove("dangerBtn");
+  });
+
+  if(mode === "takeoff"){
+    ui.setTakeoffBtn.classList.add("dangerBtn");
+  }
+
+  if(mode === "landing"){
+    ui.setLandingBtn.classList.add("dangerBtn");
+  }
+
+  if(mode === "contactStart"){
+    ui.setContactStartBtn.classList.add("dangerBtn");
+  }
+
+  if(mode === "contactEnd"){
+    ui.setContactEndBtn.classList.add("dangerBtn");
+  }
+
+  const messages = {
+    takeoff:"Tap the graph where take-off begins. This moves the green marker.",
+    landing:"Tap the graph where landing or touchdown begins. This moves the red marker.",
+    contactStart:"Tap the graph where ground contact begins.",
+    contactEnd:"Tap the graph where ground contact ends."
+  };
+
+  setStatus(
+    ui.replayStatus,
+    mode
+      ? messages[mode]
+      : "Auto markers shown. Select a marker tool, then tap the graph to correct it.",
+    mode ? "warn" : ""
+  );
+
+}
+
+/* =========================================================
+GRAPH INDEX FROM TAP
+========================================================= */
+
+function graphIndexFromClientX(clientX){
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(
+    !analysis ||
+    !analysis.samples ||
+    !analysis.samples.length
+  ){
+    return -1;
+  }
+
+  const canvas =
+    ui.signalCanvas;
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  const x =
+    clientX - rect.left;
+
+  const ratio =
+    clamp(
+      x / rect.width,
+      0,
+      1
+    );
+
+  return Math.round(
+    ratio *
+    (analysis.samples.length - 1)
+  );
+
+}
+
+/* =========================================================
+HANDLE GRAPH TAP
+========================================================= */
+
+function handleGraphTap(event){
+
+  if(!state.latestAnalysis){
+
+    setStatus(
+      ui.replayStatus,
+      "No capture available yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  const selectedIndex =
+    graphIndexFromClientX(event.clientX);
+
+  if(selectedIndex < 0){
+    return;
+  }
+
+  if(!state.markerEditMode){
+
+    state.replay.frame =
+      selectedIndex;
+
+    const percent =
+      state.latestAnalysis.samples.length > 1
+        ? (
+            selectedIndex /
+            (state.latestAnalysis.samples.length - 1)
+          ) * 100
+        : 0;
+
+    ui.replaySlider.value =
+      percent;
+
+    drawSignalGraph(
+      state.latestAnalysis,
+      state.replay.frame
+    );
+
+    return;
+
+  }
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(state.markerEditMode === "takeoff"){
+
+    if(
+      analysis.landingIndex >= 0 &&
+      selectedIndex >= analysis.landingIndex
+    ){
+
+      setStatus(
+        ui.replayStatus,
+        "Take-off must be before landing.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    analysis.takeoffIndex =
+      selectedIndex;
+
+    if(
+      analysis.contactEndIndex !== null &&
+      analysis.contactEndIndex >= selectedIndex
+    ){
+      analysis.contactEndIndex = selectedIndex;
+    }
+
+  }
+
+  if(state.markerEditMode === "landing"){
+
+    if(
+      analysis.takeoffIndex >= 0 &&
+      selectedIndex <= analysis.takeoffIndex
+    ){
+
+      setStatus(
+        ui.replayStatus,
+        "Landing must be after take-off.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    analysis.landingIndex =
+      selectedIndex;
+
+  }
+
+  if(state.markerEditMode === "contactStart"){
+
+    if(
+      analysis.contactEndIndex !== null &&
+      selectedIndex >= analysis.contactEndIndex
+    ){
+
+      setStatus(
+        ui.replayStatus,
+        "Contact start must be before contact end.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    analysis.contactStartIndex =
+      selectedIndex;
+
+  }
+
+  if(state.markerEditMode === "contactEnd"){
+
+    if(
+      analysis.contactStartIndex !== null &&
+      selectedIndex <= analysis.contactStartIndex
+    ){
+
+      setStatus(
+        ui.replayStatus,
+        "Contact end must be after contact start.",
+        "bad"
+      );
+
+      return;
+
+    }
+
+    analysis.contactEndIndex =
+      selectedIndex;
+
+    if(
+      analysis.takeoffIndex !== null &&
+      selectedIndex <= analysis.takeoffIndex
+    ){
+      analysis.takeoffIndex = selectedIndex;
+    }
+
+  }
+
+  state.manualMarkersActive = true;
+
+  setMarkerEditMode(null);
+
+  recalculateLatestFromMarkers();
+
+  setStatus(
+    ui.replayStatus,
+    "Marker updated. Result recalculated.",
+    "good"
+  );
+
+}
+
+/* =========================================================
+TOUCH SUPPORT
+========================================================= */
+
+function handleGraphTouch(event){
+
+  if(
+    !event.touches ||
+    !event.touches.length
+  ){
+    return;
+  }
+
+  event.preventDefault();
+
+  handleGraphTap(
+    event.touches[0]
+  );
+
+}
+
+/* =========================================================
+RECALCULATE LATEST FROM MARKERS
+========================================================= */
+
+function recalculateLatestFromMarkers(){
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(
+    !analysis ||
+    !analysis.samples ||
+    !analysis.smoothAccel
+  ){
+    return;
+  }
+
+  let recalculated;
+
+  if(analysis.mode === "repeated"){
+
+    recalculated =
+      recalculateRepeatedFromMarkers(
+        analysis
+      );
+
+  }else{
+
+    recalculated =
+      buildJumpAnalysisFromMarkers({
+        mode:analysis.mode,
+        samples:analysis.samples,
+        smoothAccel:analysis.smoothAccel,
+        smoothRotation:analysis.smoothRotation,
+        propulsionIndex:analysis.propulsionIndex,
+        takeoffIndex:analysis.takeoffIndex,
+        landingIndex:analysis.landingIndex,
+        contactStartIndex:analysis.contactStartIndex,
+        contactEndIndex:analysis.contactEndIndex,
+        markerSource:"manual"
+      });
+
+  }
+
+  state.latestAnalysis =
+    recalculated;
+
+  if(state.attempts.length){
+
+    state.attempts[state.attempts.length - 1] =
+      recalculated;
+
+  }
+
+  updateResults();
+
+  drawSignalGraph(
+    state.latestAnalysis,
+    state.replay.frame
+  );
+
+  updateDebugOutput({
+    manualRecalculation:true
+  });
+
+}
+
+/* =========================================================
+RECALCULATE REPEATED MODE FROM MARKERS
+Simplified manual override for one representative contact.
+========================================================= */
+
+function recalculateRepeatedFromMarkers(analysis){
+
+  const samples =
+    analysis.samples;
+
+  const smoothAccel =
+    analysis.smoothAccel;
+
+  const smoothRotation =
+    analysis.smoothRotation;
+
+  const contactStartIndex =
+    analysis.contactStartIndex;
+
+  const contactEndIndex =
+    analysis.contactEndIndex;
+
+  const takeoffIndex =
+    analysis.takeoffIndex;
+
+  const landingIndex =
+    analysis.landingIndex;
+
+  if(
+    contactStartIndex === null ||
+    contactEndIndex === null ||
+    takeoffIndex === null ||
+    landingIndex === null ||
+    !samples[contactStartIndex] ||
+    !samples[contactEndIndex] ||
+    !samples[takeoffIndex] ||
+    !samples[landingIndex]
+  ){
+
+    return {
+      ...analysis,
+      markerSource:"manual",
+      confidence:"Manual markers incomplete",
+      confidenceType:"warn",
+      flags:[
+        ...(analysis.flags || []),
+        "manual repeated contact markers incomplete"
+      ]
+    };
+
+  }
+
+  const groundContactSeconds =
+    (samples[contactEndIndex].time - samples[contactStartIndex].time) /
+    1000;
+
+  const flightTimeSeconds =
+    (samples[landingIndex].time - samples[takeoffIndex].time) /
+    1000;
+
+  const jumpHeightCm =
+    (G * flightTimeSeconds * flightTimeSeconds / 8) *
+    100;
+
+  const massKg =
+    getBodyMassKg();
+
+  const peakAccel =
+    Math.max(
+      ...smoothAccel.slice(
+        contactStartIndex,
+        Math.max(contactEndIndex + 1, contactStartIndex + 1)
+      )
+    );
+
+  const landingAccel =
+    smoothAccel[landingIndex] || peakAccel;
+
+  const pushForceN =
+    massKg * peakAccel;
+
+  const landingForceN =
+    massKg * landingAccel;
+
+  const pushBodyweight =
+    pushForceN / (massKg * G);
+
+  const landingBodyweight =
+    landingForceN / (massKg * G);
+
+  const rsiProxy =
+    groundContactSeconds > 0
+      ? (jumpHeightCm / 100) / groundContactSeconds
+      : null;
+
+  const stabilityScore =
+    calculateRepeatedStabilityScore({
+      contacts:[
+        {
+          startIndex:contactStartIndex,
+          endIndex:contactEndIndex,
+          peakIndex:analysis.propulsionIndex,
+          peakAccel
+        }
+      ],
+      smoothRotation,
+      sampleRate:state.sampleRate || 60
+    });
+
+  const exposureScore =
+    calculateExposureScore({
+      mode:"repeated",
+      contactCount:analysis.contactCount || 1,
+      jumpHeightCm,
+      landingBodyweight,
+      pushBodyweight,
+      groundContactSeconds,
+      stabilityScore
+    });
+
+  return {
+    ...analysis,
+
+    markerSource:"manual",
+
+    contactStartIndex,
+    contactEndIndex,
+    takeoffIndex,
+    landingIndex,
+
+    flightTimeSeconds,
+    groundContactSeconds,
+    jumpHeightCm,
+
+    pushForceN,
+    landingForceN,
+    pushBodyweight,
+    landingBodyweight,
+
+    rsiProxy,
+    stabilityScore,
+    exposureScore,
+
+    confidence:"Manual markers",
+    confidenceType:"warn",
+    flags:[
+      ...(analysis.flags || []),
+      "manual marker correction applied"
+    ]
+  };
+
+}
+
+/* =========================================================
+RESET AUTO MARKERS
+========================================================= */
+
+function resetAutoMarkers(){
+
+  const analysis =
+    state.latestAnalysis;
+
+  if(
+    !analysis ||
+    !analysis.autoMarkers
+  ){
+
+    setStatus(
+      ui.replayStatus,
+      "No auto markers are available.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  analysis.propulsionIndex =
+    analysis.autoMarkers.propulsionIndex;
+
+  analysis.takeoffIndex =
+    analysis.autoMarkers.takeoffIndex;
+
+  analysis.landingIndex =
+    analysis.autoMarkers.landingIndex;
+
+  analysis.contactStartIndex =
+    analysis.autoMarkers.contactStartIndex;
+
+  analysis.contactEndIndex =
+    analysis.autoMarkers.contactEndIndex;
+
+  state.manualMarkersActive = false;
+
+  recalculateLatestFromMarkers();
+
+  if(state.latestAnalysis){
+    state.latestAnalysis.markerSource = "auto";
+  }
+
+  updateResults();
+
+  drawSignalGraph(
+    state.latestAnalysis,
+    state.replay.frame
+  );
+
+  setMarkerEditMode(null);
+
+  setStatus(
+    ui.replayStatus,
+    "Markers reset to auto detection.",
+    "good"
+  );
+
+}
+
+/* =========================================================
+APPLY MARKER EDITS
+========================================================= */
+
+function applyMarkerEdits(){
+
+  if(state.latestAnalysis){
+
+    recalculateLatestFromMarkers();
+
+  }
+
+  showScreen("result");
+
+}
+
+/* =========================================================
+PART 10 EVENT LISTENERS
+========================================================= */
+
+ui.setTakeoffBtn.addEventListener(
+  "click",
+  () => setMarkerEditMode("takeoff")
+);
+
+ui.setLandingBtn.addEventListener(
+  "click",
+  () => setMarkerEditMode("landing")
+);
+
+ui.setContactStartBtn.addEventListener(
+  "click",
+  () => setMarkerEditMode("contactStart")
+);
+
+ui.setContactEndBtn.addEventListener(
+  "click",
+  () => setMarkerEditMode("contactEnd")
+);
+
+ui.resetAutoMarkersBtn.addEventListener(
+  "click",
+  resetAutoMarkers
+);
+
+ui.applyMarkerEditsBtn.addEventListener(
+  "click",
+  applyMarkerEdits
+);
+
+ui.signalCanvas.addEventListener(
+  "click",
+  handleGraphTap
+);
+
+ui.signalCanvas.addEventListener(
+  "touchstart",
+  handleGraphTouch,
+  {passive:false}
+);
+
+/* =========================================================
+PART 10 ENDS HERE
+
+PART 11 WILL ADD:
+- GRAPH RENDERING
+- MULTI-SIGNAL VIEW
+- REPLAY ENGINE
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 11 OF 14
+GRAPH RENDERING + MULTI-SIGNAL VIEW + REPLAY ENGINE
+Paste this directly after PART 10.
+========================================================= */
+
+/* =========================================================
+GRAPH VALUE HELPERS
+========================================================= */
+
+function getGraphSeries(analysis){
+
+  if(!analysis){
+    return [];
+  }
+
+  const accel =
+    analysis.smoothAccel && analysis.smoothAccel.length
+      ? analysis.smoothAccel
+      : analysis.samples.map(sample => sample.accelMag);
+
+  const rotation =
+    analysis.smoothRotation && analysis.smoothRotation.length
+      ? analysis.smoothRotation
+      : analysis.samples.map(sample => sample.rotationMag || 0);
+
+  return [
+    {
+      name:"accel",
+      label:"accel",
+      values:accel,
+      colour:"rgba(255,255,255,.95)",
+      scale:"accel"
+    },
+    {
+      name:"rotation",
+      label:"gyro",
+      values:rotation,
+      colour:"rgba(123,199,255,.75)",
+      scale:"rotation"
+    }
+  ];
+
+}
+
+/* =========================================================
+DRAW SIGNAL GRAPH
+========================================================= */
+
+function drawSignalGraph(analysis, replayFrame = null){
+
+  const canvas =
+    ui.signalCanvas;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const width =
+    canvas.width;
+
+  const height =
+    canvas.height;
+
+  ctx.clearRect(0,0,width,height);
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.20)";
+
+  ctx.fillRect(0,0,width,height);
+
+  if(
+    !analysis ||
+    !analysis.samples ||
+    analysis.samples.length < 2
+  ){
+    return;
+  }
+
+  const series =
+    getGraphSeries(analysis);
+
+  const accelValues =
+    series[0].values;
+
+  const rotationValues =
+    series[1].values;
+
+  const padding = 24;
+
+  const graphHeight =
+    height - padding * 2;
+
+  const accelMin =
+    Math.min(...accelValues, 0);
+
+  const accelMax =
+    Math.max(
+      ...accelValues,
+      (state.baseline.accelMag || G) * 3
+    );
+
+  const rotationMin = 0;
+
+  const rotationMax =
+    Math.max(
+      ...rotationValues,
+      80
+    );
+
+  function xFor(index){
+
+    return (
+      padding +
+      (index / (analysis.samples.length - 1)) *
+      (width - padding * 2)
+    );
+
+  }
+
+  function yForAccel(value){
+
+    return (
+      height -
+      padding -
+      ((value - accelMin) /
+      (accelMax - accelMin || 1)) *
+      graphHeight
+    );
+
+  }
+
+  function yForRotation(value){
+
+    /*
+      Rotation is drawn into the lower half of the chart
+      to avoid visually overpowering acceleration.
+    */
+
+    const lowerBandTop =
+      padding + graphHeight * 0.52;
+
+    const lowerBandHeight =
+      graphHeight * 0.42;
+
+    return (
+      lowerBandTop +
+      lowerBandHeight -
+      ((value - rotationMin) /
+      (rotationMax - rotationMin || 1)) *
+      lowerBandHeight
+    );
+
+  }
+
+  /* =======================================================
+  GRID
+  ======================================================= */
+
+  ctx.strokeStyle =
+    "rgba(255,255,255,.10)";
+
+  ctx.lineWidth = 1;
+
+  for(let i = 0; i < 4; i++){
+
+    const y =
+      padding +
+      i *
+      (graphHeight / 3);
+
+    ctx.beginPath();
+    ctx.moveTo(padding,y);
+    ctx.lineTo(width - padding,y);
+    ctx.stroke();
+
+  }
+
+  /* =======================================================
+  BASELINE
+  ======================================================= */
+
+  if(state.baseline.accelMag){
+
+    const baselineY =
+      yForAccel(state.baseline.accelMag);
+
+    ctx.strokeStyle =
+      "rgba(255,200,87,.62)";
+
+    ctx.setLineDash([6,6]);
+
+    ctx.beginPath();
+    ctx.moveTo(padding,baselineY);
+    ctx.lineTo(width - padding,baselineY);
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+
+    ctx.fillStyle =
+      "rgba(255,200,87,.92)";
+
+    ctx.font =
+      "12px system-ui";
+
+    ctx.fillText(
+      "baseline",
+      padding + 4,
+      baselineY - 6
+    );
+
+  }
+
+  /* =======================================================
+  ACCELERATION LINE
+  ======================================================= */
+
+  ctx.strokeStyle =
+    "rgba(255,255,255,.94)";
+
+  ctx.lineWidth = 2;
+
+  ctx.beginPath();
+
+  accelValues.forEach((value,index) => {
+
+    const x =
+      xFor(index);
+
+    const y =
+      yForAccel(value);
+
+    if(index === 0){
+      ctx.moveTo(x,y);
+    }else{
+      ctx.lineTo(x,y);
+    }
+
+  });
+
+  ctx.stroke();
+
+  /* =======================================================
+  ROTATION / GYRO LINE
+  ======================================================= */
+
+  ctx.strokeStyle =
+    "rgba(123,199,255,.72)";
+
+  ctx.lineWidth = 1.8;
+
+  ctx.beginPath();
+
+  rotationValues.forEach((value,index) => {
+
+    const x =
+      xFor(index);
+
+    const y =
+      yForRotation(value);
+
+    if(index === 0){
+      ctx.moveTo(x,y);
+    }else{
+      ctx.lineTo(x,y);
+    }
+
+  });
+
+  ctx.stroke();
+
+  ctx.fillStyle =
+    "rgba(123,199,255,.82)";
+
+  ctx.font =
+    "12px system-ui";
+
+  ctx.fillText(
+    "gyro / rotation",
+    padding + 4,
+    height - padding - 4
+  );
+
+  /* =======================================================
+  MARKERS
+  ======================================================= */
+
+  function drawMarker(index, colour, label, yOffset){
+
+    if(
+      index === null ||
+      index === undefined ||
+      index < 0 ||
+      index >= analysis.samples.length
+    ){
+      return;
+    }
+
+    const x =
+      xFor(index);
+
+    ctx.strokeStyle =
+      colour;
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(x,padding);
+    ctx.lineTo(x,height - padding);
+    ctx.stroke();
+
+    ctx.fillStyle =
+      colour;
+
+    ctx.font =
+      "12px system-ui";
+
+    ctx.fillText(
+      label,
+      x + 4,
+      yOffset
+    );
+
+  }
+
+  drawMarker(
+    analysis.propulsionIndex,
+    "#ffc857",
+    "push",
+    18
+  );
+
+  drawMarker(
+    analysis.takeoffIndex,
+    "#37d67a",
+    "take-off",
+    36
+  );
+
+  drawMarker(
+    analysis.landingIndex,
+    "#ff5f7a",
+    "landing",
+    54
+  );
+
+  drawMarker(
+    analysis.contactStartIndex,
+    "#9d7cff",
+    "contact start",
+    72
+  );
+
+  drawMarker(
+    analysis.contactEndIndex,
+    "#7bc7ff",
+    "contact end",
+    90
+  );
+
+  /* =======================================================
+  REPLAY CURSOR
+  ======================================================= */
+
+  if(
+    replayFrame !== null &&
+    Number.isFinite(replayFrame)
+  ){
+
+    const frame =
+      clamp(
+        replayFrame,
+        0,
+        analysis.samples.length - 1
+      );
+
+    const x =
+      xFor(frame);
+
+    const accelY =
+      yForAccel(accelValues[frame]);
+
+    ctx.strokeStyle =
+      "rgba(255,255,255,.85)";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(x,padding);
+    ctx.lineTo(x,height - padding);
+    ctx.stroke();
+
+    ctx.fillStyle =
+      "white";
+
+    ctx.beginPath();
+    ctx.arc(
+      x,
+      accelY,
+      6,
+      0,
+      Math.PI * 2
+    );
+    ctx.fill();
+
+  }
+
+}
+
+/* =========================================================
+REPLAY ENGINE
+========================================================= */
+
+function resetReplay(){
+
+  stopReplay();
+
+  state.replay.frame = 0;
+
+  ui.replaySlider.value = 0;
+
+  if(state.latestAnalysis){
+
+    drawSignalGraph(
+      state.latestAnalysis,
+      0
+    );
+
+  }
+
+}
+
+function playReplay(){
+
+  if(
+    !state.latestAnalysis ||
+    !state.latestAnalysis.samples ||
+    !state.latestAnalysis.samples.length
+  ){
+
+    setStatus(
+      ui.replayStatus,
+      "No capture available to replay yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  stopReplay();
+
+  state.replay.playing = true;
+
+  const totalFrames =
+    state.latestAnalysis.samples.length;
+
+  state.replay.timer =
+    setInterval(() => {
+
+      state.replay.frame++;
+
+      if(state.replay.frame >= totalFrames){
+
+        state.replay.frame =
+          totalFrames - 1;
+
+        stopReplay();
+
+      }
+
+      const percent =
+        totalFrames > 1
+          ? (
+              state.replay.frame /
+              (totalFrames - 1)
+            ) * 100
+          : 0;
+
+      ui.replaySlider.value =
+        percent;
+
+      drawSignalGraph(
+        state.latestAnalysis,
+        state.replay.frame
+      );
+
+    }, 30);
+
+}
+
+function stopReplay(){
+
+  state.replay.playing = false;
+
+  if(state.replay.timer){
+
+    clearInterval(
+      state.replay.timer
+    );
+
+    state.replay.timer = null;
+
+  }
+
+}
+
+function seekReplay(percent){
+
+  if(
+    !state.latestAnalysis ||
+    !state.latestAnalysis.samples ||
+    !state.latestAnalysis.samples.length
+  ){
+    return;
+  }
+
+  const totalFrames =
+    state.latestAnalysis.samples.length;
+
+  const frame =
+    Math.round(
+      (percent / 100) *
+      (totalFrames - 1)
+    );
+
+  state.replay.frame =
+    frame;
+
+  drawSignalGraph(
+    state.latestAnalysis,
+    frame
+  );
+
+}
+
+/* =========================================================
+PART 11 EVENT LISTENERS
+========================================================= */
+
+ui.playReplayBtn.addEventListener(
+  "click",
+  playReplay
+);
+
+ui.pauseReplayBtn.addEventListener(
+  "click",
+  stopReplay
+);
+
+ui.replaySlider.addEventListener(
+  "input",
+  event => seekReplay(parseFloat(event.target.value))
+);
+
+/* =========================================================
+PART 11 ENDS HERE
+
+PART 12 WILL ADD:
+- RESULTS ENGINE
+- MODE-SPECIFIC DISPLAY
+- EXPOSURE CLASSIFICATION
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 12 OF 14
+RESULTS ENGINE + MODE-SPECIFIC DISPLAY + EXPOSURE CLASSIFICATION
+Paste this directly after PART 11.
+========================================================= */
+
+/* =========================================================
+SUMMARY CALCULATION
+========================================================= */
+
+function calculateSessionSummary(){
+
+  const successful =
+    state.attempts.filter(
+      attempt => attempt && attempt.success
+    );
+
+  if(!successful.length){
+    return null;
+  }
+
+  const latest =
+    successful[successful.length - 1];
+
+  const jumpHeights =
+    successful
+      .map(attempt => attempt.jumpHeightCm)
+      .filter(Number.isFinite);
+
+  const exposureScores =
+    successful
+      .map(attempt => attempt.exposureScore)
+      .filter(Number.isFinite);
+
+  const bestJumpHeight =
+    jumpHeights.length
+      ? Math.max(...jumpHeights)
+      : null;
+
+  const averageJumpHeight =
+    jumpHeights.length
+      ? average(jumpHeights)
+      : null;
+
+  const totalExposure =
+    exposureScores.length
+      ? exposureScores.reduce((sum,value) => sum + value, 0)
+      : 0;
+
+  const maxPushForce =
+    Math.max(
+      ...successful.map(
+        attempt => attempt.pushForceN || 0
+      )
+    );
+
+  const maxLandingForce =
+    Math.max(
+      ...successful.map(
+        attempt => attempt.landingForceN || 0
+      )
+    );
+
+  return {
+    attempts:successful,
+    latest,
+    bestJumpHeight,
+    averageJumpHeight,
+    totalExposure,
+    maxPushForce,
+    maxLandingForce
+  };
+
+}
+
+/* =========================================================
+UPDATE RESULTS
+========================================================= */
+
+function updateResults(){
+
+  const summary =
+    calculateSessionSummary();
+
+  if(!summary){
+    return;
+  }
+
+  const latest =
+    summary.latest;
+
+  const primary =
+    getPrimaryResultForMode(
+      latest,
+      summary
+    );
+
+  ui.primaryResultValue.textContent =
+    primary.value;
+
+  ui.primaryResultUnit.textContent =
+    primary.unit;
+
+  ui.primaryResultLabel.textContent =
+    primary.label;
+
+  ui.flightTimeMetric.textContent =
+    latest.flightTimeSeconds
+      ? formatNumber(latest.flightTimeSeconds, 3)
+      : "--";
+
+  ui.groundContactMetric.textContent =
+    latest.groundContactSeconds
+      ? formatNumber(latest.groundContactSeconds, 3)
+      : "--";
+
+  ui.rsiMetric.textContent =
+    latest.rsiProxy
+      ? formatNumber(latest.rsiProxy, 2)
+      : "--";
+
+  ui.contactCountMetric.textContent =
+    latest.contactCount !== null &&
+    latest.contactCount !== undefined
+      ? latest.contactCount
+      : "--";
+
+  ui.pushForceMetric.textContent =
+    summary.maxPushForce
+      ? formatNumber(summary.maxPushForce, 0)
+      : "--";
+
+  ui.landingForceMetric.textContent =
+    summary.maxLandingForce
+      ? formatNumber(summary.maxLandingForce, 0)
+      : "--";
+
+  updateConfidencePill(summary);
+
+  updateMarkerSourcePill(latest);
+
+  updateExposurePill(summary.totalExposure);
+
+  updateAttemptSummary(summary);
+
+  updateDebugOutput({
+    resultsUpdated:true,
+    summary
+  });
+
+}
+
+/* =========================================================
+PRIMARY RESULT BY MODE
+========================================================= */
+
+function getPrimaryResultForMode(latest, summary){
+
+  if(latest.mode === "repeated"){
+
+    return {
+      value:latest.rsiProxy
+        ? formatNumber(latest.rsiProxy, 2)
+        : "--",
+      unit:"",
+      label:"Average RSI proxy from repeated contacts"
+    };
+
+  }
+
+  if(latest.mode === "broad"){
+
+    if(latest.measuredDistanceCm){
+
+      return {
+        value:formatNumber(latest.measuredDistanceCm, 0),
+        unit:"cm",
+        label:"Measured broad jump distance"
+      };
+
+    }
+
+    return {
+      value:latest.jumpHeightCm
+        ? formatNumber(latest.jumpHeightCm, 1)
+        : "--",
+      unit:"cm",
+      label:"Flight-derived jump height proxy"
+    };
+
+  }
+
+  if(latest.mode === "lateral"){
+
+    return {
+      value:latest.exposureScore !== null
+        ? formatNumber(latest.exposureScore, 0)
+        : "--",
+      unit:"",
+      label:"Lateral exposure score"
+    };
+
+  }
+
+  return {
+    value:summary.bestJumpHeight
+      ? formatNumber(summary.bestJumpHeight, 1)
+      : "--",
+    unit:"cm",
+    label:"Best jump height estimate"
+  };
+
+}
+
+/* =========================================================
+CONFIDENCE PILL
+========================================================= */
+
+function updateConfidencePill(summary){
+
+  const hasBad =
+    summary.attempts.some(
+      attempt => attempt.confidenceType === "bad"
+    );
+
+  const hasWarn =
+    summary.attempts.some(
+      attempt => attempt.confidenceType === "warn"
+    );
+
+  if(hasBad){
+
+    setPill(
+      ui.confidencePill,
+      "Low confidence",
+      "bad"
+    );
+
+    return;
+
+  }
+
+  if(hasWarn){
+
+    setPill(
+      ui.confidencePill,
+      "Medium confidence",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  setPill(
+    ui.confidencePill,
+    "High confidence",
+    "good"
+  );
+
+}
+
+/* =========================================================
+MARKER SOURCE PILL
+========================================================= */
+
+function updateMarkerSourcePill(latest){
+
+  if(latest.markerSource === "manual"){
+
+    setPill(
+      ui.markerSourcePill,
+      "Manual markers",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  setPill(
+    ui.markerSourcePill,
+    "Auto markers",
+    "good"
+  );
+
+}
+
+/* =========================================================
+EXPOSURE PILL
+========================================================= */
+
+function updateExposurePill(totalExposure){
+
+  const classification =
+    classifyExposure(totalExposure);
+
+  setPill(
+    ui.exposurePill,
+    classification.label,
+    classification.type
+  );
+
+}
+
+function classifyExposure(score){
+
+  if(score < 20){
+
+    return {
+      label:"Low exposure",
+      type:"good"
+    };
+
+  }
+
+  if(score < 60){
+
+    return {
+      label:"Moderate exposure",
+      type:"warn"
+    };
+
+  }
+
+  return {
+    label:"High exposure",
+    type:"bad"
+  };
+
+}
+
+/* =========================================================
+ATTEMPT SUMMARY
+========================================================= */
+
+function updateAttemptSummary(summary){
+
+  ui.attemptSummary.innerHTML =
+    summary.attempts
+      .map((attempt,index) => {
+
+        const heightText =
+          attempt.jumpHeightCm
+            ? `${formatNumber(attempt.jumpHeightCm,1)} cm`
+            : "no height";
+
+        const gctText =
+          attempt.groundContactSeconds
+            ? `${formatNumber(attempt.groundContactSeconds,3)}s GCT`
+            : "no GCT";
+
+        const exposureText =
+          attempt.exposureScore !== null &&
+          attempt.exposureScore !== undefined
+            ? `Exposure ${attempt.exposureScore}`
+            : "no exposure";
+
+        return `
+          <span class="pill ${attempt.confidenceType}">
+            ${index + 1}: ${heightText}
+          </span>
+
+          <span class="pill">
+            ${gctText}
+          </span>
+
+          <span class="pill">
+            ${exposureText}
+          </span>
+        `;
+
+      })
+      .join("");
+
+}
+
+/* =========================================================
+RESULT DETAIL HELPERS
+========================================================= */
+
+function getBestAttempt(){
+
+  const summary =
+    calculateSessionSummary();
+
+  if(!summary){
+    return null;
+  }
+
+  return summary.attempts.reduce(
+    (best,current) => {
+
+      if(!best){
+        return current;
+      }
+
+      if(
+        (current.jumpHeightCm || 0) >
+        (best.jumpHeightCm || 0)
+      ){
+        return current;
+      }
+
+      return best;
+
+    },
+    null
+  );
+
+}
+
+function getLatestAttempt(){
+
+  const summary =
+    calculateSessionSummary();
+
+  return summary
+    ? summary.latest
+    : null;
+
+}
+
+/* =========================================================
+PART 12 ENDS HERE
+
+PART 13 WILL ADD:
+- HISTORY SAVE
+- HISTORY RENDER
+- CSV EXPORT
+- CLEAR HISTORY
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 13 OF 14
+HISTORY SAVE + HISTORY RENDER + CSV EXPORT
+Paste this directly after PART 12.
+========================================================= */
+
+/* =========================================================
+SAVE SESSION
+========================================================= */
+
+function saveSession(){
+
+  const summary =
+    calculateSessionSummary();
+
+  if(!summary){
+
+    setStatus(
+      ui.homeStatus,
+      "No valid session to save yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  const latest =
+    summary.latest;
+
+  const session = {
+    id:String(Date.now()),
+    date:new Date().toISOString(),
+
+    mode:state.testMode,
+    subtype:state.testSubtype,
+
+    bodyweightKg:getBodyMassKg(),
+    heightCm:getHeightCm(),
+
+    notes:ui.sessionNotes.value.trim(),
+
+    primaryValue:ui.primaryResultValue.textContent,
+    primaryUnit:ui.primaryResultUnit.textContent,
+    primaryLabel:ui.primaryResultLabel.textContent,
+
+    bestJumpHeightCm:summary.bestJumpHeight
+      ? Number(summary.bestJumpHeight.toFixed(2))
+      : null,
+
+    averageJumpHeightCm:summary.averageJumpHeight
+      ? Number(summary.averageJumpHeight.toFixed(2))
+      : null,
+
+    totalExposure:summary.totalExposure,
+
+    latestFlightTimeSeconds:latest.flightTimeSeconds
+      ? Number(latest.flightTimeSeconds.toFixed(3))
+      : null,
+
+    latestGroundContactSeconds:latest.groundContactSeconds
+      ? Number(latest.groundContactSeconds.toFixed(3))
+      : null,
+
+    latestRsiProxy:latest.rsiProxy
+      ? Number(latest.rsiProxy.toFixed(3))
+      : null,
+
+    contactCount:latest.contactCount || 0,
+
+    peakPushForceN:summary.maxPushForce
+      ? Number(summary.maxPushForce.toFixed(0))
+      : null,
+
+    peakLandingForceN:summary.maxLandingForce
+      ? Number(summary.maxLandingForce.toFixed(0))
+      : null,
+
+    markerSource:latest.markerSource || "auto",
+
+    confidence:latest.confidence || "",
+    confidenceType:latest.confidenceType || "",
+
+    stabilityScore:latest.stabilityScore,
+    exposureScore:latest.exposureScore,
+
+    broadDistanceCm:latest.measuredDistanceCm || getBroadDistanceCm(),
+
+    horizontalPowerProxy:latest.horizontalPowerProxy || null,
+
+    flags:latest.flags || [],
+
+    baselineAccelMag:state.baseline.accelMag,
+    baselineRotationMag:state.baseline.rotationMag,
+    calibrationStability:state.baseline.stabilityScore
+  };
+
+  state.history.unshift(session);
+
+  saveHistory();
+
+  renderHistory();
+
+  setStatus(
+    ui.homeStatus,
+    "Session saved.",
+    "good"
+  );
+
+  showScreen("history");
+
+}
+
+/* =========================================================
+RENDER HISTORY
+========================================================= */
+
+function renderHistory(){
+
+  if(!state.history.length){
+
+    ui.historyList.innerHTML =
+      `<div class="status">No saved sessions yet.</div>`;
+
+    return;
+
+  }
+
+  ui.historyList.innerHTML =
+    state.history
+      .map(session => {
+
+        const date =
+          new Date(session.date).toLocaleString();
+
+        const exposureClass =
+          classifyExposure(session.totalExposure || 0);
+
+        const confidenceClass =
+          session.confidenceType || "";
+
+        return `
+          <div class="historyItem">
+
+            <div class="metricGrid twoCol">
+
+              <div>
+
+                <strong>
+                  ${escapeHTML(date)}
+                </strong>
+
+                <div class="bodyText">
+                  ${escapeHTML(session.mode)}
+                  /
+                  ${escapeHTML(session.subtype)}
+                </div>
+
+              </div>
+
+              <div style="text-align:right;">
+
+                <div class="metricValue">
+                  ${escapeHTML(session.primaryValue)}
+                  <span class="metricUnit">
+                    ${escapeHTML(session.primaryUnit)}
+                  </span>
+                </div>
+
+                <div class="bodyText">
+                  ${escapeHTML(session.primaryLabel)}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="pillRow">
+
+              <span class="pill ${confidenceClass}">
+                ${escapeHTML(session.confidence || "confidence")}
+              </span>
+
+              <span class="pill ${exposureClass.type}">
+                ${escapeHTML(exposureClass.label)}
+              </span>
+
+              <span class="pill">
+                ${escapeHTML(session.markerSource)} markers
+              </span>
+
+              <span class="pill">
+                Contacts ${escapeHTML(session.contactCount)}
+              </span>
+
+              ${
+                session.bestJumpHeightCm
+                  ? `<span class="pill">Best ${formatNumber(session.bestJumpHeightCm,1)} cm</span>`
+                  : ""
+              }
+
+              ${
+                session.latestGroundContactSeconds
+                  ? `<span class="pill">GCT ${formatNumber(session.latestGroundContactSeconds,3)}s</span>`
+                  : ""
+              }
+
+              ${
+                session.latestRsiProxy
+                  ? `<span class="pill">RSI ${formatNumber(session.latestRsiProxy,2)}</span>`
+                  : ""
+              }
+
+              ${
+                session.peakLandingForceN
+                  ? `<span class="pill">Land ${formatNumber(session.peakLandingForceN,0)} N</span>`
+                  : ""
+              }
+
+            </div>
+
+            ${
+              session.notes
+                ? `<div class="bodyText">${escapeHTML(session.notes)}</div>`
+                : ""
+            }
+
+          </div>
+        `;
+
+      })
+      .join("");
+
+}
+
+/* =========================================================
+EXPORT CSV
+========================================================= */
+
+function exportCsv(){
+
+  if(!state.history.length){
+
+    setStatus(
+      ui.homeStatus,
+      "No history to export yet.",
+      "warn"
+    );
+
+    return;
+
+  }
+
+  const headers = [
+    "date",
+    "mode",
+    "subtype",
+    "bodyweight_kg",
+    "height_cm",
+    "primary_value",
+    "primary_unit",
+    "primary_label",
+    "best_jump_height_cm",
+    "average_jump_height_cm",
+    "total_exposure",
+    "latest_flight_time_seconds",
+    "latest_ground_contact_seconds",
+    "latest_rsi_proxy",
+    "contact_count",
+    "peak_push_force_n",
+    "peak_landing_force_n",
+    "marker_source",
+    "confidence",
+    "confidence_type",
+    "stability_score",
+    "exposure_score",
+    "broad_distance_cm",
+    "horizontal_power_proxy",
+    "baseline_accel_mag",
+    "baseline_rotation_mag",
+    "calibration_stability",
+    "flags",
+    "notes"
+  ];
+
+  const rows =
+    state.history.map(session => {
+
+      const safeFlags =
+        `"${String((session.flags || []).join("; ")).replaceAll('"','""')}"`;
+
+      const safeNotes =
+        `"${String(session.notes || "").replaceAll('"','""')}"`;
+
+      return [
+        session.date,
+        session.mode,
+        session.subtype,
+        session.bodyweightKg,
+        session.heightCm,
+        session.primaryValue,
+        session.primaryUnit,
+        `"${String(session.primaryLabel || "").replaceAll('"','""')}"`,
+        session.bestJumpHeightCm || "",
+        session.averageJumpHeightCm || "",
+        session.totalExposure || "",
+        session.latestFlightTimeSeconds || "",
+        session.latestGroundContactSeconds || "",
+        session.latestRsiProxy || "",
+        session.contactCount || "",
+        session.peakPushForceN || "",
+        session.peakLandingForceN || "",
+        session.markerSource || "",
+        `"${String(session.confidence || "").replaceAll('"','""')}"`,
+        session.confidenceType || "",
+        session.stabilityScore || "",
+        session.exposureScore || "",
+        session.broadDistanceCm || "",
+        session.horizontalPowerProxy || "",
+        session.baselineAccelMag || "",
+        session.baselineRotationMag || "",
+        session.calibrationStability || "",
+        safeFlags,
+        safeNotes
+      ].join(",");
+
+    });
+
+  const csv =
+    [headers.join(","), ...rows].join("\n");
+
+  const blob =
+    new Blob([csv], {type:"text/csv"});
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+    "jumpcheck-lab-v1-history.csv";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+
+}
+
+/* =========================================================
+CLEAR HISTORY
+========================================================= */
+
+function clearHistory(){
+
+  const confirmDelete =
+    confirm("Delete all JumpCheck Lab history on this device?");
+
+  if(!confirmDelete){
+    return;
+  }
+
+  state.history = [];
+
+  saveHistory();
+
+  renderHistory();
+
+  setStatus(
+    ui.homeStatus,
+    "History cleared.",
+    "warn"
+  );
+
+}
+
+/* =========================================================
+PART 13 EVENT LISTENERS
+========================================================= */
+
+ui.saveSessionBtn.addEventListener(
+  "click",
+  saveSession
+);
+
+ui.exportCsvBtn.addEventListener(
+  "click",
+  exportCsv
+);
+
+ui.clearHistoryBtn.addEventListener(
+  "click",
+  clearHistory
+);
+
+/* =========================================================
+PART 13 ENDS HERE
+
+PART 14 WILL ADD:
+- FINAL INITIALISATION
+- SAFETY CHECKS
+- CLOSING SCRIPT / HTML
+========================================================= */
+/* =========================================================
+JUMPCHECK LAB V1 — PART 14 OF 14
+FINAL INITIALISATION + SAFETY CHECKS + CLOSING
+Paste this directly after PART 13.
+========================================================= */
+
+/* =========================================================
+FINAL SAFETY CHECKS
+========================================================= */
+
+function runStartupChecks(){
+
+  const requiredElements = [
+    ui.homeStatus,
+    ui.sensorStatus,
+    ui.setupStatus,
+    ui.captureStatus,
+    ui.primaryResultValue,
+    ui.signalCanvas,
+    ui.historyList,
+    ui.debugOutput
+  ];
+
+  const missing =
+    requiredElements.some(element => !element);
+
+  if(missing){
+
+    alert(
+      "JumpCheck Lab could not initialise correctly. Check that all 14 parts were pasted in order."
+    );
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+/* =========================================================
+FINAL INITIALISE
+========================================================= */
+
+function initialiseApp(){
+
+  if(!runStartupChecks()){
+    return;
+  }
+
+  renderHistory();
+
+  setTestMode("vertical");
+
+  resetCurrentTest();
+
+  updateDebugOutput({
+    appInitialised:true,
+    version:"JumpCheck Lab V1"
+  });
+
+  setStatus(
+    ui.homeStatus,
+    "Ready. Enable sensors or try demo mode.",
+    "warn"
+  );
+
+  setStatus(
+    ui.sensorStatus,
+    "Enable sensors to view live accelerometer and gyroscope data.",
+    "warn"
+  );
+
+  showScreen("home");
+
+}
+
+/* =========================================================
+EXTRA BUTTON BEHAVIOUR
+========================================================= */
+
+ui.reviewReplayBtn.addEventListener(
+  "click",
+  () => {
+
+    if(!state.latestAnalysis){
+
+      setStatus(
+        ui.homeStatus,
+        "No capture available to review yet.",
+        "warn"
+      );
+
+      return;
+
+    }
+
+    resetReplay();
+
+    showScreen("replay");
+
+  }
+);
+
+ui.applyMarkerEditsBtn.addEventListener(
+  "click",
+  () => {
+
+    if(state.latestAnalysis){
+      recalculateLatestFromMarkers();
+    }
+
+    showScreen("result");
+
+  }
+);
+
+/* =========================================================
+FINAL RUN
+========================================================= */
+
+initialiseApp();
+
+/* =========================================================
+END APP
+========================================================= */
+
+})();
+
+</script>
+
+</body>
+</html>
